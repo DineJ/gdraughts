@@ -302,21 +302,19 @@ class Backend(object):
         return position
 
     def pl_after_secondclick(self, case=None):
-        #r_broj -= 1
+        r_broj = -1
         for i, move in enumerate(self.cells.ready_move):
             if case[0] == move[0] and case[1] == move[1]:
                 r_broj = int(i) - 1
-        if r_broj == -1
+        if r_broj == -1:
             return -1
-        position = self.cells[cell_num]
-        for moves in self.all_moves:
-            if moves[0] == [self.cells[cell_num][0], self.cells[cell_num][1]]:
-                self.ready_moves.append(moves[1])
-        else:
-            for pmoves in explicit:
-                self.ready_moves.append(pmoves[1])
-            position = explicit[0][0]
-        return position
+        position = self.cells[ready_move]
+        if self.move(position, ready_moves[int(r_broj)]) == 2:
+            next_hop = self.eatable(1, ready_moves[int(r_broj)][0], ready_moves[int(r_broj)][1])
+            self.print()
+            self.pl_move(1, next_hop)
+        return 1
+
         #r_broj = input(("Enter the shot sequence number"))
         #r_broj = int(input("Enter the shot sequence number"))
         #if r_broj.isnumeric():
