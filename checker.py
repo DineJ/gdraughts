@@ -106,7 +106,6 @@ class Checker(Gtk.Grid):
             x = 0
             while x < self.matrix_size:
                 checker_square = self.get_child_at(x, y)
-                print("y= ", y, "x= ", x)
                 checker_square.resize_pawn(self.square_size)
                 x += 1
             y += 1
@@ -116,7 +115,6 @@ class Checker(Gtk.Grid):
         if self.old_square == None:
             if square.square_type != 0:
                 self.old_square = square
-            print ("Mouse clicked... at (%s)" % (square.name))
         else:
             print("je fais l'echange %s %s" % (self.old_square.name, square.name))
             if square.color == self.old_square.color:

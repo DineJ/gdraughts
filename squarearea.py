@@ -4,14 +4,13 @@ import math
 
 #draw each square of the checker
 class SquareArea(Gtk.DrawingArea): 
-	def __init__ (self, name=[], color=1.0, square=20, square_type=0): #,  pawn_color=0.0):
+	def __init__ (self, name=[], color=1.0, square=20, square_type=0):
 		Gtk.DrawingArea.__init__(self)
 		self.set_events(Gdk.EventMask.BUTTON_PRESS_MASK)
 		self.set_size_request(square, square)
 		if name:
 			self.name = name
 		self.color = color
-		#pawn_color = pawn_color
 		self.square_type = square_type
 		self.hexpand = True
 		self.vexpand = True
