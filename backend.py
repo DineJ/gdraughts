@@ -48,14 +48,14 @@ def minimax(node, depth_ab, alpha, beta, maximizing, depth=5):
 
 
 class Node(object):
-    def __init__(self, value=None, board=None):
-        self.board = board
+    def __init__(self, value=None, Backend=None):
+        self.Backend = Backend
         self.value = value
         self.children = []
 
     def calc(self):
-        # print(self.board.calculate())
-        self.value = self.board.calculate()
+        # print(self.Backend.calculate())
+        self.value = self.Backend.calculate()
         # sprint(self.value)
 
     def add_child(self, obj):
@@ -65,7 +65,7 @@ class Node(object):
         return self.value
 
     def __str__(self, level=0):
-        return str(self.board) + " | " + str(self.value)
+        return str(self.Backend) + " | " + str(self.value)
 
     # def __cmp__(self, other):
     #     input("OPAA")
@@ -292,15 +292,42 @@ class Backend(object):
             if cell_num == -1:
                 return -1
             position = self.cells[cell_num]
-            for moves in elf.all_moves:
+            for moves in self.all_moves:
                 if moves[0] == [self.cells[cell_num][0], self.cells[cell_num][1]]:
                     self.ready_moves.append(moves[1])
         else:
             for pmoves in explicit:
-                ready_moves.append(pmoves[1])
+                self.ready_moves.append(pmoves[1])
             position = explicit[0][0]
         return position
 
+    def pl_after_secondclick(self, case=None):
+        #r_broj -= 1
+        for i, move in enumerate(self.cells.ready_move):
+            if case[0] == move[0] and case[1] == move[1]:
+                r_broj = int(i) - 1
+        if r_broj == -1
+            return -1
+        position = self.cells[cell_num]
+        for moves in self.all_moves:
+            if moves[0] == [self.cells[cell_num][0], self.cells[cell_num][1]]:
+                self.ready_moves.append(moves[1])
+        else:
+            for pmoves in explicit:
+                self.ready_moves.append(pmoves[1])
+            position = explicit[0][0]
+        return position
+        #r_broj = input(("Enter the shot sequence number"))
+        #r_broj = int(input("Enter the shot sequence number"))
+        #if r_broj.isnumeric():
+        #r_broj = int(r_broj) - 1
+        #r_broj -= 1
+        #if self.move(self.position, self.ready_moves[int(r_broj)]) == 2:
+        #    next_hop = self.eatable(1, self.ready_moves[int(r_broj)][0], self.ready_moves[int(r_broj)][1])
+        #    self.print()
+        #    self.pl_before_firstclick(1, next_hop)
+        #    self.pl_after_firstclick(1, next_hop)
+        #return 1
 
 
 
@@ -383,8 +410,8 @@ class Backend(object):
         if not root.children:
             return 0
 
-        self.matrix = copy.deepcopy(max(root.children).board.matrix)
-        self.lastjump = copy.deepcopy(max(root.children).board.lastjump)
+        self.matrix = copy.deepcopy(max(root.children).Backend.matrix)
+        self.lastjump = copy.deepcopy(max(root.children).Backend.lastjump)
         return 1
 
     def clear_table_trails(self):
@@ -518,7 +545,7 @@ class Backend(object):
                 return 1
 
     def pl_move(self, param=1, explicit=None):
-        #if self.player_signal:  # If GUI exist call another function that does not require input from keyboard
+        #if self.player_signal:  # If GUI exist call another function that does not require input from keyBackend
         #    return self.pl_gui_move(explicit)
 
         # self.pc_move(None, 1)
@@ -573,7 +600,7 @@ class Backend(object):
 
 
 def generate(node, param, depth_ab, depth):
-    table = node.board
+    table = node.Backend
     for move in table.possible_moves(param):
         next_hop_add(node, table, move, param, depth_ab, depth)
 
@@ -582,7 +609,7 @@ def next_hop_add(node, table, move, param, depth_ab, depth):
     first_layer_depth = True if depth_ab == depth else False
     # first_layer_depth = True
 
-    temp_new_table = Board(copy.deepcopy(table.matrix))
+    temp_new_table = Backend(copy.deepcopy(table.matrix))
     if first_layer_depth:
         temp_new_table.lastjump = copy.deepcopy(table.lastjump)
     if temp_new_table.move(move[0], move[1], param, first_layer_depth=first_layer_depth) > 1:
@@ -591,8 +618,8 @@ def next_hop_add(node, table, move, param, depth_ab, depth):
             for n_move in next_hop[1:]:
                 next_hop_add(node, temp_new_table, n_move, param, depth_ab, depth)
 
-    # new_table = Board([1,23])
-    new_table = Board(copy.deepcopy(table.matrix))
+    # new_table = Backend([1,23])
+    new_table = Backend(copy.deepcopy(table.matrix))
     if first_layer_depth:
         new_table.lastjump = copy.deepcopy(table.lastjump)
     new_table.move(move[0], move[1], param, first_layer_depth=first_layer_depth)
@@ -628,12 +655,12 @@ def player_move():
     pass
 
 
-def f_jump(board):
+def f_jump(Backend):
     opt1 = "X"
     opt2 = "X"
     while True:
         print("\n" * 15)
-        print("\n", board.status, "\n")
+        print("\n", Backend.status, "\n")
         print("1)", "[" + opt1 + "]", _("Compulsory take"))
         print("2)", "[" + opt2 + "]", _("The computer plays first"))
         print("9)", _("Quit"))
@@ -650,30 +677,30 @@ def f_jump(board):
             if int(user_input) == 9:
                 exit()
 
-    board.force_jump = True if opt1 == "O" else False
-    board.pc_first = True if opt2 == "O" else False
+    Backend.force_jump = True if opt1 == "O" else False
+    Backend.pc_first = True if opt2 == "O" else False
 
 
-def config_print(board):
+def config_print(Backend):
     str1=("%s○): " % _("First player's piece (default = "))
-    board.v1 = input(str1)
+    Backend.v1 = input(str1)
     str2=("%s⬤): " % _("First player's queen (default = "))
-    board.v4 = input(str2)
+    Backend.v4 = input(str2)
     str3=("%s⬛): " % _("Second player's piece (default = "))
-    board.v2 = input(str3)
+    Backend.v2 = input(str3)
     str4=("%s□): " % _("Queen of the second player (default = "))
-    board.v5 = input(str4)
+    Backend.v5 = input(str4)
     str5=("%s)░: " % _("Previous position square (defaul = "))
-    board.v3 = input(str5)
+    Backend.v3 = input(str5)
     str6=("%s－): " % _("Case of the eaten piece (default = "))
-    board.v6 = input(str6)
+    Backend.v6 = input(str6)
 
-    board.v1 = "○" if board.v1 == "" else board.v1
-    board.v2 = "⬤" if board.v2 == "" else board.v2
-    board.v3 = "░" if board.v3 == "" else board.v3
-    board.v4 = "□" if board.v4 == "" else board.v4
-    board.v5 = "⬛" if board.v5 == "" else board.v5
-    board.v6 = "－" if board.v6 == "" else board.v6
+    Backend.v1 = "○" if Backend.v1 == "" else Backend.v1
+    Backend.v2 = "⬤" if Backend.v2 == "" else Backend.v2
+    Backend.v3 = "░" if Backend.v3 == "" else Backend.v3
+    Backend.v4 = "□" if Backend.v4 == "" else Backend.v4
+    Backend.v5 = "⬛" if Backend.v5 == "" else Backend.v5
+    Backend.v6 = "－" if Backend.v6 == "" else Backend.v6
 
 
 def last_jump_to_str(last_jump):
@@ -704,21 +731,21 @@ def last_jump_to_list(last_jump):
     return jumps
 
 
-#if __name__ == '__main__':
+if __name__ == '__main__':
 
-    #while True:
+    while True:
         # config_print()
         # f_jump()
         # Creation de la matrice
-        #matrix = [[0, 2, 0, 2, 0, 2, 0, 2],
-         #         [2, 0, 2, 0, 2, 0, 2, 0],
-         #         [0, 2, 0, 2, 0, 2, 0, 2],
-         #         [0, 0, 0, 0, 0, 0, 0, 0],
-         #         [0, 0, 0, 0, 0, 0, 0, 0],
-         #         [1, 0, 1, 0, 1, 0, 1, 0],
-         #         [0, 1, 0, 1, 0, 1, 0, 1],
-         #         [1, 0, 1, 0, 1, 0, 1, 0]]
+        matrix = [[0, 2, 0, 2, 0, 2, 0, 2],
+                  [2, 0, 2, 0, 2, 0, 2, 0],
+                  [0, 2, 0, 2, 0, 2, 0, 2],
+                  [0, 0, 0, 0, 0, 0, 0, 0],
+                  [0, 0, 0, 0, 0, 0, 0, 0],
+                  [1, 0, 1, 0, 1, 0, 1, 0],
+                  [0, 1, 0, 1, 0, 1, 0, 1],
+                  [1, 0, 1, 0, 1, 0, 1, 0]]
         # Creation du Damier 
-        #tabla1 = Board(matrix)
+        tabla1 = Backend(matrix)
         # Lancement du jeu
-        #tabla1.play_game()
+        tabla1.play_game()
