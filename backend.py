@@ -309,24 +309,12 @@ class Backend(object):
         if r_broj == -1:
             return -1
         position = self.cells[ready_move]
-        if self.move(position, ready_moves[int(r_broj)]) == 2:
-            next_hop = self.eatable(1, ready_moves[int(r_broj)][0], ready_moves[int(r_broj)][1])
-            self.print()
+        self.move(position, ready_moves[int(r_broj)])
+        #if self.move(position, ready_moves[int(r_broj)]) == 2:
+            #next_hop = self.eatable(1, ready_moves[int(r_broj)][0], ready_moves[int(r_broj)][1])
+            #self.print()
             self.pl_move(1, next_hop)
         return 1
-
-        #r_broj = input(("Enter the shot sequence number"))
-        #r_broj = int(input("Enter the shot sequence number"))
-        #if r_broj.isnumeric():
-        #r_broj = int(r_broj) - 1
-        #r_broj -= 1
-        #if self.move(self.position, self.ready_moves[int(r_broj)]) == 2:
-        #    next_hop = self.eatable(1, self.ready_moves[int(r_broj)][0], self.ready_moves[int(r_broj)][1])
-        #    self.print()
-        #    self.pl_before_firstclick(1, next_hop)
-        #    self.pl_after_firstclick(1, next_hop)
-        #return 1
-
 
 
     def eatable(self, param, i, j):
