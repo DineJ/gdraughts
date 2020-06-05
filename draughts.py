@@ -1,8 +1,12 @@
 from gi.repository import Gtk
 from checker import Checker
+from backend import Backend, Node, Stack
+import random
+
 
 #create application
 class Draughts(Gtk.Window): 
+
 	#managing of the main window
 	def __init__ (self, state = 8, square_color = 0, square_size = 0, tool_height = 0, checker = None, open_dialog = 0):  
 		Gtk.Window.__init__(self)
@@ -65,7 +69,6 @@ class Draughts(Gtk.Window):
 		game_area.pack_start(self.checker_game, True, True, 0)
 		game_area.pack_start(hit_history, False, True, 0)
 
-
 		self.add(application)
 
 	#show the application
@@ -86,6 +89,8 @@ class Draughts(Gtk.Window):
 			self.checker = Checker(self.square_size, self.state, self.square_color)
 			self.checker_game.set_center_widget(self.checker)
 			self.checker_game.show_all()
+			#self.backend = Backend(self.checker.matrix)
+
 		elif self.open_dialog == 0:
 			self.checker.resize_checker(self.square_size)
 
@@ -164,12 +169,24 @@ class Draughts(Gtk.Window):
 			self.checker = Checker(self.square_size, self.state, self.square_color)
 			self.checker_game.set_center_widget(self.checker)
 			self.checker_game.show_all()
-			self.checker.queue_draw()
+			self.backend = Backend(self.checker.matrix)
+			#self.checker.queue_draw()
 			dialog_box.destroy()
+			pc_moves = self.backend.possible_moves(2)
+			# Choix aleatoire du pion déplacée
+			rand_move = random.choice(pc_moves)
+			# Déplacement de la pièces>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<>><<<<<<<<<
+			self.backend.move(rand_move[0], rand_move[1], 2)
+			self.checker.matrix = self.backend.get_matrix()
+			self.checker.resize_checker(self.checker.square_size)
+			#self.pl_move()
 		elif answer == Gtk.ResponseType.CANCEL:
 			dialog_box.destroy()
 		open_dialog = 0
 
+
+#test = Board(self.checker.matrix)
 draughts = Draughts()
 draughts.play()
+#test.play()
 Gtk.main()

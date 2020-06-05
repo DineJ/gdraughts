@@ -73,9 +73,9 @@ class Checker(Gtk.Grid):
                 elif test == 2:
                     pawn_color = 0
                     type_pawn = 1
-                name = ("%d-%d" % (x,y))
+                name =  [y,x]
                 if color %2 == 0:
-                    square_b = SquareArea(name,0.0, self.square_size, type_pawn, pawn_color)
+                    square_b = SquareArea(name,0.0, self.square_size, test)#type_pawn, pawn_color)
                     square_b.connect('button-press-event', self.do_release_mouse, square_b)
 
                     #self.connect('drag_data_received', self.drag_drop(self.old_square, square_b))
@@ -86,7 +86,7 @@ class Checker(Gtk.Grid):
                     x += 1
                     color += 1
                 else:
-                    square_w = SquareArea(name,1.0, self.square_size, type_pawn, pawn_color)
+                    square_w = SquareArea(name,1.0, self.square_size, test)#type_pawn, pawn_color)
                     square_w.connect('button-press-event', self.do_release_mouse, square_w)
                     
                     #self.connect('drag_data_received', self.drag_drop(self.old_square, square_w))
@@ -117,9 +117,9 @@ class Checker(Gtk.Grid):
             if square.square_type != 0:
                 self.old_square = square
                 #print("square non vide")
-            #print ("Mouse clicked... at %d, %d (%s)" % (event.x, event.y, square.name))
+            print ("Mouse clicked... at (%s)" % (square.name))
         else:
-            #print("je fais l'echange %s %s" % (self.old_square.name, square.nam<e))
+            print("je fais l'echange %s %s" % (self.old_square.name, square.name))
             if square.color == self.old_square.color:
                 self.echange_square(self.old_square, square)
                 #self.drag_drop(self.old_square, square)
@@ -132,10 +132,6 @@ class Checker(Gtk.Grid):
         old_square.color = square.color
         square.color = temp
 
-        temp = old_square.pawn_color
-        old_square.pawn_color = square.pawn_color
-        square.pawn_color = temp
-
         temp = old_square.square_type
         old_square.square_type = square.square_type
         square.square_type = temp
@@ -147,11 +143,13 @@ class Checker(Gtk.Grid):
     #resize checker after each interraction
     def resize_checker(self, square_size): 
         self.square_size = square_size
+        size = self.matrix_size
         y = 0
-        while y < self.matrix_size:
+        while y < size:
             x = 0
-            while x < self.matrix_size:
+            while x < size:
                 checker_square = self.get_child_at(x, y)
+                checker_square.square_type = int(self.matrix[y][x])
                 checker_square.resize_pawn(square_size)
                 x += 1
             y += 1
