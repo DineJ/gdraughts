@@ -75,7 +75,7 @@ class Checker(Gtk.Grid):
                     type_pawn = 1
                 name =  [y,x]
                 if color %2 == 0:
-                    square_b = SquareArea(name,0.0, self.square_size, test)#type_pawn, pawn_color)
+                    square_b = SquareArea(name,0.0, self.square_size, test)
                     square_b.connect('button-press-event', self.do_release_mouse, square_b)
 
                     #self.connect('drag_data_received', self.drag_drop(self.old_square, square_b))
@@ -86,7 +86,7 @@ class Checker(Gtk.Grid):
                     x += 1
                     color += 1
                 else:
-                    square_w = SquareArea(name,1.0, self.square_size, test)#type_pawn, pawn_color)
+                    square_w = SquareArea(name,1.0, self.square_size, test)
                     square_w.connect('button-press-event', self.do_release_mouse, square_w)
                     
                     #self.connect('drag_data_received', self.drag_drop(self.old_square, square_w))
@@ -116,7 +116,6 @@ class Checker(Gtk.Grid):
         if self.old_square == None:
             if square.square_type != 0:
                 self.old_square = square
-                #print("square non vide")
             print ("Mouse clicked... at (%s)" % (square.name))
         else:
             print("je fais l'echange %s %s" % (self.old_square.name, square.name))
@@ -124,7 +123,6 @@ class Checker(Gtk.Grid):
                 self.echange_square(self.old_square, square)
                 #self.drag_drop(self.old_square, square)
                 self.old_square = None
-                #print("square meme color")
 
     #change square
     def echange_square(self, old_square, square): 
