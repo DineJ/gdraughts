@@ -302,16 +302,16 @@ class Backend(object):
         return position
 
     def pl_after_secondclick(self, case=None):
-        r_broj = -1
+        coordonate = -1
         for i, move in enumerate(self.cells.ready_move):
             if case[0] == move[0] and case[1] == move[1]:
-                r_broj = int(i) - 1
-        if r_broj == -1:
+                coordonate = int(i) - 1
+        if coordonate == -1:
             return -1
         position = self.cells[ready_move]
-        self.move(position, ready_moves[int(r_broj)])
-        #if self.move(position, ready_moves[int(r_broj)]) == 2:
-            #next_hop = self.eatable(1, ready_moves[int(r_broj)][0], ready_moves[int(r_broj)][1])
+        self.move(position, ready_moves[int(coordonate)])
+        #if self.move(position, ready_moves[int(coordonate)]) == 2:
+            #next_hop = self.eatable(1, ready_moves[int(coordonate)][0], ready_moves[int(coordonate)][1])
             #self.print()
             self.pl_move(1, next_hop)
         return 1
@@ -570,13 +570,13 @@ class Backend(object):
         print_moves(ready_moves)
 
         while True:
-            r_broj = input(("Enter the shot sequence number"))
-            if r_broj.isnumeric():
-                r_broj = int(r_broj) - 1
-                if 0 <= int(r_broj) < len(ready_moves):
+            coordonate = input(("Enter the shot sequence number"))
+            if coordonate.isnumeric():
+                coordonate = int(coordonate) - 1
+                if 0 <= int(coordonate) < len(ready_moves):
                     break
-        if self.move(position, ready_moves[int(r_broj)]) == 2:
-            next_hop = self.eatable(1, ready_moves[int(r_broj)][0], ready_moves[int(r_broj)][1])
+        if self.move(position, ready_moves[int(coordonate)]) == 2:
+            next_hop = self.eatable(1, ready_moves[int(coordonate)][0], ready_moves[int(coordonate)][1])
             self.print()
             self.pl_move(1, next_hop)
         return 1
