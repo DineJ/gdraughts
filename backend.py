@@ -127,7 +127,7 @@ class Stack:
         return self.items[-1] + self.items[-2] + self.items[-3]
 
 
-class Board(object):
+class Backend(object):
     def __init__(self, new_matrix=None, last_jmp=None, game_param=None):
         self.p_max=10
         self.status = ("NEW GAME")
@@ -164,6 +164,54 @@ class Board(object):
                                [1, 0, 1, 0, 1, 0, 1, 0],
                                [0, 1, 0, 1, 0, 1, 0, 1],
                                [1, 0, 1, 0, 1, 0, 1, 0]]
+
+
+
+            # self.matrix = [[0, 0, 0, 0, 0, 0, 0, 0],
+            #                [0, 0, 0, 0, 0, 0, 0, 0],
+            #                [0, 0, 0, 0, 0, 0, 0, 0],
+            #                [5, 0, 0, 0, 0, 0, 0, 0],
+            #                [0, 0, 0, 0, 0, 0, 0, 0],
+            #                [0, 0, 0, 0, 0, 0, 0, 0],
+            #                [0, 0, 0, 0, 0, 0, 0, 0],
+            #                [1, 0, 0, 0, 0, 0, 0, 0]]
+
+            # self.matrix = [[0, 2, 0, 2, 0, 2, 0, 2],
+            #                [2, 0, 2, 0, 2, 0, 2, 0],
+            #                [0, 2, 0, 2, 0, 2, 0, 2],
+            #                [0, 0, 0, 0, 0, 0, 0, 0],
+            #                [0, 0, 0, 0, 0, 0, 0, 0],
+            #                [1, 0, 2, 0, 1, 0, 1, 0],
+            #                [0, 1, 0, 1, 0, 1, 0, 1],
+            #                [1, 0, 1, 0, 1, 0, 1, 0]]
+
+            # self.matrix = [[0, 0, 0, 0, 0, 0, 0, 0],
+            #                [2, 0, 0, 0, 0, 0, 0, 0],
+            #                [0, 0, 0, 0, 0, 0, 0, 0],
+            #                [1, 0, 0, 0, 0, 0, 0, 0],
+            #                [0, 1, 0, 1, 0, 0, 0, 0],
+            #                [0, 0, 0, 0, 0, 0, 0, 0],
+            #                [0, 1, 0, 1, 0, 0, 0, 0],
+            #                [0, 0, 0, 0, 0, 0, 0, 0]]
+            #
+
+            # self.matrix = [[0, 0, 0, 0, 0, 0, 0, 0],
+            #                [0, 0, 2, 0, 0, 0, 0, 0],
+            #                [0, 0, 0, 0, 0, 0, 0, 0],
+            #                [0, 0, 2, 0, 2, 0, 0, 0],
+            #                [0, 0, 0, 0, 0, 0, 0, 0],
+            #                [0, 0, 2, 0, 0, 0, 0, 0],
+            #                [0, 1, 0, 0, 0, 0, 0, 0],
+            #                [0, 0, 0, 0, 0, 0, 0, 0]]
+
+            # self.matrix = [[0, 0, 0, 0, 0, 0, 0, 0],
+            #                [0, 0, 0, 0, 0, 0, 0, 0],
+            #                [0, 0, 0, 0, 0, 0, 0, 0],
+            #                [0, 0, 0, 0, 0, 0, 0, 0],
+            #                [0, 0, 0, 0, 0, 0, 0, 0],
+            #                [0, 0, 0, 0, 0, 0, 0, 0],
+            #                [0, 0, 0, 0, 0, 0, 0, 0],
+            #                [0, 0, 0, 0, 0, 0, 0, 0]]
 
         else:
             self.matrix = new_matrix
@@ -218,7 +266,7 @@ class Board(object):
             for j in range(len(self.matrix[i])):
                 if self.matrix[i][j] == 0 or self.matrix[i][j] % 3 != param:
                     continue
-                #  print(i,j)
+                print(i,j)
                 vertical = 1 if param == 2 else -1  # ako je param = 1, to su PC figure koje idu dole
                 enemy = 1 if param == 2 else 2
                 cell = self.matrix[i][j]
@@ -226,21 +274,21 @@ class Board(object):
                         self.matrix[i + vertical][j - 1] % 3 != param:
                     if j - 2 > -1 and self.p_max > i + vertical * 2 > -1 and self.matrix[i + vertical][j - 1] % 3 == enemy and \
                             self.matrix[i + vertical * 2][j - 2] % 3 == 0:
-                        # print("EAT " + str(i) + ", " + str(j) + " => " + str(i + vertical*2) + ", " + str(j - 2))
+                        print("EAT " + str(i) + ", " + str(j) + " => " + str(i + vertical*2) + ", " + str(j - 2))
                         moves.append([[i, j], [i + vertical * 2, j - 2]])
                         force_moves.append([[i, j], [i + vertical * 2, j - 2]])
                     elif self.matrix[i + vertical][j - 1] % 3 == 0:
-                        # print(str(i) + ", " + str(j) + " => " + str(i+vertical) + ", " + str(j-1))
+                        print(str(i) + ", " + str(j) + " => " + str(i+vertical) + ", " + str(j-1))
                         moves.append([[i, j], [i + vertical, j - 1]])
                 if j + 1 != self.p_max and i + vertical != -1 and i + vertical != self.p_max and \
                         self.matrix[i + vertical][j + 1] % 3 != param:
                     if j + 2 < self.p_max and self.p_max > i + vertical * 2 > -1 and self.matrix[i + vertical][j + 1] % 3 == enemy and \
                             self.matrix[i + vertical * 2][j + 2] % 3 == 0:
-                        # print("EAT " + str(i) + ", " + str(j) + " => " + str(i + vertical*2) + ", " + str(j + 2))
+                        print("EAT " + str(i) + ", " + str(j) + " => " + str(i + vertical*2) + ", " + str(j + 2))
                         moves.append([[i, j], [i + vertical * 2, j + 2]])
                         force_moves.append([[i, j], [i + vertical * 2, j + 2]])
                     elif self.matrix[i + vertical][j + 1] % 3 == 0:
-                        # print(str(i) + ", " + str(j) + " => " + str(i + vertical) + ", " + str(j + 1) + "*")
+                        print(str(i) + ", " + str(j) + " => " + str(i + vertical) + ", " + str(j + 1) + "*")
                         moves.append([[i, j], [i + vertical, j + 1]])
                 if cell > 3:
                     if j - 1 != -1 and i - vertical != -1 and i - vertical != self.p_max and \
@@ -248,27 +296,61 @@ class Board(object):
                         if j - 2 > -1 and self.p_max > i - vertical * 2 > -1 and \
                                 self.matrix[i - vertical][j - 1] % 3 == enemy and \
                                 self.matrix[i - vertical * 2][j - 2] % 3 == 0:
-                            # print("EAT " + str(i) + ", " + str(j) + " => " + str(i + vertical*2) + ", " + str(j - 2))
+                            print("EAT " + str(i) + ", " + str(j) + " => " + str(i + vertical*2) + ", " + str(j - 2))
                             moves.append([[i, j], [i - vertical * 2, j - 2]])
                             force_moves.append([[i, j], [i - vertical * 2, j - 2]])
                         elif self.matrix[i - vertical][j - 1] % 3 == 0:
-                            # print(str(i) + ", " + str(j) + " => " + str(i-vertical) + ", " + str(j-1))
+                            print(str(i) + ", " + str(j) + " => " + str(i-vertical) + ", " + str(j-1))
                             moves.append([[i, j], [i - vertical, j - 1]])
                     if j + 1 != self.p_max and i - vertical != -1 and i - vertical != self.p_max and \
                             self.matrix[i - vertical][j + 1] % 3 != param:
                         if j + 2 < self.p_max and self.p_max > i - vertical * 2 > -1 and \
                                 self.matrix[i - vertical][j + 1] % 3 == enemy and \
                                 self.matrix[i - vertical * 2][j + 2] % 3 == 0:
-                            # print("EAT " + str(i) + ", " + str(j) + " => " + str(i + vertical*2) + ", " + str(j + 2))
+                            print("EAT " + str(i) + ", " + str(j) + " => " + str(i + vertical*2) + ", " + str(j + 2))
                             moves.append([[i, j], [i - vertical * 2, j + 2]])
                             force_moves.append([[i, j], [i - vertical * 2, j + 2]])
                         elif self.matrix[i - vertical][j + 1] % 3 == 0:
-                            # print(str(i) + ", " + str(j) + " => " + str(i + vertical) + ", " + str(j + 1) + "*")
+                            print(str(i) + ", " + str(j) + " => " + str(i + vertical) + ", " + str(j + 1) + "*")
                             moves.append([[i, j], [i - vertical, j + 1]])
         if self.force_jump and force_moves:
             return force_moves
         else:
             return moves
+
+
+    def pl_before_firstclick(self, explicit=None):
+        self.all_moves = self.possible_moves(1)
+        self.cells = []
+        self.ready_moves = []
+        if not explicit:
+            for self.cell in self.all_moves:
+                if self.cell[0] not in self.cells:
+                    self.cells.append(cell[0])
+            if not self.cells:
+                return None
+            print_moves(self.cells)
+
+    def pl_after_firstclick(self, case=None, explicit=None):
+        if not explicit:
+            cell_num = -1
+            for i, move in enumerate(self.cells):
+                if case[0] == move[0] and case[1] == move[1]:
+                    cell_num = int(i) - 1
+            if cell_num == -1:
+                return -1
+            position = self.cells[cell_num]
+            for moves in elf.all_moves:
+                if moves[0] == [self.cells[cell_num][0], self.cells[cell_num][1]]:
+                    self.ready_moves.append(moves[1])
+        else:
+            for pmoves in explicit:
+                ready_moves.append(pmoves[1])
+            position = explicit[0][0]
+        return position
+
+
+
 
     def eatable(self, param, i, j):
         moves = [[[i, j], [i, j]]]
@@ -585,11 +667,10 @@ def print_moves(moves):
         # print(chr(move[0]+65))
         print(str(i + 1) + ") " + str(chr(move[0] + 65)) + str(move[1] + 1), end="   |  ")
     print()
-    
+
     for i, move in enumerate(moves):
         print(str(i + 1) + ") " + str(move[0]) + str(move[1]), end="   |  ")
     print()
-
 
 def player_move():
     pass
@@ -671,21 +752,21 @@ def last_jump_to_list(last_jump):
     return jumps
 
 
-if __name__ == '__main__':
+#if __name__ == '__main__':
 
-    while True:
-        #config_print()
-        #f_jump()
+    #while True:
+        # config_print()
+        # f_jump()
         # Creation de la matrice
-        matrix = [[0, 2, 0, 2, 0, 2, 0, 2],
-                  [2, 0, 2, 0, 2, 0, 2, 0],
-                  [0, 2, 0, 2, 0, 2, 0, 2],
-                  [0, 0, 0, 0, 0, 0, 0, 0],
-                  [0, 0, 0, 0, 0, 0, 0, 0],
-                  [1, 0, 1, 0, 1, 0, 1, 0],
-                  [0, 1, 0, 1, 0, 1, 0, 1],
-                  [1, 0, 1, 0, 1, 0, 1, 0]]
+        #matrix = [[0, 2, 0, 2, 0, 2, 0, 2],
+         #         [2, 0, 2, 0, 2, 0, 2, 0],
+         #         [0, 2, 0, 2, 0, 2, 0, 2],
+         #         [0, 0, 0, 0, 0, 0, 0, 0],
+         #         [0, 0, 0, 0, 0, 0, 0, 0],
+         #         [1, 0, 1, 0, 1, 0, 1, 0],
+         #         [0, 1, 0, 1, 0, 1, 0, 1],
+         #         [1, 0, 1, 0, 1, 0, 1, 0]]
         # Creation du Damier 
-        tabla1 = Board(matrix)
+        #tabla1 = Board(matrix)
         # Lancement du jeu
-        tabla1.play_game()
+        #tabla1.play_game()
