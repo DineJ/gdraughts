@@ -3,8 +3,8 @@ import time
 import random
 import gettext
 
-lang_translations = gettext.translation('checkers', localedir='locales', languages=['fr'])
-lang_translations.install()
+#lang_translations = gettext.translation('checkers', localedir='locales', languages=['fr'])
+#lang_translations.install()
 # define _ shortcut for translations
 
 def minimax(node, depth_ab, alpha, beta, maximizing, depth=5):
@@ -130,7 +130,7 @@ class Stack:
 class Board(object):
     def __init__(self, new_matrix=None, last_jmp=None, game_param=None):
         self.p_max=10
-        self.status = _("NEW GAME")
+        self.status = ("NEW GAME")
         self.depth = 5
         self.variable_depth = True
         self.force_jump = False
@@ -164,54 +164,6 @@ class Board(object):
                                [1, 0, 1, 0, 1, 0, 1, 0],
                                [0, 1, 0, 1, 0, 1, 0, 1],
                                [1, 0, 1, 0, 1, 0, 1, 0]]
-
-
-
-            # self.matrix = [[0, 0, 0, 0, 0, 0, 0, 0],
-            #                [0, 0, 0, 0, 0, 0, 0, 0],
-            #                [0, 0, 0, 0, 0, 0, 0, 0],
-            #                [5, 0, 0, 0, 0, 0, 0, 0],
-            #                [0, 0, 0, 0, 0, 0, 0, 0],
-            #                [0, 0, 0, 0, 0, 0, 0, 0],
-            #                [0, 0, 0, 0, 0, 0, 0, 0],
-            #                [1, 0, 0, 0, 0, 0, 0, 0]]
-
-            # self.matrix = [[0, 2, 0, 2, 0, 2, 0, 2],
-            #                [2, 0, 2, 0, 2, 0, 2, 0],
-            #                [0, 2, 0, 2, 0, 2, 0, 2],
-            #                [0, 0, 0, 0, 0, 0, 0, 0],
-            #                [0, 0, 0, 0, 0, 0, 0, 0],
-            #                [1, 0, 2, 0, 1, 0, 1, 0],
-            #                [0, 1, 0, 1, 0, 1, 0, 1],
-            #                [1, 0, 1, 0, 1, 0, 1, 0]]
-
-            # self.matrix = [[0, 0, 0, 0, 0, 0, 0, 0],
-            #                [2, 0, 0, 0, 0, 0, 0, 0],
-            #                [0, 0, 0, 0, 0, 0, 0, 0],
-            #                [1, 0, 0, 0, 0, 0, 0, 0],
-            #                [0, 1, 0, 1, 0, 0, 0, 0],
-            #                [0, 0, 0, 0, 0, 0, 0, 0],
-            #                [0, 1, 0, 1, 0, 0, 0, 0],
-            #                [0, 0, 0, 0, 0, 0, 0, 0]]
-            #
-
-            # self.matrix = [[0, 0, 0, 0, 0, 0, 0, 0],
-            #                [0, 0, 2, 0, 0, 0, 0, 0],
-            #                [0, 0, 0, 0, 0, 0, 0, 0],
-            #                [0, 0, 2, 0, 2, 0, 0, 0],
-            #                [0, 0, 0, 0, 0, 0, 0, 0],
-            #                [0, 0, 2, 0, 0, 0, 0, 0],
-            #                [0, 1, 0, 0, 0, 0, 0, 0],
-            #                [0, 0, 0, 0, 0, 0, 0, 0]]
-
-            # self.matrix = [[0, 0, 0, 0, 0, 0, 0, 0],
-            #                [0, 0, 0, 0, 0, 0, 0, 0],
-            #                [0, 0, 0, 0, 0, 0, 0, 0],
-            #                [0, 0, 0, 0, 0, 0, 0, 0],
-            #                [0, 0, 0, 0, 0, 0, 0, 0],
-            #                [0, 0, 0, 0, 0, 0, 0, 0],
-            #                [0, 0, 0, 0, 0, 0, 0, 0],
-            #                [0, 0, 0, 0, 0, 0, 0, 0]]
 
         else:
             self.matrix = new_matrix
@@ -391,7 +343,7 @@ class Board(object):
         time1 = time.time()
         self.minimax_heuristic = minimax(root, self.depth, Node(-1000), Node(1000), True, self.depth)
         think = time.time() - time1
-        print(_("Time (sec):"), think)
+        print(("Time (sec):"), think)
         stack.push(think)
 
         if not root.children:
@@ -408,8 +360,8 @@ class Board(object):
                     self.matrix[enum_i][enum_j] = 0
 
     def print(self, highlighted=0, moves=[], clear_trails=False):
-        print(_("HV Value:"), self.calculate())
-        print(_("Turn:"), self.turn)
+        print(("HV Value:"), self.calculate())
+        print(("Turn:"), self.turn)
 
         cells = []
         order = 0
@@ -480,11 +432,11 @@ class Board(object):
             if self.variable_depth and (stack.three_sum() > 11 or stack.peek() > 4.5):
                 self.depth -= 1
                 stack.set([4, 4, 4])
-                print(_("Depth reduced to"), self.depth)
+                print(("Depth reduced to"), self.depth)
             elif self.variable_depth and (stack.three_sum() < 2):
                 self.depth += 1
                 stack.set([4, 4, 4])
-                print(_("Increasing the depth"), self.depth)
+                print(("Increasing the depth"), self.depth)
             self.turn += 1
             self.print(1)
             self.lastjump[:] = []
@@ -497,28 +449,27 @@ class Board(object):
                 # resultat à zero égalité 
                 count = self.count_figures()
                 if count > 0:
-                    self.status = _("The computer has an advantage")
+                    self.status = ("The computer has an advantage")
                     self.finish_message(4)
                     return 0
                 elif count < 0:
-                    self.status = _("The player has an advantage")
+                    self.status = ("The player has an advantage")
                     self.finish_message(3)
                     return 1
                 else:
-                    self.status = _("Draw")
+                    self.status = ("Draw")
                     self.finish_message(0)
                     return 3
 
-            # Le jour jour
+            # Le joueur jour
             play = self.pl_move()
             # print("checkers.py Player zavrsio")
             # Jeu terminé ?
             if not play:
-                self.status = _("The computer won")
+                self.status = ("The computer won")
                 self.finish_message(2)
                 return 0
             self.print(clear_trails=True)
-
             self.turn += 1
             self.print(clear_trails=False)
             print("==PC==")
@@ -528,7 +479,7 @@ class Board(object):
             time.sleep(0.1)
             # Jeu terminé ?
             if not play:
-                self.status = _("You've won!")
+                self.status = ("You've won!")
                 self.finish_message(1)
                 return 1
 
@@ -550,7 +501,7 @@ class Board(object):
             # print(cells)
             print_moves(cells)
             while True:
-                cell_num = input(_("Enter the square number:"))
+                cell_num = input(("Enter the square number:"))
 
                 # print("--- Poziv pauze ---")
                 # self.player_signal.wait_for_move()
@@ -572,7 +523,7 @@ class Board(object):
         print_moves(ready_moves)
 
         while True:
-            r_broj = input(_("Enter the shot sequence number"))
+            r_broj = input(("Enter the shot sequence number"))
             if r_broj.isnumeric():
                 r_broj = int(r_broj) - 1
                 if 0 <= int(r_broj) < len(ready_moves):
@@ -633,6 +584,10 @@ def print_moves(moves):
     for i, move in enumerate(moves):
         # print(chr(move[0]+65))
         print(str(i + 1) + ") " + str(chr(move[0] + 65)) + str(move[1] + 1), end="   |  ")
+    print()
+    
+    for i, move in enumerate(moves):
+        print(str(i + 1) + ") " + str(move[0]) + str(move[1]), end="   |  ")
     print()
 
 
@@ -719,8 +674,8 @@ def last_jump_to_list(last_jump):
 if __name__ == '__main__':
 
     while True:
-        # config_print()
-        # f_jump()
+        #config_print()
+        #f_jump()
         # Creation de la matrice
         matrix = [[0, 2, 0, 2, 0, 2, 0, 2],
                   [2, 0, 2, 0, 2, 0, 2, 0],
