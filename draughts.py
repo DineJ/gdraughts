@@ -74,6 +74,8 @@ class Draughts(Gtk.Window):
 	#show the application
 	def play(self): 
 		self.show_all()
+		self.backend = Backend(self.checker.matrix)	
+		self.backend.pl_before_firstclick()
 
 	#resize checker after each interraction with main window
 	def on_resize(self,widget): 
@@ -179,9 +181,9 @@ class Draughts(Gtk.Window):
 			# Déplacement de la pièces>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<>><<<<<<<<<
 			#self.backend.move(checker.square.name[0],checker.square.name[1],1)
 			self.backend.move(rand_move[0], rand_move[1], 2)
-			#pl_before_firstclick()
 			self.checker.matrix = self.backend.get_matrix()
 			self.checker.resize_checker(self.checker.square_size)
+			self.backend.pl_before_firstclick()
 			#self.pl_move()
 		elif answer == Gtk.ResponseType.CANCEL:
 			dialog_box.destroy()
