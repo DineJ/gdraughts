@@ -115,14 +115,14 @@ class Checker(Gtk.Grid):
     #move a pawn
     def do_release_mouse(self, widget, event, square):
         if self.old_square == None:
-            self.draughts.backend.pl_after_firstclick(square)
+            self.draughts.backend.pl_after_firstclick(square.name)
             if square.square_type != 0:
                 self.old_square = square
         else:
             if square.color == self.old_square.color:
-                self.backend.pl_after_secondclick(square)
+                self.draughts.backend.pl_after_secondclick(square.name)
 
-                self.backend.pl_before_firstclick()
+                self.draughts.backend.pl_before_firstclick()
                 self.echange_square(self.old_square, square)
                 #self.drag_drop(self.old_square, square)
                 self.old_square = None

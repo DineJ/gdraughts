@@ -278,7 +278,7 @@ class Backend(object):
         if not explicit:
             for self.cell in self.all_moves:
                 if self.cell[0] not in self.cells:
-                    self.cells.append(cell[0])
+                    self.cells.append(self.cell[0])
             if not self.cells:
                 return None
             print_moves(self.cells)
@@ -287,7 +287,7 @@ class Backend(object):
         if not explicit:
             cell_num = -1
             for i, move in enumerate(self.cells):
-                if case[0] == move[0] and case[1] == move[1]:
+                if self.cell[0] == move[0] and self.cell[1] == move[1]:
                     cell_num = int(i) - 1
             if cell_num == -1:
                 return -1
