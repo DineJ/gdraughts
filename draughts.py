@@ -86,7 +86,7 @@ class Draughts(Gtk.Window):
 			self.square_size = checker_width/self.state
 
 		if self.checker == None:
-			self.checker = Checker(self.square_size, self.state, self.square_color)
+			self.checker = Checker(self, self.square_size, self.state, self.square_color)
 			self.checker_game.set_center_widget(self.checker)
 			self.checker_game.show_all()
 			#self.backend = Backend(self.checker.matrix)
@@ -166,17 +166,20 @@ class Draughts(Gtk.Window):
 			else:
 				self.square_color = 1
 			self.checker_game.remove(self.checker)
-			self.checker = Checker(self.square_size, self.state, self.square_color)
+			self.checker = Checker(self, self.square_size, self.state, self.square_color)
 			self.checker_game.set_center_widget(self.checker)
 			self.checker_game.show_all()
 			self.backend = Backend(self.checker.matrix)
 			#self.checker.queue_draw()
 			dialog_box.destroy()
+			#pl_moves = self.backend.possible_moves(1)
 			pc_moves = self.backend.possible_moves(2)
 			# Choix aleatoire du pion déplacée
 			rand_move = random.choice(pc_moves)
 			# Déplacement de la pièces>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<>><<<<<<<<<
+			#self.backend.move(checker.square.name[0],checker.square.name[1],1)
 			self.backend.move(rand_move[0], rand_move[1], 2)
+			#pl_before_firstclick()
 			self.checker.matrix = self.backend.get_matrix()
 			self.checker.resize_checker(self.checker.square_size)
 			#self.pl_move()
