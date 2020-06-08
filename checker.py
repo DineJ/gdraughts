@@ -1,10 +1,12 @@
 from gi.repository import Gtk, Gdk, cairo, Pango, PangoCairo
 from squarearea import SquareArea
+from backend import Backend
 
 #create the checker game
 class Checker(Gtk.Grid): 
-    def __init__ (self, square_size = 1, matrix_size = 10, color = 0):
+    def __init__ (self, draughts=None, square_size = 1, matrix_size = 10, color = 0):
         Gtk.Grid.__init__(self)
+        self.draughts = draughts
         self.old_square = None
         self.color = color
         self.square_size = square_size
@@ -111,12 +113,16 @@ class Checker(Gtk.Grid):
             y += 1
 
     #move a pawn
-    def do_release_mouse(self, widget, event, square): 
+    def do_release_mouse(self, widget, event, square):
         if self.old_square == None:
+            self.draughts.backend.pl_after_firstclick(square)
             if square.square_type != 0:
                 self.old_square = square
         else:
             if square.color == self.old_square.color:
+                self.backend.pl_after_secondclick(square)
+
+                self.backend.pl_before_firstclick()
                 self.echange_square(self.old_square, square)
                 #self.drag_drop(self.old_square, square)
                 self.old_square = None
