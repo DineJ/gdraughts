@@ -287,7 +287,7 @@ class Backend(object):
         if not explicit:
             cell_num = -1
             for i, move in enumerate(self.cells):
-                if self.cell[0] == move[0] and self.cell[1] == move[1]:
+                if case[0] == move[0] and case[1] == move[1]:
                     cell_num = int(i) - 1
             if cell_num == -1:
                 return -1
@@ -303,15 +303,15 @@ class Backend(object):
 
     def pl_after_secondclick(self, case=None):
         coordonate = -1
-        for i, move in enumerate(self.cells.ready_move):
+        for i, move in enumerate(self.ready_moves):
             if case[0] == move[0] and case[1] == move[1]:
                 coordonate = int(i) - 1
         if coordonate == -1:
             return -1
-        position = self.cells[ready_move]
-        self.move(position, ready_moves[int(coordonate)])
+        position = self.ready_moves[coordonate]
+        self.move(position, self.ready_moves[int(coordonate)])
         #if self.move(position, ready_moves[int(coordonate)]) == 2:
-            #next_hop = self.eatable(1, ready_moves[int(coordonate)][0], ready_moves[int(coordonate)][1])
+        next_hop = self.eatable(1, self.ready_moves[int(coordonate)][0], self.ready_moves[int(coordonate)][1])
             #self.print()
         self.pl_move(1, next_hop)
         return 1
