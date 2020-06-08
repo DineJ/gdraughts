@@ -313,7 +313,7 @@ class Backend(object):
         #if self.move(position, ready_moves[int(coordonate)]) == 2:
             #next_hop = self.eatable(1, ready_moves[int(coordonate)][0], ready_moves[int(coordonate)][1])
             #self.print()
-            self.pl_move(1, next_hop)
+        self.pl_move(1, next_hop)
         return 1
 
 

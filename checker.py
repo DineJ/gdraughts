@@ -116,7 +116,6 @@ class Checker(Gtk.Grid):
             if square.square_type != 0:
                 self.old_square = square
         else:
-            print("je fais l'echange %s %s" % (self.old_square.name, square.name))
             if square.color == self.old_square.color:
                 self.echange_square(self.old_square, square)
                 #self.drag_drop(self.old_square, square)
