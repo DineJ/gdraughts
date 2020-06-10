@@ -117,12 +117,15 @@ class Checker(Gtk.Grid):
     def do_release_mouse(self, widget, event, square):
         stack = Stack([4, 3, 3])
         if self.old_square == None:
-            self.draughts.backend.pl_after_firstclick(square.name)
+            if self.draughts.backend.pl_after_firstclick(square.name) == 0:
+                return
             if square.square_type != 0:
                 self.old_square = square
         else:
             if 1 : #square.color == self.old_square.color:
-                self.draughts.backend.pl_after_secondclick(self.old_square.name, square.name)
+                if self.draughts.backend.pl_after_secondclick(self.old_square.name, square.name) == 0:
+                    self.old_square = square
+                    return
                 self.draughts.checker.matrix = self.draughts.backend.get_matrix()
                 self.draughts.checker.resize_checker(self.draughts.checker.square_size)
                 self.old_square = None
