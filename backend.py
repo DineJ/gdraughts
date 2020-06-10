@@ -279,41 +279,54 @@ class Backend(object):
             for self.cell in self.all_moves:
                 if self.cell[0] not in self.cells:
                     self.cells.append(self.cell[0])
-            if not self.cells:
-                return None
             print_moves(self.cells)
 
     def pl_after_firstclick(self, case=None, explicit=None):
         if not explicit:
             cell_num = -1
+            print('pl_after_firstclick(1)')
+            print("cells1 : ", self.cells)
+            print("case1 : ", case)
+            self.pl_before_firstclick()
             for i, move in enumerate(self.cells):
+                print('Boucle after  [%d, %d] => [%d, %d] ' % (case[0], case[1], move[0], move[1]))
                 if case[0] == move[0] and case[1] == move[1]:
-                    cell_num = int(i) - 1
+                    cell_num = int(i) #- 1
+            print('pl_after_firstclick(2)')
             if cell_num == -1:
                 return -1
+            print('pl_after_firstclick(2)')
             position = self.cells[cell_num]
+            print(position, "position")
+            print("all_moves :", self.all_moves)
             for moves in self.all_moves:
                 if moves[0] == [self.cells[cell_num][0], self.cells[cell_num][1]]:
                     self.ready_moves.append(moves[1])
         else:
+            print("cells3 : ", self.cells)
             for pmoves in explicit:
                 self.ready_moves.append(pmoves[1])
             position = explicit[0][0]
+            print('POSITION[', position[0], '][', position[1], ']')
         return position
 
-    def pl_after_secondclick(self, case=None):
+    def pl_after_secondclick(self, old_case=None, case=None):
         coordonate = -1
+        print('pl_after_secondclick(1)')
         for i, move in enumerate(self.ready_moves):
+            print('Boucle before [%d, %d] => [%d, %d] ' % (old_case[0], old_case[1], move[0], move[1]))
             if case[0] == move[0] and case[1] == move[1]:
-                coordonate = int(i) - 1
+                coordonate = int(i) #- 1
+        print('pl_after_secondclick(2)')
         if coordonate == -1:
             return -1
-        position = self.ready_moves[coordonate]
-        self.move(position, self.ready_moves[int(coordonate)])
-        #if self.move(position, ready_moves[int(coordonate)]) == 2:
-        next_hop = self.eatable(1, self.ready_moves[int(coordonate)][0], self.ready_moves[int(coordonate)][1])
-            #self.print()
-        self.pl_move(1, next_hop)
+        print('pl_after_secondclick(3)')
+        print(' [%d, %d] => [%d, %d] ' % (old_case[0], old_case[1], case[0], case[1]))
+        #position = self.ready_moves[coordonate]
+        if self.move(old_case, case) == 2:
+            next_hop = self.eatable(1, case[0], case[1])
+            self.print()
+            # self.pl_move(1, next_hop)
         return 1
 
 
@@ -408,7 +421,7 @@ class Backend(object):
 
     def print(self, highlighted=0, moves=[], clear_trails=False):
         print(("HV Value:"), self.calculate())
-        print(("Turn:"), self.turn)
+        #print(("Turn:"), self.turn)
 
         cells = []
         order = 0
