@@ -294,7 +294,7 @@ class Backend(object):
                     cell_num = int(i)
             print('pl_after_firstclick(2)')
             if cell_num == -1:
-                return -1
+                return 0
             print('pl_after_firstclick(2)')
             position = self.cells[cell_num]
             print(position, "position")
@@ -308,7 +308,7 @@ class Backend(object):
                 self.ready_moves.append(pmoves[1])
             position = explicit[0][0]
             print('POSITION[', position[0], '][', position[1], ']')
-        return position
+        return 1
 
     def pl_after_secondclick(self, old_case=None, case=None):
         coordonate = -1
@@ -319,7 +319,7 @@ class Backend(object):
                 coordonate = int(i)
         print('pl_after_secondclick(2)')
         if coordonate == -1:
-            return -1
+            return 0
         print('pl_after_secondclick(3)')
         print(' [%d, %d] => [%d, %d] ' % (old_case[0], old_case[1], case[0], case[1]))
         #position = self.ready_moves[coordonate]
