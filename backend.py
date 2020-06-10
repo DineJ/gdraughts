@@ -284,44 +284,44 @@ class Backend(object):
     def pl_after_firstclick(self, case=None, explicit=None):
         if not explicit:
             cell_num = -1
-            print('pl_after_firstclick(1)')
-            print("cells1 : ", self.cells)
-            print("case1 : ", case)
+            #print('pl_after_firstclick(1)')
+            #print("cells1 : ", self.cells)
+            #print("case1 : ", case)
             self.pl_before_firstclick()
             for i, move in enumerate(self.cells):
-                print('Boucle after  [%d, %d] => [%d, %d] ' % (case[0], case[1], move[0], move[1]))
+                #print('Boucle after  [%d, %d] => [%d, %d] ' % (case[0], case[1], move[0], move[1]))
                 if case[0] == move[0] and case[1] == move[1]:
                     cell_num = int(i)
-            print('pl_after_firstclick(2)')
+            #print('pl_after_firstclick(2)')
             if cell_num == -1:
                 return 0
-            print('pl_after_firstclick(2)')
+            #print('pl_after_firstclick(2)')
             position = self.cells[cell_num]
-            print(position, "position")
-            print("all_moves :", self.all_moves)
+            #print(position, "position")
+            vprint("all_moves :", self.all_moves)
             for moves in self.all_moves:
                 if moves[0] == [self.cells[cell_num][0], self.cells[cell_num][1]]:
                     self.ready_moves.append(moves[1])
         else:
-            print("cells3 : ", self.cells)
+            #print("cells3 : ", self.cells)
             for pmoves in explicit:
                 self.ready_moves.append(pmoves[1])
             position = explicit[0][0]
-            print('POSITION[', position[0], '][', position[1], ']')
+            #print('POSITION[', position[0], '][', position[1], ']')
         return 1
 
     def pl_after_secondclick(self, old_case=None, case=None):
         coordonate = -1
-        print('pl_after_secondclick(1)')
+        #print('pl_after_secondclick(1)')
         for i, move in enumerate(self.ready_moves):
-            print('Boucle before [%d, %d] => [%d, %d] ' % (old_case[0], old_case[1], move[0], move[1]))
+            #print('Boucle before [%d, %d] => [%d, %d] ' % (old_case[0], old_case[1], move[0], move[1]))
             if case[0] == move[0] and case[1] == move[1]:
                 coordonate = int(i)
-        print('pl_after_secondclick(2)')
+        #print('pl_after_secondclick(2)')
         if coordonate == -1:
             return 0
-        print('pl_after_secondclick(3)')
-        print(' [%d, %d] => [%d, %d] ' % (old_case[0], old_case[1], case[0], case[1]))
+        #print('pl_after_secondclick(3)')
+        #print(' [%d, %d] => [%d, %d] ' % (old_case[0], old_case[1], case[0], case[1]))
         #position = self.ready_moves[coordonate]
         if self.move(old_case, case) == 2:
             next_hop = self.eatable(1, case[0], case[1])
