@@ -179,11 +179,11 @@ class Draughts(Gtk.Window):
 			# Choix aleatoire du pion déplacée
 			rand_move = random.choice(pc_moves)
 			# Déplacement de la pièces>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<>><<<<<<<<<
-			#self.backend.move(checker.square.name[0],checker.square.name[1],1)
 			self.backend.move(rand_move[0], rand_move[1], 2)
 			self.checker.matrix = self.backend.get_matrix()
 			self.checker.resize_checker(self.checker.square_size)
 			self.backend.pl_before_firstclick()
+			#self.backend.move(self.checker.square.name[0], self.checker.square.name[1],1)
 			#self.pl_move()
 		elif answer == Gtk.ResponseType.CANCEL:
 			dialog_box.destroy()
