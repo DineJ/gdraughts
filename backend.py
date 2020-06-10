@@ -291,7 +291,7 @@ class Backend(object):
             for i, move in enumerate(self.cells):
                 print('Boucle after  [%d, %d] => [%d, %d] ' % (case[0], case[1], move[0], move[1]))
                 if case[0] == move[0] and case[1] == move[1]:
-                    cell_num = int(i) #- 1
+                    cell_num = int(i)
             print('pl_after_firstclick(2)')
             if cell_num == -1:
                 return -1
@@ -316,7 +316,7 @@ class Backend(object):
         for i, move in enumerate(self.ready_moves):
             print('Boucle before [%d, %d] => [%d, %d] ' % (old_case[0], old_case[1], move[0], move[1]))
             if case[0] == move[0] and case[1] == move[1]:
-                coordonate = int(i) #- 1
+                coordonate = int(i)
         print('pl_after_secondclick(2)')
         if coordonate == -1:
             return -1
