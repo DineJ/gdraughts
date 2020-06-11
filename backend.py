@@ -403,7 +403,7 @@ class Backend(object):
         time1 = time.time()
         self.minimax_heuristic = minimax(root, self.depth, Node(-1000), Node(1000), True, self.depth)
         think = time.time() - time1
-        print(("Time (sec):"), think)
+        #print(("Time (sec):"), think)
         stack.push(think)
 
         if not root.children:
@@ -420,8 +420,8 @@ class Backend(object):
                     self.matrix[enum_i][enum_j] = 0
 
     def print(self, highlighted=0, moves=[], clear_trails=False):
-        print(("HV Value:"), self.calculate())
-        print(("Turn:"), self.turn)
+        #print(("HV Value:"), self.calculate())
+        #print(("Turn:"), self.turn)
 
         cells = []
         order = 0
@@ -433,14 +433,14 @@ class Backend(object):
             if not cells:
                 return None
 
-        if self.p_max == 8 :
-            print("     1      2      3      4      5      6       7       8")
-        elif self.p_max == 10 :
-            print("     1      2      3      4      5      6       7       8      9     10")
+        #if self.p_max == 8 :
+            #print("     1      2      3      4      5      6       7       8")
+        #elif self.p_max == 10 :
+            #print("     1      2      3      4      5      6       7       8      9     10")
 
-        print("  |" + "－－－|" * self.p_max)
+        #print("  |" + "－－－|" * self.p_max)
         for enum_i, i in enumerate(self.matrix):
-            print(str(chr(enum_i + 65)), end=" |")
+            #print(str(chr(enum_i + 65)), end=" |")
             for enum_j, j in enumerate(i):
                 if j == 0: j = " "
                 if j == 1: j = self.v1
@@ -471,7 +471,7 @@ class Backend(object):
                 # print("  " + num + str(j), end="    ❙")
                 if clear_trails and (self.matrix[enum_i][enum_j] == 3 or self.matrix[enum_i][enum_j] == 6):
                     self.matrix[enum_i][enum_j] = 0
-            print("\n  |" + "－－－|" * self.p_max)
+            #print("\n  |" + "－－－|" * self.p_max)
         # if highlighted != 5:
         # print(self.lastjump)
         # last_jump_to_str(self.lastjump)
@@ -532,7 +532,7 @@ class Backend(object):
             self.print(clear_trails=True)
             self.turn += 1
             self.print(clear_trails=False)
-            print("==PC==")
+            #print("==PC==")
             self.lastjump[:] = []
             # Le PC joue
             play = self.pc_move(stack)
@@ -558,22 +558,22 @@ class Backend(object):
             if not cells:
                 return None
 
-            # print(cells)
+            #print(cells)
             print_moves(cells)
-            while True:
-                cell_num = input(("Enter the square number:"))
+            #while True:
+                #cell_num = input(("Enter the square number:"))
 
                 # print("--- Poziv pauze ---")
                 # self.player_signal.wait_for_move()
 
-                if cell_num.isnumeric():
-                    cell_num = int(cell_num) - 1
-                    if 0 <= cell_num < len(cells):
-                        break
-            position = cells[cell_num]
-            for moves in all_moves:
-                if moves[0] == [cells[cell_num][0], cells[cell_num][1]]:
-                    ready_moves.append(moves[1])
+                #if cell_num.isnumeric():
+                    #cell_num = int(cell_num) - 1
+                    #if 0 <= cell_num < len(cells):
+                        #break
+            #position = cells[cell_num]
+            #for moves in all_moves:
+                #if moves[0] == [cells[cell_num][0], cells[cell_num][1]]:
+                    #ready_moves.append(moves[1])
         else:
             for pmoves in explicit:
                 ready_moves.append(pmoves[1])
@@ -582,16 +582,16 @@ class Backend(object):
         self.print(2, copy.deepcopy(ready_moves))
         print_moves(ready_moves)
 
-        while True:
-            coordonate = input(("Enter the shot sequence number"))
-            if coordonate.isnumeric():
-                coordonate = int(coordonate) - 1
-                if 0 <= int(coordonate) < len(ready_moves):
-                    break
-        if self.move(position, ready_moves[int(coordonate)]) == 2:
-            next_hop = self.eatable(1, ready_moves[int(coordonate)][0], ready_moves[int(coordonate)][1])
-            self.print()
-            self.pl_move(1, next_hop)
+        #while True:
+            #coordonate = input(("Enter the shot sequence number"))
+            #if coordonate.isnumeric():
+                #coordonate = int(coordonate) - 1
+                #if 0 <= int(coordonate) < len(ready_moves):
+                    #break
+        #if self.move(position, ready_moves[int(coordonate)]) == 2:
+        #next_hop = self.eatable(1, ready_moves[int(coordonate)][0], ready_moves[int(coordonate)][1])
+        self.print()
+        #self.pl_move(1, next_hop)
         return 1
 
     def finish_message(self, s):
