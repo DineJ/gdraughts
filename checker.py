@@ -125,7 +125,7 @@ class Checker(Gtk.Grid):
         else:
             if 1 : #square.color == self.old_square.color:
                 if self.draughts.backend.pl_after_secondclick(self.old_square.name, square.name) == 0:
-                    self.old_square = square
+                    self.old_square = None
                     return
                 self.draughts.checker.matrix = self.draughts.backend.get_matrix()
                 self.draughts.checker.resize_checker(self.draughts.checker.square_size)
