@@ -218,7 +218,7 @@ class Backend(object):
             for j in range(len(self.matrix[i])):
                 if self.matrix[i][j] == 0 or self.matrix[i][j] % 3 != param:
                     continue
-                print(i,j)
+                #print(i,j)
                 vertical = 1 if param == 2 else -1  # ako je param = 1, to su PC figure koje idu dole
                 enemy = 1 if param == 2 else 2
                 cell = self.matrix[i][j]
@@ -226,21 +226,21 @@ class Backend(object):
                         self.matrix[i + vertical][j - 1] % 3 != param:
                     if j - 2 > -1 and self.p_max > i + vertical * 2 > -1 and self.matrix[i + vertical][j - 1] % 3 == enemy and \
                             self.matrix[i + vertical * 2][j - 2] % 3 == 0:
-                        print("EAT " + str(i) + ", " + str(j) + " => " + str(i + vertical*2) + ", " + str(j - 2))
+                        #print("EAT " + str(i) + ", " + str(j) + " => " + str(i + vertical*2) + ", " + str(j - 2))
                         moves.append([[i, j], [i + vertical * 2, j - 2]])
                         force_moves.append([[i, j], [i + vertical * 2, j - 2]])
                     elif self.matrix[i + vertical][j - 1] % 3 == 0:
-                        print(str(i) + ", " + str(j) + " => " + str(i+vertical) + ", " + str(j-1))
+                        #print(str(i) + ", " + str(j) + " => " + str(i+vertical) + ", " + str(j-1))
                         moves.append([[i, j], [i + vertical, j - 1]])
                 if j + 1 != self.p_max and i + vertical != -1 and i + vertical != self.p_max and \
                         self.matrix[i + vertical][j + 1] % 3 != param:
                     if j + 2 < self.p_max and self.p_max > i + vertical * 2 > -1 and self.matrix[i + vertical][j + 1] % 3 == enemy and \
                             self.matrix[i + vertical * 2][j + 2] % 3 == 0:
-                        print("EAT " + str(i) + ", " + str(j) + " => " + str(i + vertical*2) + ", " + str(j + 2))
+                        #print("EAT " + str(i) + ", " + str(j) + " => " + str(i + vertical*2) + ", " + str(j + 2))
                         moves.append([[i, j], [i + vertical * 2, j + 2]])
                         force_moves.append([[i, j], [i + vertical * 2, j + 2]])
                     elif self.matrix[i + vertical][j + 1] % 3 == 0:
-                        print(str(i) + ", " + str(j) + " => " + str(i + vertical) + ", " + str(j + 1) + "*")
+                        #print(str(i) + ", " + str(j) + " => " + str(i + vertical) + ", " + str(j + 1) + "*")
                         moves.append([[i, j], [i + vertical, j + 1]])
                 if cell > 3:
                     if j - 1 != -1 and i - vertical != -1 and i - vertical != self.p_max and \
@@ -248,22 +248,22 @@ class Backend(object):
                         if j - 2 > -1 and self.p_max > i - vertical * 2 > -1 and \
                                 self.matrix[i - vertical][j - 1] % 3 == enemy and \
                                 self.matrix[i - vertical * 2][j - 2] % 3 == 0:
-                            print("EAT " + str(i) + ", " + str(j) + " => " + str(i + vertical*2) + ", " + str(j - 2))
+                            #print("EAT " + str(i) + ", " + str(j) + " => " + str(i + vertical*2) + ", " + str(j - 2))
                             moves.append([[i, j], [i - vertical * 2, j - 2]])
                             force_moves.append([[i, j], [i - vertical * 2, j - 2]])
                         elif self.matrix[i - vertical][j - 1] % 3 == 0:
-                            print(str(i) + ", " + str(j) + " => " + str(i-vertical) + ", " + str(j-1))
+                            #print(str(i) + ", " + str(j) + " => " + str(i-vertical) + ", " + str(j-1))
                             moves.append([[i, j], [i - vertical, j - 1]])
                     if j + 1 != self.p_max and i - vertical != -1 and i - vertical != self.p_max and \
                             self.matrix[i - vertical][j + 1] % 3 != param:
                         if j + 2 < self.p_max and self.p_max > i - vertical * 2 > -1 and \
                                 self.matrix[i - vertical][j + 1] % 3 == enemy and \
                                 self.matrix[i - vertical * 2][j + 2] % 3 == 0:
-                            print("EAT " + str(i) + ", " + str(j) + " => " + str(i + vertical*2) + ", " + str(j + 2))
+                            #print("EAT " + str(i) + ", " + str(j) + " => " + str(i + vertical*2) + ", " + str(j + 2))
                             moves.append([[i, j], [i - vertical * 2, j + 2]])
                             force_moves.append([[i, j], [i - vertical * 2, j + 2]])
                         elif self.matrix[i - vertical][j + 1] % 3 == 0:
-                            print(str(i) + ", " + str(j) + " => " + str(i + vertical) + ", " + str(j + 1) + "*")
+                            #print(str(i) + ", " + str(j) + " => " + str(i + vertical) + ", " + str(j + 1) + "*")
                             moves.append([[i, j], [i - vertical, j + 1]])
         if self.force_jump and force_moves:
             return force_moves
@@ -467,7 +467,7 @@ class Backend(object):
                 except IndexError:
                     pass
 
-                print(" " + str(num) + str(j), end="   |")
+                #print(" " + str(num) + str(j), end="   |")
                 # print("  " + num + str(j), end="    ❙")
                 if clear_trails and (self.matrix[enum_i][enum_j] == 3 or self.matrix[enum_i][enum_j] == 6):
                     self.matrix[enum_i][enum_j] = 0
@@ -641,13 +641,13 @@ def accurate_calculate(matrix):
 
 
 def print_moves(moves):
-    for i, move in enumerate(moves):
+    #for i, move in enumerate(moves):
         # print(chr(move[0]+65))
-        print(str(i + 1) + ") " + str(chr(move[0] + 65)) + str(move[1] + 1), end="   |  ")
-    print()
+        #print(str(i + 1) + ") " + str(chr(move[0] + 65)) + str(move[1] + 1), end="   |  ")
+    #print()
 
-    for i, move in enumerate(moves):
-        print(str(i + 1) + ") " + str(move[0]) + str(move[1]), end="   |  ")
+    #for i, move in enumerate(moves):
+        #print(str(i + 1) + ") " + str(move[0]) + str(move[1]), end="   |  ")
     print()
 
 def player_move():
