@@ -131,7 +131,6 @@ class Checker(Gtk.Grid):
                 self.draughts.checker.resize_checker(self.draughts.checker.square_size)
                 self.old_square = None
                 self.draughts.backend.lastjump[:] = []
-                time.sleep(1.0)
                 self.draughts.backend.pc_move(stack)
                 self.draughts.checker.matrix = self.draughts.backend.get_matrix()
                 self.draughts.checker.resize_checker(self.draughts.checker.square_size)
