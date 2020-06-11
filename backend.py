@@ -298,7 +298,7 @@ class Backend(object):
             #print('pl_after_firstclick(2)')
             position = self.cells[cell_num]
             #print(position, "position")
-            vprint("all_moves :", self.all_moves)
+            #print("all_moves :", self.all_moves)
             for moves in self.all_moves:
                 if moves[0] == [self.cells[cell_num][0], self.cells[cell_num][1]]:
                     self.ready_moves.append(moves[1])
@@ -421,7 +421,7 @@ class Backend(object):
 
     def print(self, highlighted=0, moves=[], clear_trails=False):
         print(("HV Value:"), self.calculate())
-        #print(("Turn:"), self.turn)
+        print(("Turn:"), self.turn)
 
         cells = []
         order = 0
