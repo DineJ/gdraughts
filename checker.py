@@ -130,28 +130,23 @@ class Checker(Gtk.Grid):
                 self.draughts.checker.matrix = self.draughts.backend.get_matrix()
                 self.draughts.checker.resize_checker(self.draughts.checker.square_size)
                 self.old_square = None
-                #self.draughts.backend.lastjump[:] = []
-                
-                
-                play = self.draughts.backend.pl_move()
-                print("all_moves1" , self.draughts.backend.all_moves)
-                if not play : #self.draughts.backend.all_moves:
-                    print("not all_moves1")
-                    self.status = ("The computer won")
-                    #self.finish_message(2)
+                play = self.draughts.backend.possible_moves(1)
+                if len(play) == 0:
+                    print("Tu as perdu")
+                    self.draughts.backend.status = ("The computer won")
+                    self.draughts.backend.finish_message(1)
                     return 0
                 #self.print(clear_trails=True)
                 #self.turn += 1
                 #self.print(clear_trails=False)
-                #print("==PC==")
                 self.draughts.backend.lastjump[:] = []            
-                play = self.draughts.backend.pc_move(stack)
+                self.draughts.backend.pc_move(stack)
+                play = self.draughts.backend.possible_moves(2)
                 #time.sleep(0.1)
-                print("all_moves2", self.draughts.backend.all_moves)
-                if not play: #self.draughts.backend.all_moves:
-                    print("not all_moves2")
-                    self.status = ("You've won!")
-                    #self.finish_message(1)
+                if len(play) == 0:
+                    print("Tu as gagne")
+                    self.draughts.bakcend.status = ("You've won!")
+                    self.draughts.backend.finish_message(2)
                     return 1
 
 
