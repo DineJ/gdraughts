@@ -123,7 +123,7 @@ class Checker(Gtk.Grid):
             if square.square_type != 0:
                 self.old_square = square
         else:
-            if 1 : #square.color == self.old_square.color:
+            if 1 :
                 if self.draughts.backend.pl_after_secondclick(self.old_square.name, square.name) == 0:
                     self.old_square = None
                     return
@@ -132,25 +132,14 @@ class Checker(Gtk.Grid):
                 self.old_square = None
                 play = self.draughts.backend.possible_moves(1)
                 if len(play) == 0:
-                    print("Tu as perdu")
-                    self.draughts.backend.status = ("The computer won")
-                    self.draughts.backend.finish_message(1)
+                    print("Tu as perdu_")
                     return 0
-                #self.print(clear_trails=True)
-                #self.turn += 1
-                #self.print(clear_trails=False)
-                self.draughts.backend.lastjump[:] = []            
+                self.draughts.backend.lastjump[:] = []
                 self.draughts.backend.pc_move(stack)
                 play = self.draughts.backend.possible_moves(2)
-                #time.sleep(0.1)
                 if len(play) == 0:
                     print("Tu as gagne")
-                    self.draughts.bakcend.status = ("You've won!")
-                    self.draughts.backend.finish_message(2)
                     return 1
-
-
-                #self.draughts.backend.pc_move(stack)
                 self.draughts.checker.matrix = self.draughts.backend.get_matrix()
                 self.draughts.checker.resize_checker(self.draughts.checker.square_size)
 
