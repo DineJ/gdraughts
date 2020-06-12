@@ -130,13 +130,13 @@ class Checker(Gtk.Grid):
                 self.draughts.checker.matrix = self.draughts.backend.get_matrix()
                 self.draughts.checker.resize_checker(self.draughts.checker.square_size)
                 self.old_square = None
-                play = self.draughts.backend.possible_moves(1)
+                play = self.draughts.backend.possible_moves(2)
                 if len(play) == 0:
                     print("Tu as perdu_")
                     return 0
                 self.draughts.backend.lastjump[:] = []
                 self.draughts.backend.pc_move(stack)
-                play = self.draughts.backend.possible_moves(2)
+                play = self.draughts.backend.possible_moves(1)
                 if len(play) == 0:
                     print("Tu as gagne")
                     return 1
