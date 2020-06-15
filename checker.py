@@ -5,7 +5,7 @@ import random
 import time
 
 #create the checker game
-class Checker(Gtk.Grid): 
+class Checker(Gtk.Grid):
     def __init__ (self, draughts=None, square_size = 1, matrix_size = 10, color = 0):
         Gtk.Grid.__init__(self)
         self.draughts = draughts
@@ -104,7 +104,7 @@ class Checker(Gtk.Grid):
         self.show_all()
 
     #draw a checker
-    def do_draw_cb(self): 
+    def do_draw_cb(self):
         y = 0
         while y < self.matrix_size:
             x = 0
@@ -132,13 +132,14 @@ class Checker(Gtk.Grid):
                 self.old_square = None
                 play = self.draughts.backend.possible_moves(2)
                 if len(play) == 0:
-                    print("Tu as perdu_")
+                    self.draughts.informations_bar.set_markup("<span foreground='#ff710d' size='large' >L'ordinateur a gagne</span>")
                     return 0
                 self.draughts.backend.lastjump[:] = []
                 self.draughts.backend.pc_move(stack)
+                self.draughts.informations_bar.set_markup("<span foreground='#ff710d' size='large' >A vous de jouer </span>")
                 play = self.draughts.backend.possible_moves(1)
                 if len(play) == 0:
-                    print("Tu as gagne")
+                    self.draughts.informations_bar.set_markup("<span foreground='#ff710d' size='large' >Tu as gagne</span>")
                     return 1
                 self.draughts.checker.matrix = self.draughts.backend.get_matrix()
                 self.draughts.checker.resize_checker(self.draughts.checker.square_size)
