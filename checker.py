@@ -132,14 +132,15 @@ class Checker(Gtk.Grid):
                 self.old_square = None
                 play = self.draughts.backend.possible_moves(2)
                 if len(play) == 0:
-                    self.draughts.informations_bar.set_markup("<span foreground='#ff710d' size='large' >L'ordinateur a gagne</span>")
+                    #print("Tu as perdu_")
+                    self.draughts.informations_bar.set_markup("<span foreground='#ff710d' size='large' >Tu as gagne</span>")
                     return 0
                 self.draughts.backend.lastjump[:] = []
                 self.draughts.backend.pc_move(stack)
                 self.draughts.informations_bar.set_markup("<span foreground='#ff710d' size='large' >A vous de jouer </span>")
                 play = self.draughts.backend.possible_moves(1)
                 if len(play) == 0:
-                    self.draughts.informations_bar.set_markup("<span foreground='#ff710d' size='large' >Tu as gagne</span>")
+                    self.draughts.informations_bar.set_markup("<span foreground='#ff710d' size='large' >L'ordinateur a gagne</span>")
                     return 1
                 self.draughts.checker.matrix = self.draughts.backend.get_matrix()
                 self.draughts.checker.resize_checker(self.draughts.checker.square_size)
