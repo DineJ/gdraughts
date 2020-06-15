@@ -5,7 +5,7 @@ import random
 
 
 #create application
-class Draughts(Gtk.Window): 
+class Draughts(Gtk.Window):
 
 	#managing of the main window
 	def __init__ (self, state = 8, square_color = 0, square_size = 0, tool_height = 0, checker = None, open_dialog = 0):  
@@ -49,6 +49,10 @@ class Draughts(Gtk.Window):
 		play_button.set_is_important(True)
 
 
+		self.informations_bar = Gtk.Label()
+		self.informations_bar.set_markup("<span foreground='#ff710d' size='large' >Commencez une nouvelle partie</span>")
+		self.informations_bar.set_size_request(-1, 30)
+
 		r_chercker8 = Gtk.RadioButton.new()
 		r_chercker10 = Gtk.RadioButton.new()
 
@@ -65,6 +69,7 @@ class Draughts(Gtk.Window):
 
 
 		application.pack_start(tool_bar, False, True, 0)
+		application.pack_start(self.informations_bar, False, False, 0)
 		application.pack_start(game_area, True, True, 0)
 		game_area.pack_start(self.checker_game, True, True, 0)
 		game_area.pack_start(hit_history, False, True, 0)
