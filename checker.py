@@ -116,14 +116,14 @@ class Checker(Gtk.Grid):
 
 
     def play_on_timeout(self, stack):
-        self.draughts.backend.pc_move(stack)
         self.draughts.informations_bar.set_markup("<span foreground='#ff710d' size='large' >A vous de jouer </span>")
+        self.draughts.backend.pc_move(stack)
         play = self.draughts.backend.possible_moves(1)
+        self.draughts.checker.matrix = self.draughts.backend.get_matrix()
+        self.draughts.checker.resize_checker(self.draughts.checker.square_size)
         if len(play) == 0:
              self.draughts.informations_bar.set_markup("<span foreground='#ff710d' size='large' >L'ordinateur a gagne</span>")
              return 1
-        self.draughts.checker.matrix = self.draughts.backend.get_matrix()
-        self.draughts.checker.resize_checker(self.draughts.checker.square_size)
 
 
     #move a pawn
