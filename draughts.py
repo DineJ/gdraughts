@@ -27,15 +27,26 @@ class Draughts(Gtk.Window):
 		application = Gtk.Box(orientation = Gtk.Orientation.VERTICAL)
 		game_area = Gtk.Box()
 		self.checker_game = Gtk.Box()
-		box_color = Gtk.Label()
-		box_color.set_markup('<span weight="bold">Historique</span>')
 		game_area.set_homogeneous(False)
 		application.set_homogeneous(False)
 
+		self.box_rows = Gtk.Box(orientation = Gtk.Orientation.VERTICAL)
+		self.box_rows.set_homogeneous(False)
 
-		hit_history = Gtk.ListBox()
-		hit_history.insert(box_color, 0)
-		hit_history.set_size_request(200, -1)
+		self.head_label = Gtk.Label()
+		self.head_label.set_markup('<span weight="bold">Historique</span>')
+		self.box_rows.pack_start(self.head_label, False, True, 0)
+
+		self.scrolled_window = Gtk.ScrolledWindow()
+		self.scrolled_window.set_border_width(10)
+		self.scrolled_window.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.ALWAYS)
+		self.box_rows.pack_start(self.scrolled_window, True, True, 0)
+
+		self.hit_history = Gtk.ListBox()
+		self.hit_history.set_selection_mode(Gtk.SelectionMode.NONE)
+		self.hit_history.set_size_request(200, -1)
+		self.scrolled_window.add_with_viewport(self.hit_history)
+		self.box_rows.pack_start(self.hit_history, True, True, 0)
 
 
 		img = Gtk.Image.new_from_icon_name('document-exit', 0)
@@ -72,14 +83,14 @@ class Draughts(Gtk.Window):
 		application.pack_start(self.informations_bar, False, False, 0)
 		application.pack_start(game_area, True, True, 0)
 		game_area.pack_start(self.checker_game, True, True, 0)
-		game_area.pack_start(hit_history, False, True, 0)
-
+		game_area.pack_start(self.box_rows, False, True, 0)
 		self.add(application)
 
 	#show the application
-	def play(self): 
+	def play(self):
+		self.turn = 1
 		self.show_all()
-		self.backend = Backend(self.checker.matrix)	
+		self.backend = Backend(self.checker.matrix)
 		self.backend.pl_before_firstclick()
 
 	#resize checker after each interraction with main window
@@ -97,14 +108,13 @@ class Draughts(Gtk.Window):
 			self.checker_game.set_center_widget(self.checker)
 			self.checker_game.show_all()
 			#self.backend = Backend(self.checker.matrix)
-
 		elif self.open_dialog == 0:
 			self.checker.resize_checker(self.square_size)
 
 	#create a dialog window with 4 choice, 2 for color of square and 2 about size of checker
 	def dialog(self,button): 
-		self.open_dialog = 1
 		#Dialog
+		self.open_dialog = 1
 		dialog_box = Gtk.Dialog.new()
 		dialog_box.set_border_width(10)
 		dialog_box.connect('delete-event', Gtk.main_quit)
@@ -134,17 +144,17 @@ class Draughts(Gtk.Window):
 
 		#Box
 		box_matrice = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
-		box_color = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
+		self.box_color = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
 
 		#Frame
 		frame_matrice.add(box_matrice)
-		frame_color.add(box_color)
+		frame_color.add(self.box_color)
 
 		#Box
 		box_matrice.pack_start(r_chercker8, True, True, 0)
 		box_matrice.pack_start(r_chercker10, True, True, 0)
-		box_color.pack_start(r_color_w, True, True, 0)
-		box_color.pack_start(r_color_b, True, True, 0)
+		self.box_color.pack_start(r_color_w, True, True, 0)
+		self.box_color.pack_start(r_color_b, True, True, 0)
 
 
 		if self.state == 8:
