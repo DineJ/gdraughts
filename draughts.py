@@ -45,8 +45,8 @@ class Draughts(Gtk.Window):
 		self.hit_history = Gtk.ListBox()
 		self.hit_history.set_selection_mode(Gtk.SelectionMode.NONE)
 		self.hit_history.set_size_request(200, -1)
-		self.scrolled_window.add_with_viewport(self.hit_history)
-		self.box_rows.pack_start(self.hit_history, True, True, 0)
+		self.scrolled_window.add(self.hit_history)
+		#self.box_rows.pack_start(self.hit_history, True, True, 0)
 
 
 		img = Gtk.Image.new_from_icon_name('document-exit', 0)
@@ -88,6 +88,7 @@ class Draughts(Gtk.Window):
 
 	#show the application
 	def play(self):
+		self.fin = False
 		self.turn = 1
 		self.show_all()
 		self.backend = Backend(self.checker.matrix)
