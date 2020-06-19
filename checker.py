@@ -118,11 +118,12 @@ class Checker(Gtk.Grid):
     def play_on_timeout(self, stack):
         self.draughts.informations_bar.set_markup("<span foreground='#ff710d' size='large' >A vous de jouer </span>")
         self.draughts.backend.pc_move(stack)
-        play = self.draughts.backend.possible_moves(1)
         self.draughts.checker.matrix = self.draughts.backend.get_matrix()
         self.draughts.checker.resize_checker(self.draughts.checker.square_size)
+        play = self.draughts.backend.possible_moves(1)
         if len(play) == 0:
              self.draughts.informations_bar.set_markup("<span foreground='#ff710d' size='large' >L'ordinateur a gagne</span>")
+             self.draughts.backend.fin = True
              return 1
 
 
@@ -139,17 +140,23 @@ class Checker(Gtk.Grid):
                 if self.draughts.backend.pl_after_secondclick(self.old_square.name, square.name) == 0:
                     self.old_square = None
                     return
+                play = self.draughts.backend.possible_moves(2)
+                if play:
+                    self.draughts.row_label1 = Gtk.Label("Coup %d : %d,%d - %d,%d" % (self.draughts.turn, self.old_square.name[0], self.old_square.name[1], square.name[0], square.name[1]))
+                    self.draughts.turn += 1
+                self.draughts.row_label1.show_all()
+                self.draughts.hit_history.prepend(self.draughts.row_label1)
+
+                self.old_square = None
                 self.draughts.checker.matrix = self.draughts.backend.get_matrix()
                 self.draughts.checker.resize_checker(self.draughts.checker.square_size)
-                self.old_square = None
-                play = self.draughts.backend.possible_moves(2)
                 if len(play) == 0:
                     self.draughts.informations_bar.set_markup("<span foreground='#ff710d' size='large' >Tu as gagne</span>")
+                    self.draughts.backend.fin = True
                     return 0
                 self.draughts.backend.lastjump[:] = []
                 GLib.timeout_add(2.0, self.play_on_timeout, stack)
                 self.draughts.informations_bar.set_markup("<span foreground='#ff710d' size='large' >A l'ordinateur de jouer </span>")
-
 
     #change square
     def echange_square(self, old_square, square): 
