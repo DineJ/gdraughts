@@ -1,3 +1,4 @@
+
 import copy
 import time
 import random
@@ -135,6 +136,7 @@ class Backend(object):
         self.variable_depth = True
         self.force_jump = False
         self.pc_first = False
+        self.fin = False
         self.v1 = "○"
         self.v2 = "⬤"
         self.v3 = "░"
