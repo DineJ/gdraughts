@@ -399,19 +399,20 @@ class Backend(object):
         return 1  # Samo MOVE
 
     def pc_move(self, stack):
-        root = Node(0, self)
-        time1 = time.time()
-        self.minimax_heuristic = minimax(root, self.depth, Node(-1000), Node(1000), True, self.depth)
-        think = time.time() - time1
-        #print(("Time (sec):"), think)
-        stack.push(think)
+        if self.fin == False:
+            root = Node(0, self)
+            time1 = time.time()
+            self.minimax_heuristic = minimax(root, self.depth, Node(-1000), Node(1000), True, self.depth)
+            think = time.time() - time1
+            #print(("Time (sec):"), think)
+            stack.push(think)
 
-        if not root.children:
-            return 0
+            if not root.children:
+                return 0
 
-        self.matrix = copy.deepcopy(max(root.children).Backend.matrix)
-        self.lastjump = copy.deepcopy(max(root.children).Backend.lastjump)
-        return 1
+            self.matrix = copy.deepcopy(max(root.children).Backend.matrix)
+            self.lastjump = copy.deepcopy(max(root.children).Backend.lastjump)
+            return 1
 
     def clear_table_trails(self):
         for enum_i, i in enumerate(self.matrix):
