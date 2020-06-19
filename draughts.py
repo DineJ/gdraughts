@@ -88,10 +88,10 @@ class Draughts(Gtk.Window):
 
 	#show the application
 	def play(self):
-		self.fin = False
 		self.turn = 1
 		self.show_all()
 		self.backend = Backend(self.checker.matrix)
+		self.backend.fin = False
 		self.backend.pl_before_firstclick()
 
 	#resize checker after each interraction with main window
