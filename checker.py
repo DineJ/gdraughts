@@ -118,6 +118,15 @@ class Checker(Gtk.Grid):
     def play_on_timeout(self, stack):
         self.draughts.informations_bar.set_markup("<span foreground='#ff710d' size='large' >A vous de jouer </span>")
         self.draughts.backend.pc_move(stack)
+        jump = self.draughts.backend.lastjump[:]
+        if len(str(jump[0])) == 4:
+            self.draughts.row_label2 = Gtk.Label("Coup %d : (%s,%s) - (%s,%s)" % (self.draughts.turn, str(jump[0])[0], str(jump[0])[1], str(jump[0])[2], str(jump[0])[3]))
+        elif len(str(jump[0])) == 3:
+            self.draughts.row_label2 = Gtk.Label("Coup %d : (0,%s) - (%s,%s)" % (self.draughts.turn, str(jump[0])[0], str(jump[0])[1], str(jump[0])[2]))
+        self.draughts.turn += 1
+        self.draughts.row_label2.show_all()
+        self.draughts.hit_history.prepend(self.draughts.row_label2)
+        jump = []
         self.draughts.checker.matrix = self.draughts.backend.get_matrix()
         self.draughts.checker.resize_checker(self.draughts.checker.square_size)
         play = self.draughts.backend.possible_moves(1)
@@ -143,9 +152,8 @@ class Checker(Gtk.Grid):
                 play = self.draughts.backend.possible_moves(2)
                 if play:
                     self.draughts.row_label1 = Gtk.Label("Coup %d : %d,%d - %d,%d" % (self.draughts.turn, self.old_square.name[0], self.old_square.name[1], square.name[0], square.name[1]))
-                    self.draughts.turn += 1
-                self.draughts.row_label1.show_all()
-                self.draughts.hit_history.prepend(self.draughts.row_label1)
+                    self.draughts.row_label1.show_all()
+                    self.draughts.hit_history.prepend(self.draughts.row_label1)
 
                 self.old_square = None
                 self.draughts.checker.matrix = self.draughts.backend.get_matrix()
