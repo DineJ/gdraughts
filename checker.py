@@ -117,13 +117,15 @@ class Checker(Gtk.Grid):
 
 
     def play_on_timeout(self, stack):
+        row2 = None
         self.draughts.informations_bar.set_markup("<span foreground='#ff710d' size='large' >A vous de jouer </span>")
         self.draughts.backend.pc_move(stack)
         jump = self.draughts.backend.lastjump[:]
         if len(str(jump[0])) == 4:
-            self.draughts.row_label2 = Gtk.Label("Coup %d : (%s,%s) - (%s,%s)" % (self.draughts.turn, str(jump[0])[0], str(jump[0])[1], str(jump[0])[2], str(jump[0])[3]))
+            row2 = ("Coup %d : (%s,%s) - (%s,%s)" % (self.draughts.turn, str(jump[0])[0], str(jump[0])[1], str(jump[0])[2], str(jump[0])[3]))
         elif len(str(jump[0])) == 3:
-            self.draughts.row_label2 = Gtk.Label("Coup %d : (0,%s) - (%s,%s)" % (self.draughts.turn, str(jump[0])[0], str(jump[0])[1], str(jump[0])[2]))
+            row2 = ("Coup %d : (0,%s) - (%s,%s)" % (self.draughts.turn, str(jump[0])[0], str(jump[0])[1], str(jump[0])[2]))
+        self.draughts.row_label2 = Gtk.Label(row2)
         if self.draughts.pc_first == False:
             self.draughts.turn += 1
         self.draughts.row_label2.show_all()
