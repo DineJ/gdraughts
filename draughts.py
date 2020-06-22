@@ -130,7 +130,7 @@ class Draughts(Gtk.Window):
 		#Frame
 		frame_begin = Gtk.Frame.new("Qui joue en premier ?")
 		frame_matrice = Gtk.Frame.new("Combien de cases voulez-vous par ligne?")
-		frame_color = Gtk.Frame.new("Quelle couleur voulez-vous?")
+		frame_color = Gtk.Frame.new("Quelle couleur voulez-vous dans la case en bas à droite ?")
 
 		#Radio Button
 		r_player = Gtk.RadioButton.new_with_label_from_widget(None, "Joueur")
