@@ -123,6 +123,9 @@ class Draughts(Gtk.Window):
 		dialog_box.add_button(Gtk.STOCK_APPLY, Gtk.ResponseType.APPLY)
 		dialog_box.add_button(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL)
 
+		#Hit History
+		for element in self.hit_history.get_children():
+			self.hit_history.remove(element)
 
 		#Frame
 		frame_matrice = Gtk.Frame.new("Choix du nombre de cases")
