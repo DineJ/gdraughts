@@ -13,6 +13,7 @@ class Checker(Gtk.Grid):
         self.color = color
         self.square_size = square_size
         self.matrix_size = matrix_size
+        self.stack = Stack([4, 3, 3])
 
         self.matrix8 = [[0, 2, 0, 2, 0, 2, 0, 2],
                         [2, 0, 2, 0, 2, 0, 2, 0],
@@ -123,7 +124,8 @@ class Checker(Gtk.Grid):
             self.draughts.row_label2 = Gtk.Label("Coup %d : (%s,%s) - (%s,%s)" % (self.draughts.turn, str(jump[0])[0], str(jump[0])[1], str(jump[0])[2], str(jump[0])[3]))
         elif len(str(jump[0])) == 3:
             self.draughts.row_label2 = Gtk.Label("Coup %d : (0,%s) - (%s,%s)" % (self.draughts.turn, str(jump[0])[0], str(jump[0])[1], str(jump[0])[2]))
-        self.draughts.turn += 1
+        if self.draughts.pc_first == False:
+            self.draughts.turn += 1
         self.draughts.row_label2.show_all()
         self.draughts.hit_history.prepend(self.draughts.row_label2)
         jump = []
@@ -138,7 +140,6 @@ class Checker(Gtk.Grid):
 
     #move a pawn
     def do_release_mouse(self, widget, event, square):
-        stack = Stack([4, 3, 3])
         if self.old_square == None:
             if self.draughts.backend.pl_after_firstclick(square.name) == 0:
                 return
@@ -162,8 +163,10 @@ class Checker(Gtk.Grid):
                     self.draughts.informations_bar.set_markup("<span foreground='#ff710d' size='large' >Tu as gagne</span>")
                     self.draughts.backend.fin = True
                     return 0
+                if self.draughts.pc_first:
+                    self.draughts.turn += 1
                 self.draughts.backend.lastjump[:] = []
-                GLib.timeout_add(2.0, self.play_on_timeout, stack)
+                GLib.timeout_add(2.0, self.play_on_timeout, self.stack)
                 self.draughts.informations_bar.set_markup("<span foreground='#ff710d' size='large' >A l'ordinateur de jouer </span>")
 
     #change square
