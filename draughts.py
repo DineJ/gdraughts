@@ -8,7 +8,7 @@ import random
 class Draughts(Gtk.Window):
 
 	#managing of the main window
-	def __init__ (self, state = 8, square_color = 0, square_size = 0, tool_height = 0, checker = None, open_dialog = 0):
+	def __init__ (self, pc_first = False, state = 8, square_color = 0, square_size = 0, tool_height = 0, checker = None, open_dialog = 0):
 		Gtk.Window.__init__(self)
 		self.state = state
 		self.square_color = square_color
@@ -17,7 +17,7 @@ class Draughts(Gtk.Window):
 		self.checker = checker
 		self.open_dialog = open_dialog
 		self.turn = 1
-
+		self.pc_first = pc_first
 
 		self.set_border_width(10)
 		self.connect('delete-event', Gtk.main_quit)
@@ -112,6 +112,7 @@ class Draughts(Gtk.Window):
 
 	#create a dialog window with 4 choice, 2 for color of square and 2 about size of checker
 	def dialog(self,button):
+
 		#Dialog
 		self.open_dialog = 1
 		dialog_box = Gtk.Dialog.new()
@@ -127,10 +128,14 @@ class Draughts(Gtk.Window):
 			self.hit_history.remove(element)
 
 		#Frame
-		frame_matrice = Gtk.Frame.new("Choix du nombre de cases")
-		frame_color = Gtk.Frame.new("Cases en bas a droite")
+		frame_begin = Gtk.Frame.new("Qui joue en premier ?")
+		frame_matrice = Gtk.Frame.new("Combien de cases voulez-vous par ligne?")
+		frame_color = Gtk.Frame.new("Quelle couleur voulez-vous?")
 
 		#Radio Button
+		r_player = Gtk.RadioButton.new_with_label_from_widget(None, "Joueur")
+		r_computer = Gtk.RadioButton.new_from_widget(r_player)
+		r_computer.set_label("Ordinateur")
 		r_chercker8 = Gtk.RadioButton.new_with_label_from_widget(None, "8 cases")
 		r_chercker10 = Gtk.RadioButton.new_from_widget(r_chercker8)
 		r_chercker10.set_label("10 cases")
@@ -142,23 +147,33 @@ class Draughts(Gtk.Window):
 
 		#Dialog
 		box_dialog = dialog_box.get_content_area()
+		box_dialog.pack_start(frame_begin, True, True, 0)
 		box_dialog.pack_start(frame_matrice, True, True, 0)
 		box_dialog.pack_start(frame_color, True, True, 0)
 
 		#Box
+		box_begin = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
 		box_matrice = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
 		self.box_color = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
 
 		#Frame
+		frame_begin.add(box_begin)
 		frame_matrice.add(box_matrice)
 		frame_color.add(self.box_color)
 
 		#Box
+		box_begin.pack_start(r_player, True, True, 0)
+		box_begin.pack_start(r_computer, True, True, 0)
 		box_matrice.pack_start(r_chercker8, True, True, 0)
 		box_matrice.pack_start(r_chercker10, True, True, 0)
 		self.box_color.pack_start(r_color_w, True, True, 0)
 		self.box_color.pack_start(r_color_b, True, True, 0)
 
+
+		if self.pc_first:
+			r_computer.set_active(True)
+		else:
+			r_player.set_active(True)
 
 		if self.state == 8:
 			r_chercker8.set_active(True)
@@ -173,7 +188,15 @@ class Draughts(Gtk.Window):
 		dialog_box.show_all()
 
 		answer = dialog_box.run()
+
 		if answer == Gtk.ResponseType.APPLY:
+			if r_player.get_active():
+				self.pc_first = False
+				r_player.set_active(True)
+			else:
+				self.pc_first = True
+				r_computer.set_active(True)
+
 			if r_chercker8.get_active():
 				self.state = 8 
 				r_chercker8.set_active(True)
@@ -185,6 +208,7 @@ class Draughts(Gtk.Window):
 				self.square_color = 0
 			else:
 				self.square_color = 1
+
 			self.checker_game.remove(self.checker)
 			self.checker = Checker(self, self.square_size, self.state, self.square_color)
 			self.checker_game.set_center_widget(self.checker)
@@ -193,11 +217,8 @@ class Draughts(Gtk.Window):
 			#self.checker.queue_draw()
 			dialog_box.destroy()
 			#pl_moves = self.backend.possible_moves(1)
-			#pc_moves = self.backend.possible_moves(2)
-			# Choix aleatoire du pion déplacée
-			#rand_move = random.choice(pc_moves)
-			# Déplacement de la pièces>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<>><<<<<<<<<
-			#self.backend.move(rand_move[0], rand_move[1], 2)
+			if self.pc_first:
+				self.checker.play_on_timeout(self.checker.stack)
 			self.checker.matrix = self.backend.get_matrix()
 			self.checker.resize_checker(self.checker.square_size)
 			self.backend.pl_before_firstclick()
