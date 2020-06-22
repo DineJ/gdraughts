@@ -47,8 +47,6 @@ class Draughts(Gtk.Window):
 		self.hit_history.set_selection_mode(Gtk.SelectionMode.NONE)
 		self.hit_history.set_size_request(200, -1)
 		self.scrolled_window.add(self.hit_history)
-		#self.box_rows.pack_start(self.hit_history, True, True, 0)
-
 
 		img = Gtk.Image.new_from_icon_name('document-exit', 0)
 		quit_button = Gtk.ToolButton.new(img)
@@ -109,11 +107,11 @@ class Draughts(Gtk.Window):
 			self.checker_game.set_center_widget(self.checker)
 			self.checker_game.show_all()
 			#self.backend = Backend(self.checker.matrix)
-		elif self.open_dialog == 0:
+		else:
 			self.checker.resize_checker(self.square_size)
 
 	#create a dialog window with 4 choice, 2 for color of square and 2 about size of checker
-	def dialog(self,button): 
+	def dialog(self,button):
 		#Dialog
 		self.open_dialog = 1
 		dialog_box = Gtk.Dialog.new()
