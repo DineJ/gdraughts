@@ -68,19 +68,11 @@ class Checker(Gtk.Grid):
             color += 1
 
             while x < self.matrix_size:
-                pawn_color = 0
-                type_pawn = 0
                 test = self.matrix[y][x]
-
-                if test == 1:
-                    pawn_color = 1
-                    type_pawn = 1
-                elif test == 2:
-                    pawn_color = 0
-                    type_pawn = 1
                 name =  [y,x]
                 if color %2 == 0:
-                    square_b = SquareArea(name,0.0, self.square_size, test)
+                    color_pawn = 0.0
+                    square_b = SquareArea(name,color_pawn, self.square_size, test, self.draughts.pc_first)
                     square_b.connect('button-press-event', self.do_release_mouse, square_b)
 
                     #self.connect('drag_data_received', self.drag_drop(self.old_square, square_b))
@@ -91,7 +83,8 @@ class Checker(Gtk.Grid):
                     x += 1
                     color += 1
                 else:
-                    square_w = SquareArea(name,1.0, self.square_size, test)
+                    color_pawn = 1.0
+                    square_w = SquareArea(name,color_pawn, self.square_size, test, self.draughts.pc_first)
                     square_w.connect('button-press-event', self.do_release_mouse, square_w)
                     
                     #self.connect('drag_data_received', self.drag_drop(self.old_square, square_w))
@@ -121,7 +114,7 @@ class Checker(Gtk.Grid):
         self.draughts.informations_bar.set_markup("<span foreground='#ff710d' size='large' >A vous de jouer </span>")
         self.draughts.backend.pc_move(stack)
         jump = self.draughts.backend.lastjump[:]
-        if len(str(jump[0])) == 4:
+        if len(str(jump[0])) == 4 :
             row2 = ("Coup %d : (%s,%s) - (%s,%s)" % (self.draughts.turn, str(jump[0])[0], str(jump[0])[1], str(jump[0])[2], str(jump[0])[3]))
         elif len(str(jump[0])) == 3:
             row2 = ("Coup %d : (0,%s) - (%s,%s)" % (self.draughts.turn, str(jump[0])[0], str(jump[0])[1], str(jump[0])[2]))
