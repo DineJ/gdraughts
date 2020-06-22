@@ -122,6 +122,7 @@ class Draughts(Gtk.Window):
 		dialog_box.show_all()
 		dialog_box.add_button(Gtk.STOCK_APPLY, Gtk.ResponseType.APPLY)
 		dialog_box.add_button(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL)
+		self.turn = 1
 
 		#Hit History
 		for element in self.hit_history.get_children():
