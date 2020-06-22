@@ -8,7 +8,7 @@ import random
 class Draughts(Gtk.Window):
 
 	#managing of the main window
-	def __init__ (self, state = 8, square_color = 0, square_size = 0, tool_height = 0, checker = None, open_dialog = 0):  
+	def __init__ (self, state = 8, square_color = 0, square_size = 0, tool_height = 0, checker = None, open_dialog = 0):
 		Gtk.Window.__init__(self)
 		self.state = state
 		self.square_color = square_color
@@ -16,6 +16,7 @@ class Draughts(Gtk.Window):
 		self.tool_height = tool_height
 		self.checker = checker
 		self.open_dialog = open_dialog
+		self.turn = 1
 
 
 		self.set_border_width(10)
@@ -88,7 +89,6 @@ class Draughts(Gtk.Window):
 
 	#show the application
 	def play(self):
-		self.turn = 1
 		self.show_all()
 		self.backend = Backend(self.checker.matrix)
 		self.backend.fin = False
