@@ -4,12 +4,13 @@ import math
 
 #draw each square of the checker
 class SquareArea(Gtk.DrawingArea): 
-	def __init__ (self, name=[], color=1.0, square=20, square_type=0):
+	def __init__ (self, name=[], color=1.0, square=20, square_type=0, pc_first = False):
 		Gtk.DrawingArea.__init__(self)
 		self.set_events(Gdk.EventMask.BUTTON_PRESS_MASK)
 		self.set_size_request(square, square)
 		if name:
 			self.name = name
+		self.pc_first = pc_first
 		self.color = color
 		self.square_type = square_type
 		self.hexpand = True
@@ -34,12 +35,16 @@ class SquareArea(Gtk.DrawingArea):
 	#draw each pawn
 	def draw_pawn(self, cr, width, height):
 		pawn_color = 0.0
+		if self.pc_first:
+			pawn_color = 1.0
 		cr.save()
 		cr.translate(width / 2, height / 2)
 		radius = width / 2 - 10
 		cr.arc(0, 0, radius, 0.0, 2.0 * math.pi)
 		if self.square_type == 1:
 			pawn_color = 1.0
+			if self.pc_first:
+				pawn_color = 0.0
 		cr.set_source_rgb(pawn_color, pawn_color, pawn_color)
 		cr.fill()
 		cr.arc(0, 0, radius, 0.0, 2.0 * math.pi)
@@ -51,12 +56,16 @@ class SquareArea(Gtk.DrawingArea):
 	#draw each queen
 	def draw_queen(self, cr, width, height):
 		pawn_color = 0.0
+		if self.pc_first:
+			pawn_color = 1.0
 		cr.save()
 		cr.translate(width / 2, height / 2)
 		radius = width / 2 - 5
 		cr.arc(0, 0, radius, 0.0, 2.0 * math.pi)
 		if self.square_type == 4:
 			pawn_color = 1.0
+			if self.pc_first:
+				pawn_color = 0.0
 		cr.set_source_rgb(pawn_color, pawn_color, pawn_color)
 		cr.fill()
 		cr.arc(0, 0, radius, 0.0, 2.0 * math.pi)
