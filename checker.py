@@ -44,17 +44,6 @@ class Checker(Gtk.Grid):
                             [0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
                             [1, 0, 1, 0, 1, 0, 1, 0, 1, 0]]
 
-        self.matrix10v2 =   [[0, 2, 0, 2, 0, 2, 0, 2, 0, 2],
-                            [2, 0, 2, 0, 2, 0, 2, 0, 2, 0],
-                            [0, 2, 0, 2, 0, 2, 0, 2, 0, 2],
-                            [2, 0, 2, 0, 2, 0, 2, 0, 2, 0],
-                            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                            [0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
-                            [1, 0, 1, 0, 1, 0, 1, 0, 1, 0],
-                            [0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
-                            [1, 0, 1, 0, 1, 0, 1, 0, 1, 0]]
-        
         if matrix_size == 8 :
             self.matrix = self.matrix8
         else:
@@ -131,27 +120,30 @@ class Checker(Gtk.Grid):
 
 
     def play_on_timeout(self, stack):
-        row2 = None
-        self.draughts.informations_bar.set_markup("<span foreground='#ff710d' size='large' >A vous de jouer </span>")
-        self.draughts.backend.pc_move(stack)
-        jump = self.draughts.backend.lastjump[:]
-        if len(str(jump[0])) == 4 :
-            row2 = ("Coup %d : (%s,%s) - (%s,%s)" % (self.draughts.turn, str(jump[0])[0], str(jump[0])[1], str(jump[0])[2], str(jump[0])[3]))
-        elif len(str(jump[0])) == 3:
-            row2 = ("Coup %d : (0,%s) - (%s,%s)" % (self.draughts.turn, str(jump[0])[0], str(jump[0])[1], str(jump[0])[2]))
-        self.draughts.row_label2 = Gtk.Label(row2)
-        if self.draughts.pc_first == False:
-            self.draughts.turn += 1
-        self.draughts.row_label2.show_all()
-        self.draughts.hit_history.prepend(self.draughts.row_label2)
-        jump = []
-        self.draughts.checker.matrix = self.draughts.backend.get_matrix()
-        self.draughts.checker.resize_checker(self.draughts.checker.square_size)
-        play = self.draughts.backend.possible_moves(1)
-        if len(play) == 0:
-             self.draughts.informations_bar.set_markup("<span foreground='#ff710d' size='large' >L'ordinateur a gagne</span>")
-             self.draughts.backend.fin = True
-             return 1
+        if self.draughts.backend.fin == False:
+            row2 = None
+            self.draughts.informations_bar.set_markup("<span foreground='#ff710d' size='large' >A vous de jouer </span>")
+            self.draughts.backend.pc_move(stack)
+            jump = self.draughts.backend.lastjump[:]
+            if len(str(jump[0])) == 4 :
+                row2 = ("Coup %d : (%s,%s) - (%s,%s)" % (self.draughts.turn, str(jump[0])[0], str(jump[0])[1], str(jump[0])[2], str(jump[0])[3]))
+            elif len(str(jump[0])) == 3:
+                row2 = ("Coup %d : (0,%s) - (%s,%s)" % (self.draughts.turn, str(jump[0])[0], str(jump[0])[1], str(jump[0])[2]))
+            self.draughts.row_label2 = Gtk.Label(row2)
+            if self.draughts.pc_first == False:
+                self.draughts.turn += 1
+            self.draughts.row_label2.show_all()
+            self.draughts.hit_history.prepend(self.draughts.row_label2)
+            jump = []
+            self.draughts.checker.matrix = self.draughts.backend.get_matrix()
+            self.draughts.checker.resize_checker(self.draughts.checker.square_size)
+            play = self.draughts.backend.possible_moves(1)
+            print(play, "joueur")
+            print()
+            if len(play) == 0:
+                 self.draughts.informations_bar.set_markup("<span foreground='#ff710d' size='large' >L'ordinateur a gagne</span>")
+                 self.draughts.backend.fin = True
+                 return 1
 
 
     #move a pawn
@@ -167,6 +159,8 @@ class Checker(Gtk.Grid):
                     self.old_square = None
                     return
                 play = self.draughts.backend.possible_moves(2)
+                print(play, "ordi")
+                print()
                 if play:
                     self.draughts.row_label1 = Gtk.Label("Coup %d : %d,%d - %d,%d" % (self.draughts.turn, self.old_square.name[0], self.old_square.name[1], square.name[0], square.name[1]))
                     self.draughts.row_label1.show_all()
@@ -180,6 +174,7 @@ class Checker(Gtk.Grid):
                     self.draughts.backend.fin = True
                     return 0
                 if self.draughts.pc_first:
+                    print("loop")
                     self.draughts.turn += 1
                 self.draughts.backend.lastjump[:] = []
                 GLib.timeout_add(2.0, self.play_on_timeout, self.stack)
