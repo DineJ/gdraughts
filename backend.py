@@ -245,28 +245,30 @@ class Backend(object):
                         moves.append([[i, j], [i + vertical, j + 1]])
                 if cell > 3:
                     offset = 1
-                    if j - offset > -1 and i - vertical > -1 and i - vertical < self.p_max and \
-                            self.matrix[i - vertical][j - offset] % 3 != param:
-                        if j - (offset + 1) > -1 and self.p_max > i - vertical * 2 > -1 and \
-                                self.matrix[i - vertical][j - offset] % 3 == enemy and \
-                                self.matrix[i - vertical * 2][j - (offset + 1)] % 3 == 0:
-                            #print("EAT " + str(i) + ", " + str(j) + " => " + str(i + vertical*2) + ", " + str(j - 2))
-                            moves.append([[i, j], [i - vertical * 2, j - (offset + 1)]])
-                            force_moves.append([[i, j], [i - vertical * 2, j - (offset + 1)]])
-                        elif self.matrix[i - vertical][j - offset] % 3 == 0:
-                            #print(str(i) + ", " + str(j) + " => " + str(i-vertical) + ", " + str(j-1))
-                            moves.append([[i, j], [i - vertical, j - offset]])
-                    if j + offset < self.p_max and i - vertical > -1 and i - vertical < self.p_max and \
-                            self.matrix[i - vertical][j + offset] % 3 != param:
-                        if j + (offset + 1) < self.p_max and self.p_max > i - vertical * 2 > -1 and \
-                                self.matrix[i - vertical][j + offset] % 3 == enemy and \
-                                self.matrix[i - vertical * 2][j + (offset + 1)] % 3 == 0:
-                            #print("EAT " + str(i) + ", " + str(j) + " => " + str(i + vertical*2) + ", " + str(j + 2))
-                            moves.append([[i, j], [i - vertical * 2, j + (offset + 1)]])
-                            force_moves.append([[i, j], [i - vertical * 2, j + (offset + 1)]])
-                        elif self.matrix[i - vertical][j + offset] % 3 == 0:
-                            #print(str(i) + ", " + str(j) + " => " + str(i + vertical) + ", " + str(j + 1) + "*")
-                            moves.append([[i, j], [i - vertical, j + offset]])
+                    while offet < self.p_max -1:
+                        if j - offset > -1 and i - vertical > -1 and i - vertical < self.p_max and \
+                                self.matrix[i - vertical][j - offset] % 3 != param:
+                            if j - (offset + 1) > -1 and self.p_max > i - vertical * 2 > -1 and \
+                                    self.matrix[i - vertical][j - offset] % 3 == enemy and \
+                                    self.matrix[i - vertical * 2][j - (offset + 1)] % 3 == 0:
+                                #print("EAT " + str(i) + ", " + str(j) + " => " + str(i + vertical*2) + ", " + str(j - 2))
+                                moves.append([[i, j], [i - vertical * 2, j - (offset + 1)]])
+                                force_moves.append([[i, j], [i - vertical * 2, j - (offset + 1)]])
+                            elif self.matrix[i - vertical][j - offset] % 3 == 0:
+                                #print(str(i) + ", " + str(j) + " => " + str(i-vertical) + ", " + str(j-1))
+                                moves.append([[i, j], [i - vertical, j - offset]])
+                        if j + offset < self.p_max and i - vertical > -1 and i - vertical < self.p_max and \
+                                self.matrix[i - vertical][j + offset] % 3 != param:
+                            if j + (offset + 1) < self.p_max and self.p_max > i - vertical * 2 > -1 and \
+                                    self.matrix[i - vertical][j + offset] % 3 == enemy and \
+                                    self.matrix[i - vertical * 2][j + (offset + 1)] % 3 == 0:
+                                #print("EAT " + str(i) + ", " + str(j) + " => " + str(i + vertical*2) + ", " + str(j + 2))
+                                moves.append([[i, j], [i - vertical * 2, j + (offset + 1)]])
+                                force_moves.append([[i, j], [i - vertical * 2, j + (offset + 1)]])
+                            elif self.matrix[i - vertical][j + offset] % 3 == 0:
+                                #print(str(i) + ", " + str(j) + " => " + str(i + vertical) + ", " + str(j + 1) + "*")
+                                moves.append([[i, j], [i - vertical, j + offset]])
+                        offset += 1
         if self.force_jump and force_moves:
             return force_moves
         else:
