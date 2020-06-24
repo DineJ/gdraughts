@@ -6,7 +6,7 @@ import time
 
 #create the checker game
 class Checker(Gtk.Grid):
-    def __init__ (self, draughts=None, square_size = 1, matrix_size = 10, color = 0):
+    def __init__ (self, draughts=None, square_size=1, matrix_size=10, color=0):
         Gtk.Grid.__init__(self)
         self.draughts = draughts
         self.old_square = None
@@ -15,7 +15,7 @@ class Checker(Gtk.Grid):
         self.matrix_size = matrix_size
         self.stack = Stack([4, 3, 3])
 
-        self.matrix8    =   [[0, 2, 0, 2, 0, 2, 0, 2],
+        self.matrix8    =  [[0, 2, 0, 2, 0, 2, 0, 2],
                             [2, 0, 2, 0, 2, 0, 2, 0],
                             [0, 2, 0, 2, 0, 2, 0, 2],
                             [0, 0, 0, 0, 0, 0, 0, 0],
@@ -24,7 +24,7 @@ class Checker(Gtk.Grid):
                             [0, 1, 0, 1, 0, 1, 0, 1],
                             [1, 0, 1, 0, 1, 0, 1, 0]]
 
-        self.matrix8v2  =   [[2, 0, 2, 0, 2, 0, 2, 0],
+        self.matrix8v2  =  [[2, 0, 2, 0, 2, 0, 2, 0],
                             [0, 2, 0, 2, 0, 2, 0, 2],
                             [2, 0, 2, 0, 2, 0, 2, 0],
                             [0, 0, 0, 0, 0, 0, 0, 0],
@@ -33,7 +33,7 @@ class Checker(Gtk.Grid):
                             [1, 0, 1, 0, 1, 0, 1, 0],
                             [0, 1, 0, 1, 0, 1, 0, 1]]
 
-        self.matrix10 =     [[0, 2, 0, 2, 0, 2, 0, 2, 0, 2],
+        self.matrix10 =    [[0, 2, 0, 2, 0, 2, 0, 2, 0, 2],
                             [2, 0, 2, 0, 2, 0, 2, 0, 2, 0],
                             [0, 2, 0, 2, 0, 2, 0, 2, 0, 2],
                             [2, 0, 2, 0, 2, 0, 2, 0, 2, 0],
@@ -45,7 +45,10 @@ class Checker(Gtk.Grid):
                             [1, 0, 1, 0, 1, 0, 1, 0, 1, 0]]
 
         if matrix_size == 8 :
-            self.matrix = self.matrix8
+            if self.draughts.matrix_classic:
+                self.matrix = self.matrix8
+            else:
+                self.matrix = self.matrix8v2
         else:
             self.matrix = self.matrix10
         self.create_tableau()
@@ -138,8 +141,6 @@ class Checker(Gtk.Grid):
             self.draughts.checker.matrix = self.draughts.backend.get_matrix()
             self.draughts.checker.resize_checker(self.draughts.checker.square_size)
             play = self.draughts.backend.possible_moves(1)
-            print(play, "joueur")
-            print()
             if len(play) == 0:
                  self.draughts.informations_bar.set_markup("<span foreground='#ff710d' size='large' >L'ordinateur a gagne</span>")
                  self.draughts.backend.fin = True
@@ -159,13 +160,10 @@ class Checker(Gtk.Grid):
                     self.old_square = None
                     return
                 play = self.draughts.backend.possible_moves(2)
-                print(play, "ordi")
-                print()
                 if play:
                     self.draughts.row_label1 = Gtk.Label("Coup %d : %d,%d - %d,%d" % (self.draughts.turn, self.old_square.name[0], self.old_square.name[1], square.name[0], square.name[1]))
                     self.draughts.row_label1.show_all()
                     self.draughts.hit_history.prepend(self.draughts.row_label1)
-
                 self.old_square = None
                 self.draughts.checker.matrix = self.draughts.backend.get_matrix()
                 self.draughts.checker.resize_checker(self.draughts.checker.square_size)
@@ -174,7 +172,6 @@ class Checker(Gtk.Grid):
                     self.draughts.backend.fin = True
                     return 0
                 if self.draughts.pc_first:
-                    print("loop")
                     self.draughts.turn += 1
                 self.draughts.backend.lastjump[:] = []
                 GLib.timeout_add(2.0, self.play_on_timeout, self.stack)
