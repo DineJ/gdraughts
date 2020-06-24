@@ -8,7 +8,7 @@ import random
 class Draughts(Gtk.Window):
 
 	#managing of the main window
-	def __init__ (self, pc_first = False, state = 8, square_color = 0, square_size = 0, tool_height = 0, checker = None, open_dialog = 0):
+	def __init__ (self, pc_first=False, matrix_classic=True, state=8, square_color=0, square_size=0, tool_height=0, checker=None, open_dialog=0):
 		Gtk.Window.__init__(self)
 		self.state = state
 		self.square_color = square_color
@@ -18,6 +18,7 @@ class Draughts(Gtk.Window):
 		self.open_dialog = open_dialog
 		self.turn = 1
 		self.pc_first = pc_first
+		self.matrix_classic = matrix_classic
 
 		self.set_border_width(10)
 		self.connect('delete-event', Gtk.main_quit)
@@ -131,6 +132,7 @@ class Draughts(Gtk.Window):
 		frame_begin = Gtk.Frame.new("Qui joue en premier ?")
 		frame_matrice = Gtk.Frame.new("Combien de cases voulez-vous par ligne?")
 		frame_color = Gtk.Frame.new("Quelle couleur voulez-vous dans la case en bas à droite ?")
+		frame_color1 = Gtk.Frame.new("Voulez-vous que votre pion soit en bas à droite?")
 
 		#Radio Button
 		r_player = Gtk.RadioButton.new_with_label_from_widget(None, "Joueur")
@@ -139,27 +141,32 @@ class Draughts(Gtk.Window):
 		r_chercker8 = Gtk.RadioButton.new_with_label_from_widget(None, "8 cases")
 		r_chercker10 = Gtk.RadioButton.new_from_widget(r_chercker8)
 		r_chercker10.set_label("10 cases")
-		r_color_w = Gtk.RadioButton.new_with_label_from_widget(None, "Blanc")
+		r_color_w = Gtk.RadioButton.new_with_label_from_widget(None, "Blanches")
 		r_color_b = Gtk.RadioButton.new_from_widget(r_color_w)
-		r_color_b.set_label("Noirs")
-
-
+		r_color_b.set_label("Noires")
+		r_color1_b = Gtk.RadioButton.new_with_label_from_widget(None, "Non")
+		r_color1_w = Gtk.RadioButton.new_from_widget(r_color1_b)
+		r_color1_w.set_label("Oui")
+		
 
 		#Dialog
 		box_dialog = dialog_box.get_content_area()
 		box_dialog.pack_start(frame_begin, True, True, 0)
 		box_dialog.pack_start(frame_matrice, True, True, 0)
 		box_dialog.pack_start(frame_color, True, True, 0)
+		box_dialog.pack_start(frame_color1, True, True, 0)
 
 		#Box
 		box_begin = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
 		box_matrice = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
 		self.box_color = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
+		self.box_color1 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
 
 		#Frame
 		frame_begin.add(box_begin)
 		frame_matrice.add(box_matrice)
 		frame_color.add(self.box_color)
+		frame_color1.add(self.box_color1)
 
 		#Box
 		box_begin.pack_start(r_player, True, True, 0)
@@ -168,6 +175,9 @@ class Draughts(Gtk.Window):
 		box_matrice.pack_start(r_chercker10, True, True, 0)
 		self.box_color.pack_start(r_color_w, True, True, 0)
 		self.box_color.pack_start(r_color_b, True, True, 0)
+		self.box_color1.pack_start(r_color1_w, True, True, 0)
+		self.box_color1.pack_start(r_color1_b, True, True, 0)
+
 
 
 		if self.pc_first:
@@ -180,10 +190,16 @@ class Draughts(Gtk.Window):
 		else:
 			r_chercker10.set_active(True)
 
+		if self.matrix_classic:
+			r_color1_b.set_active(True)
+		else:
+			r_color1_w.set_active(True)
+
 		if self.square_color == 0:
 			r_color_w.set_active(True)
 		else:
 			r_color_b.set_active(True)
+
 
 		dialog_box.show_all()
 
@@ -208,6 +224,14 @@ class Draughts(Gtk.Window):
 				self.square_color = 0
 			else:
 				self.square_color = 1
+				self.matrix_classic = False
+
+			if r_color1_w.get_active():
+				self.matrix_classic = False
+				r_color1_w.set_active(True)
+			else:
+				self.matrix_classic = True
+				r_color1_b.set_active(True)
 
 			self.checker_game.remove(self.checker)
 			self.checker = Checker(self, self.square_size, self.state, self.square_color)

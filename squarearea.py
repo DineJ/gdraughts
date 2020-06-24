@@ -21,7 +21,7 @@ class SquareArea(Gtk.DrawingArea):
 
 
 	#draw a square
-	def do_draw_cb(self, widget, cr): 
+	def do_draw_cb(self, widget, cr):
 		height = widget.get_allocated_height()
 		width = widget.get_allocated_width()
 		cr.rectangle(0, 0, width, height)
