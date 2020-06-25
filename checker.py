@@ -54,15 +54,15 @@ class Checker(Gtk.Grid):
         self.create_tableau()
     
     def print_pc_hit(self, number):
-        compteur = 0
-        self.z = number
+        counter = 0
+        z = number
         while number > 10:
-            compteur += 1
+            counter += 1
             number = int(number/10)
-        self.w = int((self.z - number*10**compteur)/10**(compteur-1))
-        self.x = int (((self.z - number*10**compteur) - (self.w*10**(compteur-1))) / 10)
-        self.y = int (((self.z - number*10**compteur) - (self.w*10**(compteur-1))) - self.x*10**(compteur-2))
-        return number,self.w,self.x,self.y
+        w = int((z - number*10**counter)/10**(counter-1))
+        x = int (((z - number*10**counter) - (w*10**(counter-1))) / 10)
+        y = int (((z - number*10**counter) - (w*10**(counter-1))) - x*10**(counter-2))
+        return number,w,x,y
         
     #after you choose an option in dialog window, that destroy the last checker and build another one
     def modify_checker(self, matrix_size = 10, color = 0): 
