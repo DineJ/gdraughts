@@ -52,7 +52,18 @@ class Checker(Gtk.Grid):
         else:
             self.matrix = self.matrix10
         self.create_tableau()
-
+    
+    def print_pc_hit(self, number):
+        compteur = 0
+        self.z = number
+        while number > 10:
+            compteur += 1
+            number = int(number/10)
+        self.w = int((self.z - number*10**compteur)/10**(compteur-1))
+        self.x = int (((self.z - number*10**compteur) - (self.w*10**(compteur-1))) / 10)
+        self.y = int (((self.z - number*10**compteur) - (self.w*10**(compteur-1))) - self.x*10**(compteur-2))
+        return number,self.w,self.x,self.y
+        
     #after you choose an option in dialog window, that destroy the last checker and build another one
     def modify_checker(self, matrix_size = 10, color = 0): 
         self.square_size = (self.square_size * self.matrix_size) / matrix_size
@@ -129,9 +140,15 @@ class Checker(Gtk.Grid):
             self.draughts.backend.pc_move(stack)
             jump = self.draughts.backend.lastjump[:]
             if len(str(jump[0])) == 4 :
-                row2 = ("Coup %d : (%s,%s) - (%s,%s)" % (self.draughts.turn, str(jump[0])[0], str(jump[0])[1], str(jump[0])[2], str(jump[0])[3]))
+                if (self.print_pc_hit(jump[0])[0] - self.print_pc_hit(jump[0])[2] !=1 and self.print_pc_hit(jump[0])[0] - self.print_pc_hit(jump[0])[2] != -1) or (self.print_pc_hit(jump[0])[1] - self.print_pc_hit(jump[0])[3] !=1 and self.print_pc_hit(jump[0])[1] - self.print_pc_hit(jump[0])[3] != -1):
+                    row2 = ("Coup %d : (%s,%s) x (%s,%s)" % (self.draughts.turn, str(jump[0])[0], str(jump[0])[1], str(jump[0])[2], str(jump[0])[3]))
+                else:
+                    row2 = ("Coup %d : (%s,%s) - (%s,%s)" % (self.draughts.turn, str(jump[0])[0], str(jump[0])[1], str(jump[0])[2], str(jump[0])[3]))
             elif len(str(jump[0])) == 3:
-                row2 = ("Coup %d : (0,%s) - (%s,%s)" % (self.draughts.turn, str(jump[0])[0], str(jump[0])[1], str(jump[0])[2]))
+                if (self.print_pc_hit(jump[0])[1] - self.print_pc_hit(jump[0])[2] !=1 and self.print_pc_hit(jump[0])[1] - self.print_pc_hit(jump[0])[2] != -1) or (self.print_pc_hit(jump[0])[0] - self.print_pc_hit(jump[0])[3] !=1 and self.print_pc_hit(jump[0])[0] - self.print_pc_hit(jump[0])[3] != -1):
+                    row2 = ("Coup %d : (0,%s) x (%s,%s)" % (self.draughts.turn, str(jump[0])[0], str(jump[0])[1], str(jump[0])[2]))
+                else:
+                    row2 = ("Coup %d : (0,%s) - (%s,%s)" % (self.draughts.turn, str(jump[0])[0], str(jump[0])[1], str(jump[0])[2]))
             self.draughts.row_label2 = Gtk.Label(row2)
             if self.draughts.pc_first == False:
                 self.draughts.turn += 1
@@ -161,7 +178,10 @@ class Checker(Gtk.Grid):
                     return
                 play = self.draughts.backend.possible_moves(2)
                 if play:
-                    self.draughts.row_label1 = Gtk.Label("Coup %d : %d,%d - %d,%d" % (self.draughts.turn, self.old_square.name[0], self.old_square.name[1], square.name[0], square.name[1]))
+                    if (self.old_square.name[0] - square.name[0] != 1 and self.old_square.name[0] - square.name[0] != -1) or (self.old_square.name[1] - square.name[1] != 1 and self.old_square.name[1] - square.name[1] != -1):
+                        self.draughts.row_label1 = Gtk.Label("Coup %d : %d,%d x %d,%d" % (self.draughts.turn, self.old_square.name[0], self.old_square.name[1], square.name[0], square.name[1]))
+                    else:
+                        self.draughts.row_label1 = Gtk.Label("Coup %d : %d,%d - %d,%d" % (self.draughts.turn, self.old_square.name[0], self.old_square.name[1], square.name[0], square.name[1]))
                     self.draughts.row_label1.show_all()
                     self.draughts.hit_history.prepend(self.draughts.row_label1)
                 self.old_square = None
