@@ -124,7 +124,8 @@ class Checker(Gtk.Grid):
             else:
                 self.matrix_coordonate = self.matrix10_notationv2
         self.create_tableau()
-    
+
+    #this funtion 
     def print_pc_hit(self, number):
         counter = 0
         z = number

@@ -116,7 +116,7 @@ class Draughts(Gtk.Window):
 		else:
 			self.checker.resize_checker(self.square_size)
 
-	#create a dialog window with 4 choice, 2 for color of square and 2 about size of checker
+	#create a dialog window with 5 choice, each choice gives the rules of the different countries
 	def dialog(self,button):
 
 		#Dialog
