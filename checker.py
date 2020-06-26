@@ -107,29 +107,22 @@ class Checker(Gtk.Grid):
         if matrix_size == 8 :
             if self.draughts.matrix_classic:
                 self.matrix = self.matrix8
+                if self.draughts.pc_first:
+                    self.matrix_coordonate = self.matrix8_notationv2
+                else:
+                    self.matrix_coordonate = self.matrix8_notation 
             else:
                 self.matrix = self.matrix8v2
+                if self.draughts.pc_first:
+                    self.matrix_coordonate = self.matrix8v2_notationv2
+                else:
+                    self.matrix_coordonate = self.matrix8v2_notation
         else:
             self.matrix = self.matrix10
-
-        if self.matrix == self.matrix8 and self.draughts.pc_first == False and self.draughts.matrix_classic == False:
-            self.matrix_coordonate = self.matrix8_notation
-
-        elif self.matrix == self.matrix8v2 and self.draughts.pc_first == False and self.draughts.matrix_classic:
-            self.matrix_coordonate = self.matrix8v2_notation
-
-        elif self.matrix == self.matrix8v2 and self.draughts.pc_first and self.draughts.matrix_classic == False:
-            self.matrix_coordonate = self.matrix8_notationv2
-
-        elif self.matrix == self.matrix8v2 and self.draughts.pc_first and self.draughts.matrix_classic:
-            self.matrix_coordonate = self.matrix8v2_notationv2
-
-        elif self.matrix == self.matrix10 and self.draughts.pc_first:
-            self.matrix_coordonate = self.matrix10_notationv2
-
-        elif self.matrix == self.matrix10 and self.draughts.pc_first == False:
-            self.matrix_coordonate = self.matrix10_notation
-
+            if self.draughts.pc_first:
+                self.matrix_coordonate = self.matrix10_notation
+            else:
+                self.matrix_coordonate = self.matrix10_notationv2
         self.create_tableau()
     
     def print_pc_hit(self, number):
@@ -220,14 +213,14 @@ class Checker(Gtk.Grid):
             jump = self.draughts.backend.lastjump[:]
             if len(str(jump[0])) == 4 :
                 if (self.print_pc_hit(jump[0])[0] - self.print_pc_hit(jump[0])[2] !=1 and self.print_pc_hit(jump[0])[0] - self.print_pc_hit(jump[0])[2] != -1) or (self.print_pc_hit(jump[0])[1] - self.print_pc_hit(jump[0])[3] !=1 and self.print_pc_hit(jump[0])[1] - self.print_pc_hit(jump[0])[3] != -1):
-                    row2 = ("Coup %d : (%s,%s) x (%s,%s)" % (self.draughts.turn, str(jump[0])[0], str(jump[0])[1], str(jump[0])[2], str(jump[0])[3]))
+                    row2 = ("Coup %d : (%s) x (%s)" % (self.draughts.turn, self.matrix_coordonate[int(str(jump[0])[0])][int(str(jump[0])[1])],self.matrix_coordonate[int(str(jump[0])[2])][int(str(jump[0])[3])]))
                 else:
-                    row2 = ("Coup %d : (%s,%s) - (%s,%s)" % (self.draughts.turn, str(jump[0])[0], str(jump[0])[1], str(jump[0])[2], str(jump[0])[3]))
+                    row2 = ("Coup %d : (%s) - (%s)" % (self.draughts.turn, self.matrix_coordonate[int(str(jump[0])[0])][int(str(jump[0])[1])],self.matrix_coordonate[int(str(jump[0])[2])][int(str(jump[0])[3])]))
             elif len(str(jump[0])) == 3:
                 if (self.print_pc_hit(jump[0])[1] - self.print_pc_hit(jump[0])[2] !=1 and self.print_pc_hit(jump[0])[1] - self.print_pc_hit(jump[0])[2] != -1) or (self.print_pc_hit(jump[0])[0] - self.print_pc_hit(jump[0])[3] !=1 and self.print_pc_hit(jump[0])[0] - self.print_pc_hit(jump[0])[3] != -1):
-                    row2 = ("Coup %d : (0,%s) x (%s,%s)" % (self.draughts.turn, str(jump[0])[0], str(jump[0])[1], str(jump[0])[2]))
+                    row2 = ("Coup %d : (%s) x (%s)" % (self.draughts.turn, self.matrix_coordonate[int(str("0"))][int(str(jump[0])[0])],self.matrix_coordonate[int(str(jump[0])[1])][int(str(jump[0])[2])]))
                 else:
-                    row2 = ("Coup %d : (0,%s) - (%s,%s)" % (self.draughts.turn, str(jump[0])[0], str(jump[0])[1], str(jump[0])[2]))
+                    row2 = ("Coup %d : (%s) - (%s)" % (self.draughts.turn, self.matrix_coordonate[int(str("0"))][int(str(jump[0])[0])],self.matrix_coordonate[int(str(jump[0])[1])][int(str(jump[0])[2])]))
             self.draughts.row_label2 = Gtk.Label(row2)
             if self.draughts.pc_first == False:
                 self.draughts.turn += 1
@@ -258,9 +251,9 @@ class Checker(Gtk.Grid):
                 play = self.draughts.backend.possible_moves(2)
                 if play:
                     if (self.old_square.name[0] - square.name[0] != 1 and self.old_square.name[0] - square.name[0] != -1) or (self.old_square.name[1] - square.name[1] != 1 and self.old_square.name[1] - square.name[1] != -1):
-                        self.draughts.row_label1 = Gtk.Label("Coup %d : %d,%d x %d,%d" % (self.draughts.turn, self.old_square.name[0], self.old_square.name[1], square.name[0], square.name[1]))
+                        self.draughts.row_label1 = Gtk.Label("Coup %d : %d - %d" % (self.draughts.turn, self.matrix_coordonate[int(str(self.old_square.name[0]))][int(str(self.old_square.name[1]))], self.matrix_coordonate[int(str(square.name[0]))][int(str(square.name[1]))]))
                     else:
-                        self.draughts.row_label1 = Gtk.Label("Coup %d : %d,%d - %d,%d" % (self.draughts.turn, self.old_square.name[0], self.old_square.name[1], square.name[0], square.name[1]))
+                        self.draughts.row_label1 = Gtk.Label("Coup %d : %d - %d" % (self.draughts.turn, self.matrix_coordonate[int(str(self.old_square.name[0]))][int(str(self.old_square.name[1]))], self.matrix_coordonate[int(str(square.name[0]))][int(str(square.name[1]))]))
                     self.draughts.row_label1.show_all()
                     self.draughts.hit_history.prepend(self.draughts.row_label1)
                 self.old_square = None
