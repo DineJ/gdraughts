@@ -231,9 +231,13 @@ class Checker(Gtk.Grid):
             self.draughts.checker.resize_checker(self.draughts.checker.square_size)
             play = self.draughts.backend.possible_moves(1)
             if len(play) == 0:
-                 self.draughts.informations_bar.set_markup("<span foreground='#ff710d' size='large' >L'ordinateur a gagne</span>")
-                 self.draughts.backend.fin = True
-                 return 1
+                self.draughts.hit_history.remove(self.draughts.hit_history.get_children()[0])
+                self.draughts.informations_bar.set_markup("<span foreground='#ff710d' size='large' >L'ordinateur a gagne</span>")
+                self.draughts.backend.fin = True
+                self.draughts.row_endgame = Gtk.Label(" %s + " % (row2))
+                self.draughts.row_endgame.show_all()
+                self.draughts.hit_history.prepend(self.draughts.row_endgame)
+                return 1
 
 
     #move a pawn
@@ -260,8 +264,12 @@ class Checker(Gtk.Grid):
                 self.draughts.checker.matrix = self.draughts.backend.get_matrix()
                 self.draughts.checker.resize_checker(self.draughts.checker.square_size)
                 if len(play) == 0:
+                    self.draughts.hit_history.remove(self.draughts.hit_history.get_children()[0])
                     self.draughts.informations_bar.set_markup("<span foreground='#ff710d' size='large' >Tu as gagne</span>")
                     self.draughts.backend.fin = True
+                    self.draughts.row_endgame = Gtk.Label(" %s + " % (self.draughts.row_label1))
+                    self.draughts.row_endgame.show_all()
+                    self.draughts.hit_history.prepend(self.draughts.row_endgame)
                     return 0
                 if self.draughts.pc_first:
                     self.draughts.turn += 1
