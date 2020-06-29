@@ -125,7 +125,7 @@ class Checker(Gtk.Grid):
                 self.matrix_coordonate = self.matrix10_notationv2
         self.create_tableau()
 
-    #this funtion 
+    #this funtion makes it possible to display the hits of the computer
     def print_pc_hit(self, number):
         counter = 0
         z = number
@@ -137,7 +137,7 @@ class Checker(Gtk.Grid):
         y = int (((z - number*10**counter) - (w*10**(counter-1))) - x*10**(counter-2))
         return number,w,x,y
         
-    #after you choose an option in dialog window, that destroy the last checker and build another one
+    #after you choose an option in dialog window, it destroy the last checker and build another one
     def modify_checker(self, matrix_size = 10, color = 0): 
         self.square_size = (self.square_size * self.matrix_size) / matrix_size
         self.hide()
@@ -205,7 +205,7 @@ class Checker(Gtk.Grid):
                 x += 1
             y += 1
 
-
+    #all this part is about pc (move,hit,game over)
     def play_on_timeout(self, stack):
         if self.draughts.backend.fin == False:
             row2 = None
@@ -241,7 +241,7 @@ class Checker(Gtk.Grid):
                 return 1
 
 
-    #move a pawn
+    #all this part is about player (move,hit,game over)
     def do_release_mouse(self, widget, event, square):
         if self.old_square == None:
             if self.draughts.backend.pl_after_firstclick(square.name) == 0:
