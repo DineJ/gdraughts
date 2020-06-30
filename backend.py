@@ -128,20 +128,14 @@ class Stack:
 
 
 class Backend(object):
-    def __init__(self, new_matrix=None, last_jmp=None, game_param=None):
+    def __init__(self, new_matrix=None, rear_socket=None, force_jump=True, last_jmp=None, game_param=None):
         self.p_max=10
         self.status = ("NEW GAME")
         self.depth = 5
         self.variable_depth = True
-        self.force_jump = False
-        self.pc_first = False
         self.fin = False
-        self.v1 = "○"
-        self.v2 = "⬤"
-        self.v3 = "░"
-        self.v4 = "□"
-        self.v5 = "⬛"
-        self.v6 = "－"
+        self.force_jump = force_jump # Force la prise des pions
+        self.rear_socket = rear_socket   # autorise la prise des pions en arriere
 
         if not new_matrix:
             if self.p_max==10 :
@@ -209,12 +203,51 @@ class Backend(object):
                 if j == 2: value += 1
                 if j == 4: value -= 2
                 if j == 5: value += 2
-
         return value
 
+    def possible_moves_square(self, param, enemy, j, i, jo, io, moves=True):
+        if -1 < j + jo < len(self.matrix) and -1 < i + io < len(self.matrix) and \
+                self.matrix[i + io][j + jo] % 3 != param:
+            if -1 < j + jo * 2 < len(self.matrix) and -1 < i + io * 2 < len(self.matrix) and \
+                      self.matrix[i + io][j + jo] % 3 == enemy and \
+                      self.matrix[i + io * 2][j + jo * 2] % 3 == 0:
+                #print("EAT " + str(i) + ", " + str(j) + " => " + str(i + vertical*2) + ", " + str(j - 2))
+                self.p_moves.append([[i, j], [i + io * 2, j + jo * 2]])
+                self.p_force_moves.append([[i, j], [i + io * 2, j + jo * 2]])
+            elif moves and self.matrix[i + io][j + jo] % 3 == 0:
+                #print(str(i) + ", " + str(j) + " => " + str(i-vertical) + ", " + str(j-1))
+                self.p_moves.append([[i, j], [i + io, j + jo]]) 
+
+    def possible_moves_queen(self, param, enemy, j, i, jo, io):  # param = 1 - PLAYER, param = 2 - PCoffset = 1
+        eat = False
+        offset = 1
+        while offset < self.p_max - 1  :
+            if -1 < j + jo * offset < len(self.matrix) and -1 < i + io * offset < len(self.matrix) and \
+                    self.matrix[i + io * offset][j + jo * offset] % 3 != param:
+                if -1 < j + (jo * (offset + 1)) < len(self.matrix) -1 < i + (io * (offset + 1)) < len(self.matrix) and \
+                        self.matrix[i + (io * offset)][j + (jo * offset)] % 3 != enemy:
+                    break
+                elif -1 < j + jo * (offset + 1) < len(self.matrix) and -1 < i + io * (offset + 1) < len(self.matrix) and \
+                        self.matrix[i + io * offset][j + jo * offset] % 3 == enemy and \
+                        self.matrix[i + io * (offset + 1)][j + jo * (offset + 1)] % 3 == enemy:
+                    break
+                elif -1 < j + jo * (offset + 1) < len(self.matrix) and -1 < i + io * (offset + 1) < len(self.matrix) and \
+                          self.matrix[i + io * offset][j + jo * offset] % 3 == enemy and \
+                          self.matrix[i + io * (offset + 1)][j + jo * (offset + 1)] % 3 == 0:
+                    #print("EAT " + str(i) + ", " + str(j) + " => " + str(i + vertical*2) + ", " + str(j - 2))
+                    self.p_moves.append([[i, j], [i + io * (offset + 1), j + jo * (offset + 1)]])
+                    self.p_force_moves.append([[i, j], [i + io * (offset + 1), j + jo * (offset + 1)]])
+                    eat = True
+                elif self.matrix[i + io * offset][j + jo * offset] % 3 == 0:
+                    #print(str(i) + ", " + str(j) + " => " + str(i-vertical) + ", " + str(j-1))
+                    self.p_moves.append([[i, j], [i + io * offset, j + jo * offset]])
+                    if eat == True:
+                        self.p_force_moves.append([[i, j], [i + io * offset, j + jo * offset]])
+            offset += 1 
+
     def possible_moves(self, param):  # param = 1 - PLAYER, param = 2 - PC
-        moves = []
-        force_moves = []
+        self.p_moves = []
+        self.p_force_moves = []
         for i in range(len(self.matrix)):
             for j in range(len(self.matrix[i])):
                 if self.matrix[i][j] == 0 or self.matrix[i][j] % 3 != param:
@@ -223,56 +256,21 @@ class Backend(object):
                 vertical = 1 if param == 2 else -1  # ako je param = 1, to su PC figure koje idu dole
                 enemy = 1 if param == 2 else 2
                 cell = self.matrix[i][j]
-                if j - 1 != -1 and i + vertical != -1 and i + vertical != self.p_max and \
-                        self.matrix[i + vertical][j - 1] % 3 != param:
-                    if j - 2 > -1 and self.p_max > i + vertical * 2 > -1 and self.matrix[i + vertical][j - 1] % 3 == enemy and \
-                            self.matrix[i + vertical * 2][j - 2] % 3 == 0:
-                        #print("EAT " + str(i) + ", " + str(j) + " => " + str(i + vertical*2) + ", " + str(j - 2))
-                        moves.append([[i, j], [i + vertical * 2, j - 2]])
-                        force_moves.append([[i, j], [i + vertical * 2, j - 2]])
-                    elif self.matrix[i + vertical][j - 1] % 3 == 0:
-                        #print(str(i) + ", " + str(j) + " => " + str(i+vertical) + ", " + str(j-1))
-                        moves.append([[i, j], [i + vertical, j - 1]])
-                if j + 1 != self.p_max and i + vertical != -1 and i + vertical != self.p_max and \
-                        self.matrix[i + vertical][j + 1] % 3 != param:
-                    if j + 2 < self.p_max and self.p_max > i + vertical * 2 > -1 and self.matrix[i + vertical][j + 1] % 3 == enemy and \
-                            self.matrix[i + vertical * 2][j + 2] % 3 == 0:
-                        #print("EAT " + str(i) + ", " + str(j) + " => " + str(i + vertical*2) + ", " + str(j + 2))
-                        moves.append([[i, j], [i + vertical * 2, j + 2]])
-                        force_moves.append([[i, j], [i + vertical * 2, j + 2]])
-                    elif self.matrix[i + vertical][j + 1] % 3 == 0:
-                        #print(str(i) + ", " + str(j) + " => " + str(i + vertical) + ", " + str(j + 1) + "*")
-                        moves.append([[i, j], [i + vertical, j + 1]])
-                if cell > 3:
-                    offset = 1
-                    while offet < self.p_max -1:
-                        if j - offset > -1 and i - vertical > -1 and i - vertical < self.p_max and \
-                                self.matrix[i - vertical][j - offset] % 3 != param:
-                            if j - (offset + 1) > -1 and self.p_max > i - vertical * 2 > -1 and \
-                                    self.matrix[i - vertical][j - offset] % 3 == enemy and \
-                                    self.matrix[i - vertical * 2][j - (offset + 1)] % 3 == 0:
-                                #print("EAT " + str(i) + ", " + str(j) + " => " + str(i + vertical*2) + ", " + str(j - 2))
-                                moves.append([[i, j], [i - vertical * 2, j - (offset + 1)]])
-                                force_moves.append([[i, j], [i - vertical * 2, j - (offset + 1)]])
-                            elif self.matrix[i - vertical][j - offset] % 3 == 0:
-                                #print(str(i) + ", " + str(j) + " => " + str(i-vertical) + ", " + str(j-1))
-                                moves.append([[i, j], [i - vertical, j - offset]])
-                        if j + offset < self.p_max and i - vertical > -1 and i - vertical < self.p_max and \
-                                self.matrix[i - vertical][j + offset] % 3 != param:
-                            if j + (offset + 1) < self.p_max and self.p_max > i - vertical * 2 > -1 and \
-                                    self.matrix[i - vertical][j + offset] % 3 == enemy and \
-                                    self.matrix[i - vertical * 2][j + (offset + 1)] % 3 == 0:
-                                #print("EAT " + str(i) + ", " + str(j) + " => " + str(i + vertical*2) + ", " + str(j + 2))
-                                moves.append([[i, j], [i - vertical * 2, j + (offset + 1)]])
-                                force_moves.append([[i, j], [i - vertical * 2, j + (offset + 1)]])
-                            elif self.matrix[i - vertical][j + offset] % 3 == 0:
-                                #print(str(i) + ", " + str(j) + " => " + str(i + vertical) + ", " + str(j + 1) + "*")
-                                moves.append([[i, j], [i - vertical, j + offset]])
-                        offset += 1
-        if self.force_jump and force_moves:
-            return force_moves
+                if cell < 4:
+                    self.possible_moves_square(param, enemy, j, i, -1, vertical)
+                    self.possible_moves_square(param, enemy, j, i, 1, vertical)
+                    if self.rear_socket:
+                        self.possible_moves_square(param, enemy, j, i, -1, vertical * -1, False)
+                        self.possible_moves_square(param, enemy, j, i, 1, vertical * -1, False)
+                elif cell > 3:
+                    self.possible_moves_queen(param, enemy, j, i, 1, 1)
+                    self.possible_moves_queen(param, enemy, j, i, -1, 1)
+                    self.possible_moves_queen(param, enemy, j, i, 1, -1)
+                    self.possible_moves_queen(param, enemy, j, i, -1, -1)
+        if self.force_jump and self.p_force_moves:
+            return self.p_force_moves
         else:
-            return moves
+            return self.p_moves
 
 
     def pl_before_firstclick(self, explicit=None):
@@ -318,39 +316,56 @@ class Backend(object):
         return 1
 
 
+    def eatable_square(self, param, enemy, j, i, jo, io):
+        if -1 < j + jo < len(self.matrix) and -1 < i + io < len(self.matrix) and \
+                self.matrix[i + io][j + jo] % 3 != param:
+            if -1 < j + jo * 2 < len(self.matrix) and -1  < i + io * 2 < len(self.matrix) and \
+                      self.matrix[i + io][j + jo] % 3 == enemy and \
+                      self.matrix[i + io * 2][j + jo * 2] % 3 == 0:
+                self.eat_moves.append([[i, j], [i + io * 2, j + jo * 2]])
+
+    def eatable_queen(self, param, enemy, j, i, jo, io):
+        eat = False
+        offset = 1
+        while offset < self.p_max - 1  :
+            if -1 < j + jo * offset < len(self.matrix) and -1 < i + io * offset < len(self.matrix) and \
+                    self.matrix[i + io * offset][j + jo * offset] % 3 != param:
+                if -1 < j + (jo * (offset + 1)) < len(self.matrix) -1 < i + (io * (offset + 1)) < len(self.matrix) and \
+                        self.matrix[i + (io * offset)][j + (jo * offset)] % 3 != enemy:
+                    break
+                elif -1 < j + jo * (offset + 1) < len(self.matrix) and -1 < i + io * (offset + 1) < len(self.matrix) and \
+                        self.matrix[i + io * offset][j + jo * offset] % 3 == enemy and \
+                        self.matrix[i + io * (offset + 1)][j + jo * (offset + 1)] % 3 == enemy:
+                    break
+                elif -1 < j + jo * (offset + 1) < len(self.matrix) and -1 < i + io * (offset + 1) < len(self.matrix) and \
+                          self.matrix[i + io * offset][j + jo * offset] % 3 == enemy and \
+                          self.matrix[i + io * (offset + 1)][j + jo * (offset + 1)] % 3 == 0:
+                    self.eat_moves.append([[i, j], [i + io * (offset + 1), j + jo * (offset + 1)]])
+                    eat = True
+                elif self.matrix[i + io * offset][j + jo * offset] % 3 == 0:
+                    if eat == True:
+                        self.eat_moves.append([[i, j], [i + io * offset, j + jo * offset]])
+            offset += 1 
+
     def eatable(self, param, i, j):
-        moves = [[[i, j], [i, j]]]
+        self.eat_moves = [[[i, j], [i, j]]]
         vertical = 1 if param == 2 else -1
         enemy = 1 if param == 2 else 2
         cell = self.matrix[i][j]
         # print(self.matrix)
 
-        if j - 1 != -1 and i + vertical != -1 and i + vertical != self.p_max and self.matrix[i + vertical][j - 1] % 3 == enemy:
-            if j - 2 > -1 and self.p_max > i + vertical * 2 > -1 and self.matrix[i + vertical * 2][j - 2] % 3 == 0:
-                # print("EAT " + str(i) + ", " + str(j) + " => " + str(i + vertical * 2) + ", " + str(j - 2))
-                moves.append([[i, j], [i + vertical * 2, j - 2]])
-                # moves.extend(self.eatable(param, i+2, j-2))
-        if j + 1 != self.p_max and i + vertical != -1 and i + vertical != self.p_max and self.matrix[i + vertical][j + 1] % 3 == enemy:
-            if j + 2 < self.p_max and self.p_max > i + vertical * 2 > -1 and self.matrix[i + vertical * 2][j + 2] % 3 == 0:
-                # print("EAT " + str(i) + ", " + str(j) + " => " + str(i + vertical * 2) + ", " + str(j + 2))
-                moves.append([[i, j], [i + vertical * 2, j + 2]])
-                # moves.extend(self.eatable(param, i + 2, j + 2))
-
-        if cell > 3:
-            if j - 1 != -1 and i - vertical != -1 and i - vertical != self.p_max and \
-                    self.matrix[i - vertical][j - 1] % 3 == enemy:
-                if j - 2 > -1 and self.p_max > i - vertical * 2 > -1 and self.matrix[i - vertical * 2][j - 2] % 3 == 0:
-                    # print("EAT " + str(i) + ", " + str(j) + " => " + str(i + vertical * 2) + ", " + str(j - 2))
-                    moves.append([[i, j], [i - vertical * 2, j - 2]])
-                    # moves.extend(self.eatable(param, i+2, j-2))
-            if j + 1 != self.p_max and i - vertical != -1 and i - vertical != self.p_max and \
-                    self.matrix[i - vertical][j + 1] % 3 == enemy:
-
-                if j + 2 < self.p_max and self.p_max > i - vertical * 2 > -1 and self.matrix[i - vertical * 2][j + 2] % 3 == 0:
-                    # print("EAT " + str(i) + ", " + str(j) + " => " + str(i + vertical * 2) + ", " + str(j + 2))
-                    moves.append([[i, j], [i - vertical * 2, j + 2]])
-                    # moves.extend(self.eatable(param, i + 2, j + 2))
-        return moves
+        if cell < 4:
+            self.eatable_square(param, enemy, j, i, -1, vertical)
+            self.eatable_square(param, enemy, j, i, 1, vertical)
+            if self.rear_socket:
+                self.eatable_square(param, enemy, j, i, -1, vertical * -1)
+                self.eatable_square(param, enemy, j, i, 1, vertical * -1)
+        elif cell > 3:
+            self.eatable_queen(param, enemy, j, i, -1, vertical * -1)
+            self.eatable_queen(param, enemy, j, i, -1, vertical)
+            self.eatable_queen(param, enemy, j, i, 1, vertical * -1)
+            self.eatable_queen(param, enemy, j, i, 1, vertical)
+        return self.eat_moves
 
     def move(self, old, new, param=1, first_layer_depth=True):
         cell = self.matrix[old[0]][old[1]]
@@ -359,7 +374,7 @@ class Backend(object):
             self.matrix[new[0]][new[1]] = cell + 3
         else:
             self.matrix[new[0]][new[1]] = cell
-        if abs(old[0] - new[0]) == 2:
+        if abs(old[0] - new[0]) >= 2:
             # self.lastjump += str(chr(old[0] + 65)) + str(old[1] + 1) + " --> " + str(chr(new[0] + 65)) + str(
             #     new[1] + 1) + " (" + str(chr(int((old[0] + new[0]) / 2) + 65)) + str(
             #     int((old[1] + new[1]) / 2) + 1) + ")" + "\n"
@@ -368,23 +383,41 @@ class Backend(object):
             # A == 0; B == 1...
             if first_layer_depth:
                 self.lastjump.append(old[0] * 1000 + old[1] * 100 + new[0] * 10 + new[1])
-
-            self.matrix[int((old[0] + new[0]) / 2)][int((old[1] + new[1]) / 2)] = 6
-            eatable_cells = self.eatable(param, new[0], new[1])
-            if len(eatable_cells) > 1:
-                if param == 1:
-                    # print("Ima jos da se jede PLAYER")
-                    return 2
-                else:
-                    # print("Ima jos da se jede PC")
-                    return 3
-            return 4  # Pojeo
+            x = 1
+            y = 1
+            enemy = 1 if param == 2 else 2
+            offset = 1
+            eat1 = False
+            p_max = self.p_max
+            if old[0] > new[0]:
+                x = -1
+                p_max = old[0] - new[0]
+            else:
+                p_max = new[0] - old[0]
+            if old[1] > new[1]:
+                y = -1
+            while offset < p_max:
+                if old[0] + (x * offset) != new[0] and old[1] + (y * offset) !=  new[1] and \
+                        self.matrix[old[0] + (x * offset)][old[1] + (y * offset)] % 3 == enemy:
+                     self.matrix[old[0] + (x * offset)][old[1] + (y * offset)] = 6
+                     eat1 = True
+                offset += 1
+            if eat1:
+                eatable_cells = self.eatable(param, new[0], new[1])
+                if len(eatable_cells) > 1:
+                    if param == 1:
+                        #print("Isma jos da se jede PLAYER")
+                        return 2
+                    else:
+                        #print("Ima jos da se jede PC")
+                        return 3
+                return 4  # Pojeo
         # self.lastjump += str(chr(old[0] + 65)) + str(old[1] + 1) + " --> " + str(chr(new[0] + 65)) + str(
         #     new[1] + 1) + "\n"
         if first_layer_depth:
             self.lastjump.append(old[0] * 1000 + old[1] * 100 + new[0] * 10 + new[1])
 
-        return 1  # Samo MOVE
+        return 1  # Samo MOVE                
 
     def pc_move(self, stack):
         if self.fin == False:
@@ -432,12 +465,12 @@ class Backend(object):
             #print(str(chr(enum_i + 65)), end=" |")
             for enum_j, j in enumerate(i):
                 if j == 0: j = " "
-                if j == 1: j = self.v1
-                if j == 2: j = self.v2
-                if j == 3: j = self.v3
-                if j == 4: j = self.v4
-                if j == 5: j = self.v5
-                if j == 6: j = self.v6
+                #if j == 1: j = self.v1
+                #if j == 2: j = self.v2
+                #if j == 3: j = self.v3
+                #if j == 4: j = self.v4
+                #if j == 5: j = self.v5
+                #if j == 6: j = self.v6
 
                 num = " "
                 try:
