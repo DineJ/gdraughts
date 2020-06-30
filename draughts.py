@@ -8,7 +8,7 @@ import random
 class Draughts(Gtk.Window):
 
 	#managing of the main window
-	def __init__ (self, pc_first=False, france=False, spain=False, england=False, netherlands=False, italy=False, matrix_classic=True, state=8, square_color=0, square_size=0, tool_height=0, checker=None, open_dialog=0):
+	def __init__ (self, pc_first=False, country=3, matrix_classic=True, state=8, square_color=0, square_size=0, tool_height=0, checker=None, open_dialog=0, rear_socket=True): # country : 0 = France(fr), 1 = Spain(sp), 2 = England(eng), 3 = Netherlands(ne), 4 = Italy(ita)
 		Gtk.Window.__init__(self)
 		self.state = state
 		self.square_color = square_color
@@ -19,11 +19,8 @@ class Draughts(Gtk.Window):
 		self.turn = 1
 		self.pc_first = pc_first
 		self.matrix_classic = matrix_classic
-		self.france = france
-		self.spain = spain
-		self.england = england
-		self.netherlands = netherlands
-		self.italy = italy
+		self.country = country
+		self.rear_socket = rear_socket
 
 		self.set_border_width(10)
 		self.connect('delete-event', Gtk.main_quit)
@@ -96,6 +93,7 @@ class Draughts(Gtk.Window):
 		self.show_all()
 		self.backend = Backend(self.checker.matrix)
 		self.backend.fin = False
+		self.backend.rear_socket = False
 		self.backend.pl_before_firstclick()
 
 	#resize checker after each interraction with main window
@@ -141,15 +139,15 @@ class Draughts(Gtk.Window):
 		frame_color1 = Gtk.Frame.new("Voulez-vous que votre pion soit en bas à droite?")
 
 		#Radio Button
-		r_ne = Gtk.RadioButton.new_with_label_from_widget(None, "Pays-Bas")
+		r_ne = Gtk.RadioButton.new_with_label_from_widget(None, "Netherlands")
 		r_ita = Gtk.RadioButton.new_from_widget(r_ne)
-		r_ita.set_label("Italie")
+		r_ita.set_label("Italy")
 		r_sp = Gtk.RadioButton.new_from_widget(r_ne)
-		r_sp.set_label("Espagne")
+		r_sp.set_label("Spain")
 		r_eng = Gtk.RadioButton.new_from_widget(r_ne)
-		r_eng.set_label("Anglaise")
+		r_eng.set_label("England")
 		r_fr = Gtk.RadioButton.new_from_widget(r_ne)
-		r_fr.set_label("Française")
+		r_fr.set_label("France")
 		r_player = Gtk.RadioButton.new_with_label_from_widget(None, "Joueur")
 		r_computer = Gtk.RadioButton.new_from_widget(r_player)
 		r_computer.set_label("Ordinateur")
@@ -217,16 +215,17 @@ class Draughts(Gtk.Window):
 		else:
 			r_chercker10.set_active(True)
 
-		if self.france:
+		if self.country == 0:
 			r_fr.set_active(True)
-		elif self.spain:
+		elif self.country == 1:
 			r_sp.set_active(True)
-		elif self.england:
+		elif self.country == 2:
 			r_eng.set_active(True)
-		elif self.netherlands:
+		elif self.country == 3:
 			r_ne.set_active(True)
-		elif self.italy:
+		elif self.country == 4:
 			r_ita.set_active(True)
+
 		if self.matrix_classic:
 			r_color1_b.set_active(True)
 		else:
@@ -249,46 +248,40 @@ class Draughts(Gtk.Window):
 				r_computer.set_active(True)
 
 			if r_fr.get_active():
+				self.country = 0
 				self.state = 10
+				self.rear_socket = True
 				self.matrix_classic = True
-				self.spain = False
-				self.england = False
-				self.netherlands = False
-				self.italy = False
 				r_fr.set_active(True)
+
 			elif r_sp.get_active():
+				self.country = 1
 				self.state = 8
 				self.square_color = 0
+				self.rear_socket = False
 				self.matrix_classic = False
-				self.france = False
-				self.england = False
-				self.netherlands = False
-				self.italy = False
 				r_sp.set_active(True)
+
 			elif r_eng.get_active():
+				self.country = 2
 				self.state = 8
+				self.rear_socket = False
 				self.matrix_classic = True
-				self.france = False
-				self.spain = False
-				self.netherlands = False
-				self.italy = False
 				r_eng.set_active(True)
+
 			elif r_ne.get_active():
+				self.country = 3
 				self.state = 10
+				self.rear_socket = True
 				self.matrix_classic = True
-				self.spain = False
-				self.england = False
-				self.italy = False
-				self.france = False
 				r_ne.set_active(True)
+
 			elif r_ita.get_active():
+				self.country = 4
 				self.state = 8
 				self.square_color = 1
+				self.rear_socket = False
 				self.matrix_classic = False
-				self.spain = False
-				self.england = False
-				self.netherlands = False
-				self.france = False
 				r_ita.set_active(True)
 
 			#if r_chercker8.get_active():
@@ -317,7 +310,7 @@ class Draughts(Gtk.Window):
 			self.checker = Checker(self, self.square_size, self.state, self.square_color)
 			self.checker_game.set_center_widget(self.checker)
 			self.checker_game.show_all()
-			self.backend = Backend(self.checker.matrix)
+			self.backend = Backend(self.checker.matrix, self.rear_socket)
 			#self.checker.queue_draw()
 			dialog_box.destroy()
 			#pl_moves = self.backend.possible_moves(1)
