@@ -68,15 +68,19 @@ class Draughts(Gtk.Window):
 		self.hit_history.set_size_request(200, -1)
 		self.scrolled_window.add(self.hit_history)
 
-		img = Gtk.Image.new_from_icon_name('document-exit', 0)
+		img = Gtk.Image.new_from_icon_name('application-exit', 0)
 		quit_button = Gtk.ToolButton.new(img)
 		img = Gtk.Image.new_from_icon_name('document-new', 0)
 		play_button = Gtk.ToolButton.new(img)
+		img = Gtk.Image.new_from_icon_name('preferences-system', 0)
+		custom_button = Gtk.ToolButton.new(img)
 
 		quit_button.set_label("Quitter")
 		play_button.set_label("Nouvelle partie")
+		custom_button.set_label("Parametres")
 		quit_button.set_is_important(True)
 		play_button.set_is_important(True)
+		custom_button.set_is_important(True)
 
 
 		self.informations_bar = Gtk.Label()
@@ -90,13 +94,15 @@ class Draughts(Gtk.Window):
 		tool_bar = Gtk.Toolbar()
 		tool_bar.insert(quit_button, 0)
 		tool_bar.insert(play_button, 1)
+		tool_bar.insert(custom_button, 2)
 		quit_button.show()
 		play_button.show()
+		custom_button.show()
 
 
 		quit_button.connect('clicked', Gtk.main_quit)
 		play_button.connect('clicked', self.dialog)
-
+		custom_button.connect('clicked', self.custom_dialog)
 
 		application.pack_start(tool_bar, False, True, 0)
 		application.pack_start(self.informations_bar, False, False, 0)
@@ -131,6 +137,146 @@ class Draughts(Gtk.Window):
 		else:
 			self.checker.resize_checker(self.square_size)
 
+
+
+	def custom_dialog(self,button):
+
+		#Dialog
+		self.open_dialog = 1
+		custom_dialog_box = Gtk.Dialog.new()
+		custom_dialog_box.set_border_width(10)
+		custom_dialog_box.connect('delete-event', Gtk.main_quit)
+		custom_dialog_box.show_all()
+		custom_dialog_box.add_button(Gtk.STOCK_APPLY, Gtk.ResponseType.APPLY)
+		custom_dialog_box.add_button(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL)
+		self.turn = 1
+
+		#Hit History
+		for element in self.hit_history.get_children():
+			self.hit_history.remove(element)
+
+		frame_begin = Gtk.Frame.new("Qui joue en premier ?")
+		frame_matrice = Gtk.Frame.new("Combien de cases voulez-vous par ligne?")
+		frame_color = Gtk.Frame.new("Quelle couleur voulez-vous dans la case en bas à droite ?")
+		frame_color1 = Gtk.Frame.new("Voulez-vous que votre pion soit en bas à droite?")
+
+		r_player = Gtk.RadioButton.new_with_label_from_widget(None, "Joueur")
+		r_computer = Gtk.RadioButton.new_from_widget(r_player)
+		r_computer.set_label("Ordinateur")
+		r_chercker8 = Gtk.RadioButton.new_with_label_from_widget(None, "8 cases")
+		r_chercker10 = Gtk.RadioButton.new_from_widget(r_chercker8)
+		r_chercker10.set_label("10 cases")
+		r_color_w = Gtk.RadioButton.new_with_label_from_widget(None, "Blanches")
+		r_color_b = Gtk.RadioButton.new_from_widget(r_color_w)
+		r_color_b.set_label("Noires")
+		r_color1_b = Gtk.RadioButton.new_with_label_from_widget(None, "Non")
+		r_color1_w = Gtk.RadioButton.new_from_widget(r_color1_b)
+		r_color1_w.set_label("Oui")
+
+		#Dialog
+		box_dialog = custom_dialog_box.get_content_area()
+		box_dialog.pack_start(frame_begin, True, True, 0)
+		box_dialog.pack_start(frame_matrice, True, True, 0)
+		box_dialog.pack_start(frame_color, True, True, 0)
+		box_dialog.pack_start(frame_color1, True, True, 0)
+
+
+		#Box
+		box_begin = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
+		box_matrice = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
+		self.box_color = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
+		self.box_color1 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
+
+		frame_begin.add(box_begin)
+		frame_matrice.add(box_matrice)
+		frame_color.add(self.box_color)
+		frame_color1.add(self.box_color1)
+
+		#Box
+		box_begin.pack_start(r_player, True, True, 0)
+		box_begin.pack_start(r_computer, True, True, 0)
+
+		box_matrice.pack_start(r_chercker8, True, True, 0)
+		box_matrice.pack_start(r_chercker10, True, True, 0)
+
+		self.box_color.pack_start(r_color_w, True, True, 0)
+		self.box_color.pack_start(r_color_b, True, True, 0)
+
+		self.box_color1.pack_start(r_color1_w, True, True, 0)
+		self.box_color1.pack_start(r_color1_b, True, True, 0)
+
+		if self.pc_first:
+			r_computer.set_active(True)
+		else:
+			r_player.set_active(True)
+
+		if self.state == 8:
+			r_chercker8.set_active(True)
+		else:
+			r_chercker10.set_active(True)
+
+		if self.matrix_classic:
+			r_color1_b.set_active(True)
+		else:
+			r_color1_w.set_active(True)
+
+		if self.square_color == 0:
+			r_color_w.set_active(True)
+		else:
+			r_color_b.set_active(True)
+
+		custom_dialog_box.show_all()
+		answer = custom_dialog_box.run()
+
+		if answer == Gtk.ResponseType.APPLY:
+			if r_player.get_active():
+				self.pc_first = False
+				r_player.set_active(True)
+			else:
+				self.pc_first = True
+				r_computer.set_active(True)
+
+			if r_chercker8.get_active():
+				self.state = 8 
+				r_chercker8.set_active(True)
+			else:
+				self.state = 10
+				r_chercker10.set_active(True)
+
+			if r_color_w.get_active():
+				self.square_color = 0
+			else:
+				self.square_color = 1
+				self.matrix_classic = False
+
+			if r_color1_w.get_active():
+				self.matrix_classic = False
+				r_color1_w.set_active(True)
+			else:
+				self.matrix_classic = True
+				r_color1_b.set_active(True)
+
+			self.checker_game.remove(self.checker)
+			self.checker = Checker(self, self.square_size, self.state, self.square_color)
+			self.checker_game.set_center_widget(self.checker)
+			self.checker_game.show_all()
+			self.backend = Backend(self.checker.matrix, self.rear_socket)
+			#self.checker.queue_draw()
+			custom_dialog_box.destroy()
+			#pl_moves = self.backend.possible_moves(1)
+			if self.pc_first:
+				self.checker.play_on_timeout(self.checker.stack)
+			self.checker.matrix = self.backend.get_matrix()
+			self.checker.resize_checker(self.checker.square_size)
+			self.backend.pl_before_firstclick()
+			#self.backend.move(self.checker.square.name[0], self.checker.square.name[1],1)
+			#self.pl_move()
+		elif answer == Gtk.ResponseType.CANCEL:
+			custom_dialog_box.destroy()
+		open_dialog = 0
+
+
+
 	#create a dialog window with 5 choice, each choice gives the rules of the different countries
 	def dialog(self,button):
 
@@ -150,10 +296,6 @@ class Draughts(Gtk.Window):
 
 		#Frame
 		frame_country = Gtk.Frame.new("Avec quelles règles voulez-vous jouer?")
-		frame_begin = Gtk.Frame.new("Qui joue en premier ?")
-		frame_matrice = Gtk.Frame.new("Combien de cases voulez-vous par ligne?")
-		frame_color = Gtk.Frame.new("Quelle couleur voulez-vous dans la case en bas à droite ?")
-		frame_color1 = Gtk.Frame.new("Voulez-vous que votre pion soit en bas à droite?")
 
 		#Radio Button
 		r_ne = Gtk.RadioButton.new_with_label_from_widget(None, "Netherlands")
@@ -165,72 +307,24 @@ class Draughts(Gtk.Window):
 		r_eng.set_label("England")
 		r_fr = Gtk.RadioButton.new_from_widget(r_ne)
 		r_fr.set_label("France")
-		r_player = Gtk.RadioButton.new_with_label_from_widget(None, "Joueur")
-		r_computer = Gtk.RadioButton.new_from_widget(r_player)
-		r_computer.set_label("Ordinateur")
-		r_chercker8 = Gtk.RadioButton.new_with_label_from_widget(None, "8 cases")
-		r_chercker10 = Gtk.RadioButton.new_from_widget(r_chercker8)
-		r_chercker10.set_label("10 cases")
-		r_color_w = Gtk.RadioButton.new_with_label_from_widget(None, "Blanches")
-		r_color_b = Gtk.RadioButton.new_from_widget(r_color_w)
-		r_color_b.set_label("Noires")
-		r_color1_b = Gtk.RadioButton.new_with_label_from_widget(None, "Non")
-		r_color1_w = Gtk.RadioButton.new_from_widget(r_color1_b)
-		r_color1_w.set_label("Oui")
-		
 
 		#Dialog
 		box_dialog = dialog_box.get_content_area()
-		box_dialog.pack_start(frame_begin, True, True, 0)
 		box_dialog.pack_start(frame_country, True, True, 0)
-		box_dialog.pack_start(frame_matrice, True, True, 0)
-		box_dialog.pack_start(frame_color, True, True, 0)
-		box_dialog.pack_start(frame_color1, True, True, 0)
 
 		#Box
-		box_begin = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
 		box_country = Gtk.Box(orientation = Gtk.Orientation.VERTICAL)
-		box_matrice = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
-		self.box_color = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
-		self.box_color1 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
 
 		#Frame
-		frame_begin.add(box_begin)
 		frame_country.add(box_country)
-		#frame_matrice.add(box_matrice)
-		#frame_color.add(self.box_color)
-		#frame_color1.add(self.box_color1)
 
 		#Box
-		box_begin.pack_start(r_player, True, True, 0)
-		box_begin.pack_start(r_computer, True, True, 0)
-
 		box_country.pack_start(r_ne, True, True, 0)
 		box_country.pack_start(r_fr, True, True, 0)
 		box_country.pack_start(r_eng, True, True, 0)
 		box_country.pack_start(r_ita, True, True, 0)
 		box_country.pack_start(r_sp, True, True, 0)
 
-		box_matrice.pack_start(r_chercker8, True, True, 0)
-		box_matrice.pack_start(r_chercker10, True, True, 0)
-
-		self.box_color.pack_start(r_color_w, True, True, 0)
-		self.box_color.pack_start(r_color_b, True, True, 0)
-
-		self.box_color1.pack_start(r_color1_w, True, True, 0)
-		self.box_color1.pack_start(r_color1_b, True, True, 0)
-
-
-
-		if self.pc_first:
-			r_computer.set_active(True)
-		else:
-			r_player.set_active(True)
-
-		if self.state == 8:
-			r_chercker8.set_active(True)
-		else:
-			r_chercker10.set_active(True)
 
 		if self.country == 0:
 			r_fr.set_active(True)
@@ -243,26 +337,10 @@ class Draughts(Gtk.Window):
 		elif self.country == 4:
 			r_ita.set_active(True)
 
-		if self.matrix_classic:
-			r_color1_b.set_active(True)
-		else:
-			r_color1_w.set_active(True)
-
-		if self.square_color == 0:
-			r_color_w.set_active(True)
-		else:
-			r_color_b.set_active(True)
-
 		dialog_box.show_all()
 		answer = dialog_box.run()
 
 		if answer == Gtk.ResponseType.APPLY:
-			if r_player.get_active():
-				self.pc_first = False
-				r_player.set_active(True)
-			else:
-				self.pc_first = True
-				r_computer.set_active(True)
 
 			if r_fr.get_active():
 				self.country = 0
@@ -300,28 +378,6 @@ class Draughts(Gtk.Window):
 				self.rear_socket = False
 				self.matrix_classic = False
 				r_ita.set_active(True)
-
-			#if r_chercker8.get_active():
-				#self.state = 8 
-				#r_chercker8.set_active(True)
-			#else:
-				#self.state = 10
-				#r_chercker10.set_active(True)
-
-
-
-			#if r_color_w.get_active():
-				#self.square_color = 0
-			#else:
-				#self.square_color = 1
-				#self.matrix_classic = False
-
-			#if r_color1_w.get_active():
-				#self.matrix_classic = False
-				#r_color1_w.set_active(True)
-			#else:
-				#self.matrix_classic = True
-				#r_color1_b.set_active(True)
 
 			self.checker_game.remove(self.checker)
 			self.checker = Checker(self, self.square_size, self.state, self.square_color)
