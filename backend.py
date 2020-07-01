@@ -1,3 +1,20 @@
+"""Copyright (C) 2020 Jridi Dine
+
+This checkers game is a free; you can redistribute it and/or modify it under
+the terms of the GNU General Public License as published by the Free
+Software Foundation; either version 3 of the License, or (at your
+option) any later version.
+
+This checkers game is distributed in the hope that it will be useful, but WITHOUT
+ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+for more details.
+
+You should have received a copy of the GNU General Public License
+along with this checkers game ; see the file LICENSE. If not, write to the Free
+Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA."""
+
+
 import copy
 import time
 import random
@@ -370,7 +387,9 @@ class Backend(object):
     def move(self, old, new, param=1, first_layer_depth=True):
         cell = self.matrix[old[0]][old[1]]
         self.matrix[old[0]][old[1]] = 3
-        if (new[0] == (self.p_max - 1) or new[0] == 0) and cell < 3:
+        if (new[0] == (self.p_max - 1) or new[0] == 0) and cell < 3 and \
+                (param == 1 and old[1] > new[1] or \
+                param == 2 and old[1] < new[1]):
             self.matrix[new[0]][new[1]] = cell + 3
         else:
             self.matrix[new[0]][new[1]] = cell
