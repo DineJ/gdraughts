@@ -77,7 +77,7 @@ class Draughts(Gtk.Window):
 
 		quit_button.set_label("Quitter")
 		play_button.set_label("Nouvelle partie")
-		custom_button.set_label("Parametres")
+		custom_button.set_label("Personnalisateur")
 		quit_button.set_is_important(True)
 		play_button.set_is_important(True)
 		custom_button.set_is_important(True)
@@ -298,15 +298,26 @@ class Draughts(Gtk.Window):
 		frame_country = Gtk.Frame.new("Avec quelles règles voulez-vous jouer?")
 
 		#Radio Button
+		flag = Gtk.Image.new_from_file("image/netherlands.jpg")
 		r_ne = Gtk.RadioButton.new_with_label_from_widget(None, "Netherlands")
+		r_ne.set_image(flag)
+		flag = Gtk.Image.new_from_file("image/italy.jpg")
 		r_ita = Gtk.RadioButton.new_from_widget(r_ne)
 		r_ita.set_label("Italy")
+		r_ita.set_image(flag)
+		flag = Gtk.Image.new_from_file("image/spain.jpg")
 		r_sp = Gtk.RadioButton.new_from_widget(r_ne)
 		r_sp.set_label("Spain")
+		r_sp.set_image(flag)
+		flag = Gtk.Image.new_from_file("image/uk.jpg")
 		r_eng = Gtk.RadioButton.new_from_widget(r_ne)
 		r_eng.set_label("England")
+		r_eng.set_image(flag)
 		r_fr = Gtk.RadioButton.new_from_widget(r_ne)
+		flag = Gtk.Image.new_from_file("image/france.jpg")
+		flag.set_pixel_size(0.1)
 		r_fr.set_label("France")
+		r_fr.set_image(flag)
 
 		#Dialog
 		box_dialog = dialog_box.get_content_area()
