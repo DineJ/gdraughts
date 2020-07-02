@@ -394,8 +394,8 @@ class Backend(object):
         cell = self.matrix[old[0]][old[1]]
         self.matrix[old[0]][old[1]] = 3
         if (new[0] == (self.p_max - 1) or new[0] == 0) and cell < 3 and \
-                (param == 1 and old[1] > new[1] or \
-                param == 2 and old[1] < new[1]):
+                (param == 1 and old[0] > new[0] or \
+                param == 2 and old[0] < new[0]):
             self.matrix[new[0]][new[1]] = cell + 3
         else:
             self.matrix[new[0]][new[1]] = cell
