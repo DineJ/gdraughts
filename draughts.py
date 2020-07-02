@@ -375,30 +375,35 @@ class Draughts(Gtk.Window):
 		image = Gtk.Image.new_from_pixbuf(pixbuf)
 		r_ne = Gtk.RadioButton.new_with_label_from_widget(None, "Netherlands")
 		r_ne.set_image(image)
+		r_ne.set_always_show_image
 
 		pixbuf = flag.new_from_file_at_scale("image/italy.jpg", 30, 30, True)
 		image = Gtk.Image.new_from_pixbuf(pixbuf)
 		r_ita = Gtk.RadioButton.new_from_widget(r_ne)
 		r_ita.set_image(image)
 		r_ita.set_label("Italy")
+		r_ita.set_always_show_image
 
 		pixbuf = flag.new_from_file_at_scale("image/spain.jpg", 30, 30, True)
 		image = Gtk.Image.new_from_pixbuf(pixbuf)
 		r_sp = Gtk.RadioButton.new_from_widget(r_ne)
 		r_sp.set_label("Spain")
 		r_sp.set_image(image)
+		r_sp.set_always_show_image
 
 		pixbuf = flag.new_from_file_at_scale("image/uk.jpg", 30, 30, True)
 		image = Gtk.Image.new_from_pixbuf(pixbuf)
 		r_eng = Gtk.RadioButton.new_from_widget(r_ne)
 		r_eng.set_label("England")
 		r_eng.set_image(image)
+		r_eng.set_always_show_image
 
 		r_fr = Gtk.RadioButton.new_from_widget(r_ne)
 		pixbuf = flag.new_from_file_at_scale("image/france.jpg", 30, 30, True)
 		image = Gtk.Image.new_from_pixbuf(pixbuf)
 		r_fr.set_label("France")
 		r_fr.set_image(image)
+		r_fr.set_always_show_image
 
 		#Dialog
 		box_dialog = dialog_box.get_content_area()
