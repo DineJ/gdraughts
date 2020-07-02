@@ -15,7 +15,7 @@ along with this checkers game ; see the file LICENSE.  If not, write to the Free
 Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA."""
 
 
-from gi.repository import Gtk
+from gi.repository import Gtk, GdkPixbuf
 from checker import Checker
 from backend import Backend, Node, Stack
 import random
@@ -25,7 +25,7 @@ import random
 class Draughts(Gtk.Window):
 
 	#managing of the main window
-	def __init__ (self, pc_first=False, country=3, matrix_classic=True, state=8, square_color=0, square_size=0, tool_height=0, checker=None, open_dialog=0, rear_socket=True): # country : 0 = France(fr), 1 = Spain(sp), 2 = England(eng), 3 = Netherlands(ne), 4 = Italy(ita)
+	def __init__ (self, pc_first=False, country=3, matrix_classic=True, state=8, square_color=0, square_size=0, tool_height=0, checker=None, open_dialog=0, rear_socket=True, forced_move=True, eatqueen=True): # country : 0 = France(fr), 1 = Spain(sp), 2 = England(eng), 3 = Netherlands(ne), 4 = Italy(ita)
 		Gtk.Window.__init__(self)
 		self.state = state
 		self.square_color = square_color
@@ -38,6 +38,8 @@ class Draughts(Gtk.Window):
 		self.matrix_classic = matrix_classic
 		self.country = country
 		self.rear_socket = rear_socket
+		self.forced_move = forced_move
+		self.eatqueen = eatqueen
 
 		self.set_border_width(10)
 		self.connect('delete-event', Gtk.main_quit)
@@ -116,7 +118,6 @@ class Draughts(Gtk.Window):
 		self.show_all()
 		self.backend = Backend(self.checker.matrix)
 		self.backend.fin = False
-		self.backend.rear_socket = False
 		self.backend.pl_before_firstclick()
 
 	#resize checker after each interraction with main window
@@ -159,19 +160,37 @@ class Draughts(Gtk.Window):
 		frame_matrice = Gtk.Frame.new("Combien de cases voulez-vous par ligne?")
 		frame_color = Gtk.Frame.new("Quelle couleur voulez-vous dans la case en bas à droite ?")
 		frame_color1 = Gtk.Frame.new("Voulez-vous que votre pion soit en bas à droite?")
+		frame_forced_move = Gtk.Frame.new("Voulez-vous forcer les prises?")
+		frame_eatbehind = Gtk.Frame.new("Voulez-vous ajouter la prise arrière?")
+		frame_eatqueen = Gtk.Frame.new("Un pion peut-il manger une dame?")
 
 		r_player = Gtk.RadioButton.new_with_label_from_widget(None, "Joueur")
 		r_computer = Gtk.RadioButton.new_from_widget(r_player)
 		r_computer.set_label("Ordinateur")
+
 		r_chercker8 = Gtk.RadioButton.new_with_label_from_widget(None, "8 cases")
 		r_chercker10 = Gtk.RadioButton.new_from_widget(r_chercker8)
 		r_chercker10.set_label("10 cases")
+
 		r_color_w = Gtk.RadioButton.new_with_label_from_widget(None, "Blanches")
 		r_color_b = Gtk.RadioButton.new_from_widget(r_color_w)
 		r_color_b.set_label("Noires")
+
 		r_color1_b = Gtk.RadioButton.new_with_label_from_widget(None, "Non")
 		r_color1_w = Gtk.RadioButton.new_from_widget(r_color1_b)
 		r_color1_w.set_label("Oui")
+
+		r_forced_move_y = Gtk.RadioButton.new_with_label_from_widget(None, "Oui")
+		r_forced_move_n = Gtk.RadioButton.new_from_widget(r_forced_move_y)
+		r_forced_move_n.set_label("Non")
+
+		r_eatbehind_y = Gtk.RadioButton.new_with_label_from_widget(None, "Oui")
+		r_eatbehind_n = Gtk.RadioButton.new_from_widget(r_eatbehind_y)
+		r_eatbehind_n.set_label("Non")
+
+		r_eatqueen_y = Gtk.RadioButton.new_with_label_from_widget(None, "Oui")
+		r_eatqueen_n = Gtk.RadioButton.new_from_widget(r_eatqueen_y)
+		r_eatqueen_n.set_label("Non")
 
 		#Dialog
 		box_dialog = custom_dialog_box.get_content_area()
@@ -179,31 +198,48 @@ class Draughts(Gtk.Window):
 		box_dialog.pack_start(frame_matrice, True, True, 0)
 		box_dialog.pack_start(frame_color, True, True, 0)
 		box_dialog.pack_start(frame_color1, True, True, 0)
+		box_dialog.pack_start(frame_forced_move, True, True, 0)
+		box_dialog.pack_start(frame_eatbehind, True, True, 0)
+		box_dialog.pack_start(frame_eatqueen, True, True, 0)
 
+		#Grid
+		grid_begin = Gtk.Grid.new()
+		grid_matrice = Gtk.Grid.new()
+		self.grid_color = Gtk.Grid.new()
+		self.grid_color1 = Gtk.Grid.new()
+		grid_forced_move = Gtk.Grid.new()
+		grid_eatbehind = Gtk.Grid.new()
+		grid_eatqueen = Gtk.Grid.new()
 
-		#Box
-		box_begin = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
-		box_matrice = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
-		self.box_color = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
-		self.box_color1 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
+		frame_begin.add(grid_begin)
+		frame_matrice.add(grid_matrice)
+		frame_color.add(self.grid_color)
+		frame_color1.add(self.grid_color1)
+		frame_forced_move.add(grid_forced_move)
+		frame_eatbehind.add(grid_eatbehind)
+		frame_eatqueen.add(grid_eatqueen)
 
-		frame_begin.add(box_begin)
-		frame_matrice.add(box_matrice)
-		frame_color.add(self.box_color)
-		frame_color1.add(self.box_color1)
+		#Grid
+		grid_begin.attach(r_player, 0, 0, 1, 1)
+		grid_begin.attach(r_computer, 1, 0, 1, 1)
 
-		#Box
-		box_begin.pack_start(r_player, True, True, 0)
-		box_begin.pack_start(r_computer, True, True, 0)
+		grid_matrice.attach(r_chercker8, 0, 0, 1, 1)
+		grid_matrice.attach(r_chercker10, 1, 0, 1, 1)
 
-		box_matrice.pack_start(r_chercker8, True, True, 0)
-		box_matrice.pack_start(r_chercker10, True, True, 0)
+		self.grid_color.attach(r_color_w, 0, 0, 1, 1)
+		self.grid_color.attach(r_color_b, 1, 0, 1, 1)
 
-		self.box_color.pack_start(r_color_w, True, True, 0)
-		self.box_color.pack_start(r_color_b, True, True, 0)
+		self.grid_color1.attach(r_color1_w, 0, 0, 1, 1)
+		self.grid_color1.attach(r_color1_b, 1, 0, 1, 1)
 
-		self.box_color1.pack_start(r_color1_w, True, True, 0)
-		self.box_color1.pack_start(r_color1_b, True, True, 0)
+		grid_forced_move.attach(r_forced_move_y, 0, 0, 1, 1)
+		grid_forced_move.attach(r_forced_move_n, 1, 0, 1, 1)
+
+		grid_eatbehind.attach(r_eatbehind_y, 0, 0, 1, 1)
+		grid_eatbehind.attach(r_eatbehind_n, 1, 0, 1, 1)
+
+		grid_eatqueen.attach(r_eatqueen_y, 0, 0, 1, 1)
+		grid_eatqueen.attach(r_eatqueen_n, 1, 0, 1, 1)
 
 		if self.pc_first:
 			r_computer.set_active(True)
@@ -224,6 +260,21 @@ class Draughts(Gtk.Window):
 			r_color_w.set_active(True)
 		else:
 			r_color_b.set_active(True)
+
+		if self.forced_move:
+			r_forced_move_y.set_active(True)
+		else:
+			r_forced_move_n.set_active(True)
+
+		if self.rear_socket:
+			r_eatbehind_y.set_active(True)
+		else:
+			r_eatbehind_n.set_active(True)
+
+		if self.eatqueen:
+			r_eatqueen_y.set_active(True)
+		else:
+			r_eatqueen_n.set_active(True)
 
 		custom_dialog_box.show_all()
 		answer = custom_dialog_box.run()
@@ -256,11 +307,32 @@ class Draughts(Gtk.Window):
 				self.matrix_classic = True
 				r_color1_b.set_active(True)
 
+			if r_forced_move_y.get_active():
+				self.forced_move = True
+				r_forced_move_y.set_active(True)
+			else:
+				self.forced_move = False
+				r_forced_move_n.set_active(True)
+
+			if r_eatbehind_y.get_active():
+				self.rear_socket = True
+				r_eatbehind_y.set_active(True)
+			else:
+				self.rear_socket = False
+				r_eatbehind_n.set_active(True)
+
+			if r_eatqueen_y.get_active():
+				self.eatqueen = True
+				r_eatqueen_y.set_active(True)
+			else:
+				self.eatqueen = False
+				r_eatqueen_n.set_active(True)
+
 			self.checker_game.remove(self.checker)
 			self.checker = Checker(self, self.square_size, self.state, self.square_color)
 			self.checker_game.set_center_widget(self.checker)
 			self.checker_game.show_all()
-			self.backend = Backend(self.checker.matrix, self.rear_socket)
+			self.backend = Backend(self.checker.matrix, self.rear_socket, self.forced_move, self.eatqueen)
 			#self.checker.queue_draw()
 			custom_dialog_box.destroy()
 			#pl_moves = self.backend.possible_moves(1)
@@ -298,43 +370,52 @@ class Draughts(Gtk.Window):
 		frame_country = Gtk.Frame.new("Avec quelles règles voulez-vous jouer?")
 
 		#Radio Button
-		flag = Gtk.Image.new_from_file("image/netherlands.jpg")
+		flag = GdkPixbuf.Pixbuf()
+		pixbuf = flag.new_from_file_at_size("image/netherlands.jpg", 30, 30)
+		image = Gtk.Image.new_from_pixbuf(pixbuf)
 		r_ne = Gtk.RadioButton.new_with_label_from_widget(None, "Netherlands")
-		r_ne.set_image(flag)
-		flag = Gtk.Image.new_from_file("image/italy.jpg")
+		r_ne.set_image(image)
+
+		pixbuf = flag.new_from_file_at_scale("image/italy.jpg", 30, 30, True)
+		image = Gtk.Image.new_from_pixbuf(pixbuf)
 		r_ita = Gtk.RadioButton.new_from_widget(r_ne)
+		r_ita.set_image(image)
 		r_ita.set_label("Italy")
-		r_ita.set_image(flag)
-		flag = Gtk.Image.new_from_file("image/spain.jpg")
+
+		pixbuf = flag.new_from_file_at_scale("image/spain.jpg", 30, 30, True)
+		image = Gtk.Image.new_from_pixbuf(pixbuf)
 		r_sp = Gtk.RadioButton.new_from_widget(r_ne)
 		r_sp.set_label("Spain")
-		r_sp.set_image(flag)
-		flag = Gtk.Image.new_from_file("image/uk.jpg")
+		r_sp.set_image(image)
+
+		pixbuf = flag.new_from_file_at_scale("image/uk.jpg", 30, 30, True)
+		image = Gtk.Image.new_from_pixbuf(pixbuf)
 		r_eng = Gtk.RadioButton.new_from_widget(r_ne)
 		r_eng.set_label("England")
-		r_eng.set_image(flag)
+		r_eng.set_image(image)
+
 		r_fr = Gtk.RadioButton.new_from_widget(r_ne)
-		flag = Gtk.Image.new_from_file("image/france.jpg")
-		flag.set_pixel_size(0.1)
+		pixbuf = flag.new_from_file_at_scale("image/france.jpg", 30, 30, True)
+		image = Gtk.Image.new_from_pixbuf(pixbuf)
 		r_fr.set_label("France")
-		r_fr.set_image(flag)
+		r_fr.set_image(image)
 
 		#Dialog
 		box_dialog = dialog_box.get_content_area()
 		box_dialog.pack_start(frame_country, True, True, 0)
 
-		#Box
-		box_country = Gtk.Box(orientation = Gtk.Orientation.VERTICAL)
+		#Grid
+		grid_country = Gtk.Grid()
 
 		#Frame
-		frame_country.add(box_country)
+		frame_country.add(grid_country)
 
 		#Box
-		box_country.pack_start(r_ne, True, True, 0)
-		box_country.pack_start(r_fr, True, True, 0)
-		box_country.pack_start(r_eng, True, True, 0)
-		box_country.pack_start(r_ita, True, True, 0)
-		box_country.pack_start(r_sp, True, True, 0)
+		grid_country.attach(r_ne, 0, 0, 1, 1)
+		grid_country.attach(r_fr, 1, 0, 1, 1)
+		grid_country.attach(r_eng, 0, 1, 1, 1)
+		grid_country.attach(r_ita, 1, 1, 1, 1)
+		grid_country.attach(r_sp, 1, 2, 1, 1)
 
 
 		if self.country == 0:
@@ -356,6 +437,7 @@ class Draughts(Gtk.Window):
 			if r_fr.get_active():
 				self.country = 0
 				self.state = 10
+				self.eatqueen = True
 				self.rear_socket = True
 				self.matrix_classic = True
 				r_fr.set_active(True)
@@ -364,6 +446,7 @@ class Draughts(Gtk.Window):
 				self.country = 1
 				self.state = 8
 				self.square_color = 0
+				self.eatqueen = True
 				self.rear_socket = False
 				self.matrix_classic = False
 				r_sp.set_active(True)
@@ -371,6 +454,7 @@ class Draughts(Gtk.Window):
 			elif r_eng.get_active():
 				self.country = 2
 				self.state = 8
+				self.eatqueen = True
 				self.rear_socket = False
 				self.matrix_classic = True
 				r_eng.set_active(True)
@@ -378,6 +462,7 @@ class Draughts(Gtk.Window):
 			elif r_ne.get_active():
 				self.country = 3
 				self.state = 10
+				self.eatqueen = True
 				self.rear_socket = True
 				self.matrix_classic = True
 				r_ne.set_active(True)
@@ -386,6 +471,7 @@ class Draughts(Gtk.Window):
 				self.country = 4
 				self.state = 8
 				self.square_color = 1
+				self.eatqueen = False
 				self.rear_socket = False
 				self.matrix_classic = False
 				r_ita.set_active(True)
@@ -394,7 +480,7 @@ class Draughts(Gtk.Window):
 			self.checker = Checker(self, self.square_size, self.state, self.square_color)
 			self.checker_game.set_center_widget(self.checker)
 			self.checker_game.show_all()
-			self.backend = Backend(self.checker.matrix, self.rear_socket)
+			self.backend = Backend(self.checker.matrix, self.rear_socket, self.forced_move, self.eatqueen)
 			#self.checker.queue_draw()
 			dialog_box.destroy()
 			#pl_moves = self.backend.possible_moves(1)
