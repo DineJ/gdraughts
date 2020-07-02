@@ -147,6 +147,7 @@ class Draughts(Gtk.Window):
 		custom_dialog_box = Gtk.Dialog.new()
 		custom_dialog_box.set_border_width(10)
 		custom_dialog_box.connect('delete-event', Gtk.main_quit)
+		dialog_align = Gtk.Alignment.new(0.5, 0.5, 0.0, 0.0 )
 		custom_dialog_box.show_all()
 		custom_dialog_box.add_button(Gtk.STOCK_APPLY, Gtk.ResponseType.APPLY)
 		custom_dialog_box.add_button(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL)
@@ -194,22 +195,44 @@ class Draughts(Gtk.Window):
 
 		#Dialog
 		box_dialog = custom_dialog_box.get_content_area()
-		box_dialog.pack_start(frame_begin, True, True, 0)
-		box_dialog.pack_start(frame_matrice, True, True, 0)
-		box_dialog.pack_start(frame_color, True, True, 0)
-		box_dialog.pack_start(frame_color1, True, True, 0)
-		box_dialog.pack_start(frame_forced_move, True, True, 0)
-		box_dialog.pack_start(frame_eatbehind, True, True, 0)
-		box_dialog.pack_start(frame_eatqueen, True, True, 0)
+		box_dialog.pack_end(dialog_align, False, False, 0)
+		box_dialog.pack_start(frame_begin, True, True, 3)
+		box_dialog.pack_start(frame_matrice, True, True, 3)
+		box_dialog.pack_start(frame_color, True, True, 3)
+		box_dialog.pack_start(frame_color1, True, True, 3)
+		box_dialog.pack_start(frame_forced_move, True, True, 3)
+		box_dialog.pack_start(frame_eatbehind, True, True, 3)
+		box_dialog.pack_start(frame_eatqueen, True, True, 3)
 
 		#Grid
 		grid_begin = Gtk.Grid.new()
+		grid_begin.set_column_homogeneous(True)
+		grid_begin.set_row_homogeneous(True)
+
 		grid_matrice = Gtk.Grid.new()
+		grid_matrice.set_column_homogeneous(True)
+		grid_matrice.set_row_homogeneous(True)
+
 		self.grid_color = Gtk.Grid.new()
+		self.grid_color.set_column_homogeneous(True)
+		self.grid_color.set_row_homogeneous(True)
+
 		self.grid_color1 = Gtk.Grid.new()
+		self.grid_color1.set_column_homogeneous(True)
+		self.grid_color1.set_row_homogeneous(True)
+
 		grid_forced_move = Gtk.Grid.new()
+		grid_forced_move.set_column_homogeneous(True)
+		grid_forced_move.set_row_homogeneous(True)
+
 		grid_eatbehind = Gtk.Grid.new()
+		grid_eatbehind.set_column_homogeneous(True)
+		grid_eatbehind.set_row_homogeneous(True)
+
 		grid_eatqueen = Gtk.Grid.new()
+		grid_eatqueen.set_column_homogeneous(True)
+		grid_eatqueen.set_row_homogeneous(True)
+
 
 		frame_begin.add(grid_begin)
 		frame_matrice.add(grid_matrice)
@@ -407,10 +430,12 @@ class Draughts(Gtk.Window):
 
 		#Dialog
 		box_dialog = dialog_box.get_content_area()
-		box_dialog.pack_start(frame_country, True, True, 0)
+		box_dialog.pack_start(frame_country, True, True, 4)
 
 		#Grid
 		grid_country = Gtk.Grid()
+		grid_country.set_column_spacing(10)
+		grid_country.set_row_spacing(5)
 
 		#Frame
 		frame_country.add(grid_country)
@@ -420,7 +445,7 @@ class Draughts(Gtk.Window):
 		grid_country.attach(r_fr, 1, 0, 1, 1)
 		grid_country.attach(r_eng, 0, 1, 1, 1)
 		grid_country.attach(r_ita, 1, 1, 1, 1)
-		grid_country.attach(r_sp, 1, 2, 1, 1)
+		grid_country.attach(r_sp, 0, 2, 1, 1)
 
 
 		if self.country == 0:
