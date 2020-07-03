@@ -62,6 +62,17 @@ class Checker(Gtk.Grid):
                             [0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
                             [1, 0, 1, 0, 1, 0, 1, 0, 1, 0]]
 
+        self.matrix10v2 =  [[2, 0, 2, 0, 2, 0, 2, 0, 2, 0],
+                            [0, 2, 0, 2, 0, 2, 0, 2, 0, 2],
+                            [2, 0, 2, 0, 2, 0, 2, 0, 2, 0],
+                            [0, 2, 0, 2, 0, 2, 0, 2, 0, 2],
+                            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                            [1, 0, 1, 0, 1, 0, 1, 0, 1, 0],
+                            [0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
+                            [1, 0, 1, 0, 1, 0, 1, 0, 1, 0],
+                            [0, 1, 0, 1, 0, 1, 0, 1, 0, 1]]
+
         self.matrix8_notation  =       [[0, 1, 0, 2, 0, 3, 0, 4],
                                         [5, 0, 6, 0, 7, 0, 8, 0],
                                         [0, 9, 0, 10, 0, 11, 0,12],
@@ -121,6 +132,28 @@ class Checker(Gtk.Grid):
                                         [0, 10, 0, 9, 0, 8, 0, 7, 0, 6],
                                         [5, 0, 4, 0, 3, 0, 2, 0, 1, 0]]
 
+        self.matrix10v2_notation =     [[1, 0, 2, 0, 3, 0, 4, 0, 5, 0],
+                                        [0, 6, 0, 7, 0, 8, 0, 9, 0, 10],
+                                        [11, 0, 12, 0, 13, 0, 14, 0, 15, 0],
+                                        [0, 16, 0, 17, 0, 18, 0, 19, 0, 20],
+                                        [21, 0, 22, 0, 23, 0, 24, 0, 25, 0],
+                                        [0, 26, 0, 27, 0, 28, 0, 29, 0, 30],
+                                        [31, 0, 32, 0, 33, 0, 34, 0, 35, 0],
+                                        [0, 36, 0, 37, 0, 38, 0, 39, 0, 40],
+                                        [41, 0, 42, 0, 43, 0, 44, 0, 45, 0],
+                                        [0, 46, 0, 47, 0, 48, 0, 49, 0, 50]]
+
+        self.matrix10v2_notationv2 =   [[50, 0, 49, 0, 48, 0, 47, 0, 46, 0],
+                                        [0, 45, 0, 44, 0, 43, 0, 42, 0, 41],
+                                        [40, 0, 39, 0, 38, 0, 37, 0, 36, 0],
+                                        [0, 35, 0, 34, 0, 33, 0, 32, 0, 31],
+                                        [30, 0, 29, 0, 28, 0, 27, 0, 26, 0],
+                                        [0, 25, 0, 24, 0, 23, 0, 22, 0, 21],
+                                        [20, 0, 19, 0, 18, 0, 17, 0, 16, 0],
+                                        [0, 15, 0, 14, 0, 13, 0, 12, 0, 11],
+                                        [10, 0, 9, 0, 8, 0, 7, 0, 6, 0],
+                                        [0, 5, 0, 4, 0, 3, 0, 2, 0, 1]]
+
         if matrix_size == 8 :
             if self.draughts.matrix_classic:
                 self.matrix = self.matrix8
@@ -135,11 +168,18 @@ class Checker(Gtk.Grid):
                 else:
                     self.matrix_coordonate = self.matrix8v2_notation
         else:
-            self.matrix = self.matrix10
-            if self.draughts.pc_first:
-                self.matrix_coordonate = self.matrix10_notation
+            if self.draughts.matrix_classic:
+                self.matrix = self.matrix10
+                if self.draughts.pc_first:
+                    self.matrix_coordonate = self.matrix10_notationv2
+                else:
+                    self.matrix_coordonate = self.matrix10_notation
             else:
-                self.matrix_coordonate = self.matrix10_notationv2
+                self.matrix = self.matrix10v2
+                if self.draughts.pc_first:
+                    self.matrix_coordonate = self.matrix10v2_notationv2
+                else:
+                    self.matrix_coodonate = self.matrix10v2_notation
         self.create_tableau()
 
     #this funtion makes it possible to display the hits of the computer
