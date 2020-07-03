@@ -252,7 +252,7 @@ class Checker(Gtk.Grid):
                 self.draughts.hit_history.remove(self.draughts.hit_history.get_children()[0])
                 self.draughts.informations_bar.set_markup("<span foreground='#ff710d' size='large' >L'ordinateur a gagne</span>")
                 self.draughts.backend.fin = True
-                self.draughts.row_endgame = Gtk.Label(" %s + " % (row2))
+                self.draughts.row_endgame = Gtk.Label(" %s+ " % (row2))
                 self.draughts.row_endgame.show_all()
                 self.draughts.hit_history.prepend(self.draughts.row_endgame)
                 return 1
@@ -273,7 +273,7 @@ class Checker(Gtk.Grid):
                 play = self.draughts.backend.possible_moves(2)
                 if play:
                     if (self.old_square.name[0] - square.name[0] != 1 and self.old_square.name[0] - square.name[0] != -1) or (self.old_square.name[1] - square.name[1] != 1 and self.old_square.name[1] - square.name[1] != -1):
-                        row1 = ("Coup %d : %d - %d" % (self.draughts.turn, self.matrix_coordonate[int(str(self.old_square.name[0]))][int(str(self.old_square.name[1]))], self.matrix_coordonate[int(str(square.name[0]))][int(str(square.name[1]))]))
+                        row1 = ("Coup %d : %d x %d" % (self.draughts.turn, self.matrix_coordonate[int(str(self.old_square.name[0]))][int(str(self.old_square.name[1]))], self.matrix_coordonate[int(str(square.name[0]))][int(str(square.name[1]))]))
                     else:
                         row1 = ("Coup %d : %d - %d" % (self.draughts.turn, self.matrix_coordonate[int(str(self.old_square.name[0]))][int(str(self.old_square.name[1]))], self.matrix_coordonate[int(str(square.name[0]))][int(str(square.name[1]))]))
                     self.draughts.row_label1 = Gtk.Label(row1)
@@ -286,7 +286,7 @@ class Checker(Gtk.Grid):
                     self.draughts.hit_history.remove(self.draughts.hit_history.get_children()[0])
                     self.draughts.informations_bar.set_markup("<span foreground='#ff710d' size='large' >Tu as gagne</span>")
                     self.draughts.backend.fin = True
-                    self.draughts.row_endgame = Gtk.Label(" %s + " % (row1))
+                    self.draughts.row_endgame = Gtk.Label(" %s+ " % (row1))
                     self.draughts.row_endgame.show_all()
                     self.draughts.hit_history.prepend(self.draughts.row_endgame)
                     return 0
