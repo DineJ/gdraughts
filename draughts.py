@@ -138,7 +138,11 @@ class Draughts(Gtk.Window):
 		else:
 			self.checker.resize_checker(self.square_size)
 
-
+	def custom_margin(self, widget, l, t, r, b):
+		widget.set_margin_top(t)
+		widget.set_margin_bottom(b)
+		widget.set_margin_start(l)
+		widget.set_margin_end(r)
 
 	def custom_dialog(self,button):
 
@@ -147,7 +151,6 @@ class Draughts(Gtk.Window):
 		custom_dialog_box = Gtk.Dialog.new()
 		custom_dialog_box.set_border_width(10)
 		custom_dialog_box.connect('delete-event', Gtk.main_quit)
-		dialog_align = Gtk.Alignment.new(0.5, 0.5, 0.0, 0.0 )
 		custom_dialog_box.show_all()
 		custom_dialog_box.add_button(Gtk.STOCK_APPLY, Gtk.ResponseType.APPLY)
 		custom_dialog_box.add_button(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL)
@@ -166,36 +169,49 @@ class Draughts(Gtk.Window):
 		frame_eatqueen = Gtk.Frame.new("Un pion peut-il manger une dame?")
 
 		r_player = Gtk.RadioButton.new_with_label_from_widget(None, "Joueur")
+		self.custom_margin(r_player, 5, 10, 5, 10)
 		r_computer = Gtk.RadioButton.new_from_widget(r_player)
+		self.custom_margin(r_computer, 5, 10, 5, 10)
 		r_computer.set_label("Ordinateur")
 
 		r_chercker8 = Gtk.RadioButton.new_with_label_from_widget(None, "8 cases")
+		self.custom_margin(r_chercker8, 5, 10, 5, 10)
 		r_chercker10 = Gtk.RadioButton.new_from_widget(r_chercker8)
+		self.custom_margin(r_chercker10, 5, 10, 5, 10)
 		r_chercker10.set_label("10 cases")
 
 		r_color_w = Gtk.RadioButton.new_with_label_from_widget(None, "Blanches")
+		self.custom_margin(r_color_w, 5, 10, 5, 10)
 		r_color_b = Gtk.RadioButton.new_from_widget(r_color_w)
+		self.custom_margin(r_color_b, 5, 10, 5, 10)
 		r_color_b.set_label("Noires")
 
 		r_color1_b = Gtk.RadioButton.new_with_label_from_widget(None, "Non")
+		self.custom_margin(r_color1_b, 5, 10, 5, 10)
 		r_color1_w = Gtk.RadioButton.new_from_widget(r_color1_b)
+		self.custom_margin(r_color1_w, 5, 10, 5, 10)
 		r_color1_w.set_label("Oui")
 
 		r_forced_move_y = Gtk.RadioButton.new_with_label_from_widget(None, "Oui")
+		self.custom_margin(r_forced_move_y, 5, 10, 5, 10)
 		r_forced_move_n = Gtk.RadioButton.new_from_widget(r_forced_move_y)
+		self.custom_margin(r_forced_move_n, 5, 10, 5, 10)
 		r_forced_move_n.set_label("Non")
 
 		r_eatbehind_y = Gtk.RadioButton.new_with_label_from_widget(None, "Oui")
+		self.custom_margin(r_eatbehind_y, 5, 10, 5, 10)
 		r_eatbehind_n = Gtk.RadioButton.new_from_widget(r_eatbehind_y)
+		self.custom_margin(r_eatbehind_n, 5, 10, 5, 10)
 		r_eatbehind_n.set_label("Non")
 
 		r_eatqueen_y = Gtk.RadioButton.new_with_label_from_widget(None, "Oui")
+		self.custom_margin(r_eatqueen_y, 5, 10, 5, 10)
 		r_eatqueen_n = Gtk.RadioButton.new_from_widget(r_eatqueen_y)
+		self.custom_margin(r_eatqueen_n, 5, 10, 5, 10)
 		r_eatqueen_n.set_label("Non")
 
 		#Dialog
 		box_dialog = custom_dialog_box.get_content_area()
-		box_dialog.pack_end(dialog_align, False, False, 0)
 		box_dialog.pack_start(frame_begin, True, True, 3)
 		box_dialog.pack_start(frame_matrice, True, True, 3)
 		box_dialog.pack_start(frame_color, True, True, 3)
@@ -300,6 +316,8 @@ class Draughts(Gtk.Window):
 			r_eatqueen_n.set_active(True)
 
 		custom_dialog_box.show_all()
+		custom_dialog_box.set_transient_for(self)
+		custom_dialog_box.set_position(Gtk.WindowPosition.CENTER_ALWAYS)
 		answer = custom_dialog_box.run()
 
 		if answer == Gtk.ResponseType.APPLY:
@@ -399,6 +417,7 @@ class Draughts(Gtk.Window):
 		r_ne = Gtk.RadioButton.new_with_label_from_widget(None, "Netherlands")
 		r_ne.set_image(image)
 		r_ne.set_always_show_image(True)
+		self.custom_margin(r_ne, 5, 10, 5, 5)
 
 		pixbuf = flag.new_from_file_at_scale("image/italy.jpg", 30, 30, True)
 		image = Gtk.Image.new_from_pixbuf(pixbuf)
@@ -406,6 +425,7 @@ class Draughts(Gtk.Window):
 		r_ita.set_image(image)
 		r_ita.set_label("Italy")
 		r_ita.set_always_show_image(True)
+		self.custom_margin(r_ita, 5, 5, 5, 5)
 
 		pixbuf = flag.new_from_file_at_scale("image/spain.jpg", 30, 30, True)
 		image = Gtk.Image.new_from_pixbuf(pixbuf)
@@ -413,6 +433,7 @@ class Draughts(Gtk.Window):
 		r_sp.set_label("Spain")
 		r_sp.set_image(image)
 		r_sp.set_always_show_image(True)
+		self.custom_margin(r_sp, 5, 5, 5, 10)
 
 		pixbuf = flag.new_from_file_at_scale("image/uk.jpg", 30, 30, True)
 		image = Gtk.Image.new_from_pixbuf(pixbuf)
@@ -420,6 +441,7 @@ class Draughts(Gtk.Window):
 		r_eng.set_label("England")
 		r_eng.set_image(image)
 		r_eng.set_always_show_image(True)
+		self.custom_margin(r_eng, 5, 5, 5, 5)
 
 		r_fr = Gtk.RadioButton.new_from_widget(r_ne)
 		pixbuf = flag.new_from_file_at_scale("image/france.jpg", 30, 30, True)
@@ -427,6 +449,7 @@ class Draughts(Gtk.Window):
 		r_fr.set_label("France")
 		r_fr.set_image(image)
 		r_fr.set_always_show_image(True)
+		self.custom_margin(r_fr, 5, 10, 5, 5)
 
 		#Dialog
 		box_dialog = dialog_box.get_content_area()
@@ -435,12 +458,13 @@ class Draughts(Gtk.Window):
 		#Grid
 		grid_country = Gtk.Grid()
 		grid_country.set_column_spacing(10)
-		grid_country.set_row_spacing(5)
+		grid_country.set_row_spacing(10)
 
 		#Frame
 		frame_country.add(grid_country)
-
+		
 		#Box
+		grid_country.set_row_spacing(10)
 		grid_country.attach(r_ne, 0, 0, 1, 1)
 		grid_country.attach(r_fr, 1, 0, 1, 1)
 		grid_country.attach(r_eng, 0, 1, 1, 1)
@@ -460,6 +484,8 @@ class Draughts(Gtk.Window):
 			r_ita.set_active(True)
 
 		dialog_box.show_all()
+		dialog_box.set_transient_for(self)
+		dialog_box.set_position(Gtk.WindowPosition.CENTER_ALWAYS)
 		answer = dialog_box.run()
 
 		if answer == Gtk.ResponseType.APPLY:
