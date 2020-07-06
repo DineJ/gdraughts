@@ -145,7 +145,7 @@ class Stack:
 
 
 class Backend(object):
-    def __init__(self, new_matrix=None, rear_socket=None, force_jump=True, eat_queen=True, last_jmp=None, game_param=None):
+    def __init__(self, new_matrix=None, rear_socket=True, force_jump=True, eat_queen=True, last_jmp=None, game_param=None):
         self.p_max=10
         self.status = ("NEW GAME")
         self.depth = 5
@@ -348,8 +348,8 @@ class Backend(object):
             if -1 < j + jo * 2 < len(self.matrix) and -1  < i + io * 2 < len(self.matrix) and \
                       self.matrix[i + io][j + jo] % 3 == enemy and \
                       self.matrix[i + io * 2][j + jo * 2] % 3 == 0 and \
-                      (self.eat_queen == True or cell > 3 or \
-                       self.matrix[(old[0] + (x * offset))][(old[1] + (y * offset))] < 4):
+                      (self.eat_queen == True or \
+                       self.matrix[i + io][j + jo] < 4):
                 self.eat_moves.append([[i, j], [i + io * 2, j + jo * 2]])
 
     def eatable_queen(self, param, enemy, j, i, jo, io):
