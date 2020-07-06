@@ -307,8 +307,12 @@ class Checker(Gtk.Grid):
                 self.old_square = square
         else:
             if 1 :
-                if self.draughts.backend.pl_after_secondclick(self.old_square.name, square.name) == 0:
+                ret = self.draughts.backend.pl_after_secondclick(self.old_square.name, square.name)
+                if ret == 0:
                     self.old_square = None
+                    return
+                if ret == 2:
+                    self.old_square = square
                     return
                 play = self.draughts.backend.possible_moves(2)
                 if play:
