@@ -1,4 +1,4 @@
-"""Copyright (C) 2020 Jridi Dine
+"""Copyright (C) 2020 Jridi Dine (dinejridi@gmail.com)
 
 This checkers game is a free; you can redistribute it and/or modify it under
 the terms of the GNU General Public License as published by the Free
@@ -25,7 +25,7 @@ import random
 class Draughts(Gtk.Window):
 
 	#managing of the main window
-	def __init__ (self, pc_first=False, country=3, matrix_classic=True, state=8, square_color=0, square_size=0, tool_height=0, checker=None, open_dialog=0, rear_socket=True, forced_move=True, eatqueen=True): # country : 0 = France(fr), 1 = Spain(sp), 2 = England(eng), 3 = Netherlands(ne), 4 = Italy(ita)
+	def __init__ (self, pc_first=False, country=3, matrix_classic=True, state=8, square_color=0, square_size=0, tool_height=0, checker=None, open_dialog=0, rear_socket=True, forced_move=True, eatqueen=True, depth=5): # country : 0 = France(fr), 1 = Spain(sp), 2 = England(eng), 3 = Netherlands(ne), 4 = Italy(ita)
 		Gtk.Window.__init__(self)
 		self.state = state
 		self.square_color = square_color
@@ -40,6 +40,7 @@ class Draughts(Gtk.Window):
 		self.rear_socket = rear_socket
 		self.forced_move = forced_move
 		self.eatqueen = eatqueen
+		self.depth = depth
 
 		self.set_border_width(10)
 		self.connect('delete-event', Gtk.main_quit)
@@ -121,7 +122,7 @@ class Draughts(Gtk.Window):
 		self.backend.pl_before_firstclick()
 
 	#resize checker after each interraction with main window
-	def on_resize(self,widget): 
+	def on_resize(self,widget):
 		checker_width = self.checker_game.get_allocation().width
 		checker_height = self.checker_game.get_allocation().height
 
@@ -229,13 +230,13 @@ class Draughts(Gtk.Window):
 		grid_matrice.set_column_homogeneous(True)
 		grid_matrice.set_row_homogeneous(True)
 
-		self.grid_color = Gtk.Grid.new()
-		self.grid_color.set_column_homogeneous(True)
-		self.grid_color.set_row_homogeneous(True)
+		grid_color = Gtk.Grid.new()
+		grid_color.set_column_homogeneous(True)
+		grid_color.set_row_homogeneous(True)
 
-		self.grid_color1 = Gtk.Grid.new()
-		self.grid_color1.set_column_homogeneous(True)
-		self.grid_color1.set_row_homogeneous(True)
+		grid_color1 = Gtk.Grid.new()
+		grid_color1.set_column_homogeneous(True)
+		grid_color1.set_row_homogeneous(True)
 
 		grid_forced_move = Gtk.Grid.new()
 		grid_forced_move.set_column_homogeneous(True)
@@ -252,8 +253,8 @@ class Draughts(Gtk.Window):
 
 		frame_begin.add(grid_begin)
 		frame_matrice.add(grid_matrice)
-		frame_color.add(self.grid_color)
-		frame_color1.add(self.grid_color1)
+		frame_color.add(grid_color)
+		frame_color1.add(grid_color1)
 		frame_forced_move.add(grid_forced_move)
 		frame_eatbehind.add(grid_eatbehind)
 		frame_eatqueen.add(grid_eatqueen)
@@ -265,11 +266,11 @@ class Draughts(Gtk.Window):
 		grid_matrice.attach(r_chercker8, 0, 0, 1, 1)
 		grid_matrice.attach(r_chercker10, 1, 0, 1, 1)
 
-		self.grid_color.attach(r_color_w, 0, 0, 1, 1)
-		self.grid_color.attach(r_color_b, 1, 0, 1, 1)
+		grid_color.attach(r_color_w, 0, 0, 1, 1)
+		grid_color.attach(r_color_b, 1, 0, 1, 1)
 
-		self.grid_color1.attach(r_color1_w, 0, 0, 1, 1)
-		self.grid_color1.attach(r_color1_b, 1, 0, 1, 1)
+		grid_color1.attach(r_color1_w, 0, 0, 1, 1)
+		grid_color1.attach(r_color1_b, 1, 0, 1, 1)
 
 		grid_forced_move.attach(r_forced_move_y, 0, 0, 1, 1)
 		grid_forced_move.attach(r_forced_move_n, 1, 0, 1, 1)
@@ -323,57 +324,44 @@ class Draughts(Gtk.Window):
 		if answer == Gtk.ResponseType.APPLY:
 			if r_player.get_active():
 				self.pc_first = False
-				r_player.set_active(True)
 			else:
 				self.pc_first = True
-				r_computer.set_active(True)
 
 			if r_chercker8.get_active():
 				self.state = 8 
-				r_chercker8.set_active(True)
 			else:
 				self.state = 10
-				r_chercker10.set_active(True)
 
 			if r_color_w.get_active():
 				self.square_color = 0
 			else:
 				self.square_color = 1
-				self.matrix_classic = False
 
 			if r_color1_w.get_active():
 				self.matrix_classic = False
-				r_color1_w.set_active(True)
 			else:
 				self.matrix_classic = True
-				r_color1_b.set_active(True)
 
 			if r_forced_move_y.get_active():
 				self.forced_move = True
-				r_forced_move_y.set_active(True)
 			else:
 				self.forced_move = False
-				r_forced_move_n.set_active(True)
 
 			if r_eatbehind_y.get_active():
 				self.rear_socket = True
-				r_eatbehind_y.set_active(True)
 			else:
 				self.rear_socket = False
-				r_eatbehind_n.set_active(True)
 
 			if r_eatqueen_y.get_active():
 				self.eatqueen = True
-				r_eatqueen_y.set_active(True)
 			else:
 				self.eatqueen = False
-				r_eatqueen_n.set_active(True)
 
 			self.checker_game.remove(self.checker)
 			self.checker = Checker(self, self.square_size, self.state, self.square_color)
 			self.checker_game.set_center_widget(self.checker)
 			self.checker_game.show_all()
-			self.backend = Backend(self.checker.matrix, self.rear_socket, self.forced_move, self.eatqueen)
+			self.backend = Backend(self.checker.matrix, self.rear_socket, self.forced_move, self.eatqueen, self.depth)
 			#self.checker.queue_draw()
 			custom_dialog_box.destroy()
 			#pl_moves = self.backend.possible_moves(1)
@@ -495,6 +483,7 @@ class Draughts(Gtk.Window):
 				self.state = 10
 				self.eatqueen = True
 				self.rear_socket = True
+				self.forced_move = True
 				self.matrix_classic = True
 				r_fr.set_active(True)
 
@@ -504,6 +493,7 @@ class Draughts(Gtk.Window):
 				self.square_color = 0
 				self.eatqueen = True
 				self.rear_socket = False
+				self.forced_move = True
 				self.matrix_classic = False
 				r_sp.set_active(True)
 
@@ -513,6 +503,7 @@ class Draughts(Gtk.Window):
 				self.eatqueen = True
 				self.rear_socket = False
 				self.matrix_classic = True
+				self.forced_move = True
 				r_eng.set_active(True)
 
 			elif r_ne.get_active():
@@ -520,6 +511,7 @@ class Draughts(Gtk.Window):
 				self.state = 10
 				self.eatqueen = True
 				self.rear_socket = True
+				self.forced_move = True
 				self.matrix_classic = True
 				r_ne.set_active(True)
 
@@ -529,6 +521,7 @@ class Draughts(Gtk.Window):
 				self.square_color = 1
 				self.eatqueen = False
 				self.rear_socket = False
+				self.forced_move = True
 				self.matrix_classic = False
 				r_ita.set_active(True)
 
