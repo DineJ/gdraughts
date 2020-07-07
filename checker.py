@@ -1,4 +1,4 @@
-"""Copyright (C) 2020 Jridi Dine
+"""Copyright (C) 2020 Jridi Dine (dinejridi@gmail.com)
 
 This checkers game is a free; you can redistribute it and/or modify it under
 the terms of the GNU General Public License as published by the Free
