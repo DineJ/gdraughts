@@ -277,13 +277,13 @@ class Backend(object):
                 vertical = 1 if param == 2 else -1  # ako je param = 1, to su PC figure koje idu dole
                 enemy = 1 if param == 2 else 2
                 cell = self.matrix[i][j]
-                if cell < 4:
+                if cell == 1 or cell == 2:
                     self.possible_moves_square(param, enemy, j, i, -1, vertical)
                     self.possible_moves_square(param, enemy, j, i, 1, vertical)
                     if self.rear_socket:
                         self.possible_moves_square(param, enemy, j, i, -1, vertical * -1, False)
                         self.possible_moves_square(param, enemy, j, i, 1, vertical * -1, False)
-                elif cell > 3:
+                elif cell == 4 or cell == 5:
                     self.possible_moves_queen(param, enemy, j, i, 1, 1)
                     self.possible_moves_queen(param, enemy, j, i, -1, 1)
                     self.possible_moves_queen(param, enemy, j, i, 1, -1)
@@ -382,13 +382,13 @@ class Backend(object):
         cell = self.matrix[i][j]
         # print(self.matrix)
 
-        if cell < 4:
+        if cell == 1 or cell == 2:
             self.eatable_square(param, enemy, j, i, -1, vertical)
             self.eatable_square(param, enemy, j, i, 1, vertical)
             if self.rear_socket:
                 self.eatable_square(param, enemy, j, i, -1, vertical * -1)
                 self.eatable_square(param, enemy, j, i, 1, vertical * -1)
-        elif cell > 3:
+        elif cell == 4 or cell == 5:
             self.eatable_queen(param, enemy, j, i, -1, vertical * -1)
             self.eatable_queen(param, enemy, j, i, -1, vertical)
             self.eatable_queen(param, enemy, j, i, 1, vertical * -1)
