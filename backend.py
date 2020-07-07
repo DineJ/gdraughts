@@ -1,4 +1,4 @@
-"""Copyright (C) 2020 Jridi Dine
+"""Copyright (C) 2020 Jridi Dine (dinejridi@gmail.com)
 
 This checkers game is a free; you can redistribute it and/or modify it under
 the terms of the GNU General Public License as published by the Free
@@ -145,10 +145,10 @@ class Stack:
 
 
 class Backend(object):
-    def __init__(self, new_matrix=None, rear_socket=True, force_jump=True, eat_queen=True, last_jmp=None, game_param=None):
+    def __init__(self, new_matrix=None, rear_socket=True, force_jump=False, eat_queen=True, depth=5, last_jmp=None, game_param=None):
         self.p_max=10
         self.status = ("NEW GAME")
-        self.depth = 5
+        self.depth = depth
         self.variable_depth = True
         self.fin = False
         self.force_jump = force_jump # Force la prise des pions
@@ -319,7 +319,7 @@ class Backend(object):
                     self.ready_moves.append(moves[1])
         else:
             for pmoves in explicit:
-                self.ready_moves.append(pmoves[1])
+                self.ready_moves.append(pmoves)
             position = explicit[0][0]
         return 1
 
