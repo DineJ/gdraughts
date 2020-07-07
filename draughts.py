@@ -121,6 +121,61 @@ class Draughts(Gtk.Window):
 		self.backend.fin = False
 		self.backend.pl_before_firstclick()
 
+	def level_of_difficulty(self):
+		frame_difficulties =  Gtk.Frame.new("Quelles difficultés voulez-vous?")
+
+		self.t_easy = Gtk.ToggleButton.new_with_label("Facile")
+		self.custom_margin(self.t_easy, 5, 5, 0, 5)
+		self.t_medium = Gtk.ToggleButton.new_with_label("Moyen")
+		self.custom_margin(self.t_medium, 0, 5, 0, 5)
+		self.t_hard = Gtk.ToggleButton.new_with_label("Dur")
+		self.custom_margin(self.t_hard, 0, 5, 5, 5)
+
+		grid_difficulties = Gtk.Grid.new()
+		grid_difficulties.set_column_homogeneous(True)
+		grid_difficulties.set_row_homogeneous(True)
+
+		frame_difficulties.add(grid_difficulties)
+
+		grid_difficulties.attach(self.t_easy, 0, 0, 1, 1)
+		grid_difficulties.attach(self.t_medium, 1, 0, 1, 1)
+		grid_difficulties.attach(self.t_hard, 2, 0, 1, 1)
+
+		self.t_easy.connect('clicked', self.output_state1)
+		self.t_medium.connect('clicked', self.output_state2)
+		self.t_hard.connect('clicked', self.output_state3)
+
+		if self.depth == 3:
+			self.t_easy.set_active(True)
+		elif self.depth == 4:
+			self.t_medium.set_active(True)
+		else:
+			self.t_hard.set_active(True)
+
+		return frame_difficulties
+
+
+	def output_state1(self,button):
+		if self.t_easy.get_active():
+			self.t_medium.set_active(False)
+			self.t_hard.set_active(False)
+		self.depth = 3
+
+
+	def output_state2(self,button):
+		if self.t_medium.get_active():
+			self.t_easy.set_active(False)
+			self.t_hard.set_active(False)
+		self.depth = 4
+
+
+	def output_state3(self,button):
+		if self.t_hard.get_active():
+			self.t_easy.set_active(False)
+			self.t_medium.set_active(False)
+		self.depth = 5
+
+
 	#resize checker after each interraction with main window
 	def on_resize(self,widget):
 		checker_width = self.checker_game.get_allocation().width
@@ -213,6 +268,7 @@ class Draughts(Gtk.Window):
 
 		#Dialog
 		box_dialog = custom_dialog_box.get_content_area()
+		box_dialog.pack_start(self.level_of_difficulty(), True, True, 3)
 		box_dialog.pack_start(frame_begin, True, True, 3)
 		box_dialog.pack_start(frame_matrice, True, True, 3)
 		box_dialog.pack_start(frame_color, True, True, 3)
@@ -441,6 +497,7 @@ class Draughts(Gtk.Window):
 
 		#Dialog
 		box_dialog = dialog_box.get_content_area()
+		box_dialog.pack_start(self.level_of_difficulty(), True, True, 4)
 		box_dialog.pack_start(frame_country, True, True, 4)
 
 		#Grid
@@ -529,7 +586,7 @@ class Draughts(Gtk.Window):
 			self.checker = Checker(self, self.square_size, self.state, self.square_color)
 			self.checker_game.set_center_widget(self.checker)
 			self.checker_game.show_all()
-			self.backend = Backend(self.checker.matrix, self.rear_socket, self.forced_move, self.eatqueen)
+			self.backend = Backend(self.checker.matrix, self.rear_socket, self.forced_move, self.eatqueen, self.depth)
 			#self.checker.queue_draw()
 			dialog_box.destroy()
 			#pl_moves = self.backend.possible_moves(1)
