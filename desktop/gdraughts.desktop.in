@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=gdraughts
+Comment=Gdraughts is a draughts program for the Gnome desktop
+GenericName=Draughts Game
+Icon=gdraughts.png
+Exec=python3 /usr/lib/python3/dist-packages/gdraughts/draughts.py
+Terminal=false
+Categories=GNOME;Game;BoardGame;

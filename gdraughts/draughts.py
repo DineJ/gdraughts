@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """Copyright (C) 2020 Jridi Dine (dinejridi@gmail.com)
 
 This checkers game is a free; you can redistribute it and/or modify it under
@@ -456,14 +457,14 @@ class Draughts(Gtk.Window):
 
 		#Radio Button
 		flag = GdkPixbuf.Pixbuf()
-		pixbuf = flag.new_from_file_at_size("image/netherlands.jpg", 30, 30)
+		pixbuf = flag.new_from_file_at_size("/usr/share/gdraughts/images/netherlands.jpg", 30, 30)
 		image = Gtk.Image.new_from_pixbuf(pixbuf)
 		r_ne = Gtk.RadioButton.new_with_label_from_widget(None, "Netherlands")
 		r_ne.set_image(image)
 		r_ne.set_always_show_image(True)
 		self.custom_margin(r_ne, 5, 10, 5, 5)
 
-		pixbuf = flag.new_from_file_at_scale("image/italy.jpg", 30, 30, True)
+		pixbuf = flag.new_from_file_at_scale("/usr/share/gdraughts/images/italy.jpg", 30, 30, True)
 		image = Gtk.Image.new_from_pixbuf(pixbuf)
 		r_ita = Gtk.RadioButton.new_from_widget(r_ne)
 		r_ita.set_image(image)
@@ -471,7 +472,7 @@ class Draughts(Gtk.Window):
 		r_ita.set_always_show_image(True)
 		self.custom_margin(r_ita, 5, 5, 5, 5)
 
-		pixbuf = flag.new_from_file_at_scale("image/spain.jpg", 30, 30, True)
+		pixbuf = flag.new_from_file_at_scale("/usr/share/gdraughts/images/spain.jpg", 30, 30, True)
 		image = Gtk.Image.new_from_pixbuf(pixbuf)
 		r_sp = Gtk.RadioButton.new_from_widget(r_ne)
 		r_sp.set_label("Spain")
@@ -479,7 +480,7 @@ class Draughts(Gtk.Window):
 		r_sp.set_always_show_image(True)
 		self.custom_margin(r_sp, 5, 5, 5, 10)
 
-		pixbuf = flag.new_from_file_at_scale("image/uk.jpg", 30, 30, True)
+		pixbuf = flag.new_from_file_at_scale("/usr/share/gdraughts/images/uk.jpg", 30, 30, True)
 		image = Gtk.Image.new_from_pixbuf(pixbuf)
 		r_eng = Gtk.RadioButton.new_from_widget(r_ne)
 		r_eng.set_label("England")
@@ -488,7 +489,7 @@ class Draughts(Gtk.Window):
 		self.custom_margin(r_eng, 5, 5, 5, 5)
 
 		r_fr = Gtk.RadioButton.new_from_widget(r_ne)
-		pixbuf = flag.new_from_file_at_scale("image/france.jpg", 30, 30, True)
+		pixbuf = flag.new_from_file_at_scale("/usr/share/gdraughts/images/france.jpg", 30, 30, True)
 		image = Gtk.Image.new_from_pixbuf(pixbuf)
 		r_fr.set_label("France")
 		r_fr.set_image(image)

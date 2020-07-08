@@ -1,0 +1,17 @@
+DOMAIN = gdraughts
+BUGSADDR = bugs@ordissimo.com
+
+LOCALEDIR = locale
+APPLICATIONSDIR = .
+
+# find .. -type f \! -path "*/.svn/*" \! -path "../po/*" \! -path "*/.pybuild/*" -name "*.py" -exec grep -lF '_(' {} \; | sed -e 's/^/  /;s/$/ \\/'
+SOURCES_PY = \
+  ../gdraughts/backend.py \
+  ../gdraughts/checker.py \
+  ../gdraughts/draughts.py \
+  ../gdraughts/squarearea.py
+
+# find .. -type f \! -path "*/.svn/*" \! -path "../po/*" -name "*desktop.in" -exec grep -l -E "^Categories=.*(Game|Ordissimo)" {} \; | sed -e 's/^/  /;s/$/ \\/'
+SOURCES_DESKTOP = \
+  ../desktop/gdraughts.desktop.in
+

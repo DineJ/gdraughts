@@ -1,0 +1,433 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: bugs@ordissimo.com\n"
+"POT-Creation-Date: 2020-07-08 14:26+0200\n"
+"PO-Revision-Date: 2019-08-30 18:59+0200\n"
+"Last-Translator: Sara <sisajola@gmail.com>\n"
+"Language-Team: \n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 2.1.6\n"
+
+#: ../gdraughts/backend.py:715
+msgid "\tENTER to confirm\n"
+msgstr ""
+
+#: ../gdraughts/backend.py:743
+msgid "Case of the eaten piece (default = "
+msgstr ""
+
+#: ../gdraughts/backend.py:712
+msgid "Compulsory take"
+msgstr ""
+
+#: ../desktop/gdraughts.desktop.in:6
+msgid "Draughts Game"
+msgstr "Gioco della dama"
+
+#: ../gdraughts/backend.py:733
+msgid "First player's piece (default = "
+msgstr ""
+
+#: ../gdraughts/backend.py:735
+msgid "First player's queen (default = "
+msgstr ""
+
+#: ../desktop/gdraughts.desktop.in:5
+#, fuzzy
+#| msgid "Samuel is a draughts program for the Gnome desktop"
+msgid "Gdraughts is a draughts program for the Gnome desktop"
+msgstr "Samuel è un gioco di dama per il desktop Gnome"
+
+#: ../gdraughts/backend.py:741
+msgid "Previous position square (defaul = "
+msgstr ""
+
+#: ../gdraughts/backend.py:739
+msgid "Queen of the second player (default = "
+msgstr ""
+
+#: ../gdraughts/backend.py:714
+msgid "Quit"
+msgstr "Chiudi"
+
+#: ../gdraughts/backend.py:737
+msgid "Second player's piece (default = "
+msgstr ""
+
+#: ../gdraughts/backend.py:716
+msgid "Select an option: "
+msgstr ""
+
+#: ../gdraughts/backend.py:713
+#, fuzzy
+#| msgid "Computer Plays White"
+msgid "The computer plays first"
+msgstr "Il computer gioca le pedine Bianche"
+
+#: ../desktop/gdraughts.desktop.in:4
+#, fuzzy
+#| msgid "Draughts Game"
+msgid "gdraughts"
+msgstr "Gioco della dama"
+
+#: ../desktop/gdraughts.desktop.in:7
+msgid "gdraughts.png"
+msgstr ""
+
+#~ msgid "%d Positions Loaded"
+#~ msgstr "%d Posizione salvata"
+
+#~ msgid "%d Positions Saved"
+#~ msgstr "%d Posizione salvata"
+
+#~ msgid "(searching...)\n"
+#~ msgstr "(ricerca in corso...)\n"
+
+#~ msgid "/Computer to move"
+#~ msgstr "/La mano al computer"
+
+#~ msgid "/Human to move"
+#~ msgstr "/La mano al giocatore"
+
+#~ msgid "About"
+#~ msgstr "A proposito"
+
+#~ msgid "Advanced"
+#~ msgstr "Avanzato"
+
+#~ msgid "All files"
+#~ msgstr "Tutti i file"
+
+#~ msgid "Beginner"
+#~ msgstr "Principiante"
+
+#~ msgid "Book Full!"
+#~ msgstr "Libro completo!"
+
+#~ msgid "Cancel"
+#~ msgstr "Annulla"
+
+#~ msgid "Click Cancel to discard changes"
+#~ msgstr "Clicca su Annulla per non tenere conto dei cambiamenti."
+
+#~ msgid "Click OK to apply changes.\n"
+#~ msgstr "Clicca su Convalida per salvare i cambiamenti.\n"
+
+#~ msgid "Computer Move"
+#~ msgstr "Mossa del computer"
+
+#~ msgid "Computer Off"
+#~ msgstr "Computer Off"
+
+#~ msgid "Computer Plays Red"
+#~ msgstr "Il computer gioca le pedine Rosse"
+
+#~ msgid "Computer Plays White and Red"
+#~ msgstr "Il computer gioca le pedine Bianche e Rosse"
+
+#~ msgid "Copy FEN to clipboard"
+#~ msgstr "Copia il FEN nella clipboard"
+
+#~ msgid "Copy PDN to clipboard"
+#~ msgstr "Copia il PDN nella clipboard"
+
+#~ msgid "Copyright \\u00A9 2009,2019 John Cheetham"
+#~ msgstr "Copyright \\u00A9 2009,2019 John Cheetham"
+
+#~ msgid "Depth: %d/%d (%d/%d)   Eval: %d  "
+#~ msgstr "Profondità: %d/%d (%d/%d)   Valutazione: %d  "
+
+#~ msgid "Edit"
+#~ msgstr "Modifica"
+
+#~ msgid "End of Moves"
+#~ msgstr "Fine delle mosse"
+
+#~ msgid "Enter values for Search Depth\n"
+#~ msgstr "Impostare il numero di mosse calcolate in precedenza\n"
+
+#~ msgid "Expert"
+#~ msgstr "Esperto"
+
+#~ msgid "Flip Board"
+#~ msgstr "Girare la damiera"
+
+#~ msgid "Flip the Board"
+#~ msgstr "Girare la damiera"
+
+#~ msgid "Game"
+#~ msgstr "Partita"
+
+#~ msgid "Game Over - Red Wins"
+#~ msgstr "Game Over - I Rossi vincono"
+
+#~ msgid "Game Over - White Wins"
+#~ msgstr "Game Over - I Bianchi vincono"
+
+#~ msgid "Game Over - red wins"
+#~ msgstr "Game Over - Vittoria dei rossi"
+
+#~ msgid "Game Over - white wins"
+#~ msgstr "Game Over - Vittoria dei bianchi"
+
+#~ msgid "Gameover - red wins"
+#~ msgstr "Gameover - I Rossi vincono"
+
+#~ msgid "Gameover - white wins"
+#~ msgstr "Gameover - I bianchi vincono"
+
+#~ msgid "Get FEN"
+#~ msgstr "Recupera il FEN"
+
+#~ msgid "Get PDN"
+#~ msgstr "Recupera il PDN"
+
+#~ msgid "Go"
+#~ msgstr "Inizia"
+
+#~ msgid "Help"
+#~ msgstr "Aiuto"
+
+#~ msgid "Help (online)"
+#~ msgstr "Aiuto (online)"
+
+#~ msgid "Human Move"
+#~ msgstr "Mossa del giocatore"
+
+#~ msgid "Information Panel"
+#~ msgstr "Pannello Informazioni"
+
+#~ msgid "Initialise the engine"
+#~ msgstr "Inizializzazione dell'intelligenza artificiale"
+
+#~ msgid "Level"
+#~ msgstr "Livello"
+
+#~ msgid "Load Game"
+#~ msgstr "Carica la partita"
+
+#~ msgid "Load.."
+#~ msgstr "Caricamento..."
+
+#~ msgid "Move Now"
+#~ msgstr "Gioca adesso"
+
+#~ msgid "Move Now (m)"
+#~ msgstr "Gioca adesso"
+
+#~ msgid "Move a red piece to restart the game from here\n"
+#~ msgstr "Muovi una pedina rossa per riprendere il gioco\n"
+
+#~ msgid "Move a white piece to restart the game from here\n"
+#~ msgstr "Muovi una pedina bianca per riprendere il gioco\n"
+
+#~ msgid "Move: %ld%c%ld Time: %.2fs  KNodes: %ld KN/Sec: %d"
+#~ msgstr "Mossa: %ld%c%ld Tempo: %.2fs  KNodo: %ld KN/Sec: %d"
+
+#~ msgid "New Game"
+#~ msgstr "Nuova partita"
+
+#~ msgid "Next Move"
+#~ msgstr "Prossima mossa"
+
+#~ msgid "OK"
+#~ msgstr "Convalida"
+
+#~ msgid "Opening Book"
+#~ msgstr "Aprire un libro"
+
+#~ msgid "Options"
+#~ msgstr "Opzioni"
+
+#~ msgid "Paste FEN from clipboard"
+#~ msgstr "Incolla il FEN dalla clipboard"
+
+#~ msgid "Paste PDN from clipboard"
+#~ msgstr "Incolla il PDN dalla clipboard"
+
+#~ msgid ""
+#~ "Position Added. %d\n"
+#~ "Value %d"
+#~ msgstr ""
+#~ "Posizione aggiunta. %d\n"
+#~ "Valore %d"
+
+#~ msgid "Position Edit"
+#~ msgstr "Modificare la posizione"
+
+#~ msgid ""
+#~ "Position Exists. %d\n"
+#~ "Value was %d now %d"
+#~ msgstr ""
+#~ "La posizione esiste. %d\n"
+#~ "Il valore era %d, adesso %d"
+
+#~ msgid ""
+#~ "Position Removed. %d\n"
+#~ "Value was %d"
+#~ msgstr ""
+#~ "Posizione soppressa. %d\n"
+#~ "Il valore era %d"
+
+#~ msgid "Position does not exist. %d\n"
+#~ msgstr "La posizione non esiste. %d\n"
+
+#~ msgid "Press Go to restart the game from here\n"
+#~ msgstr "Premi Inizia per riprendere la partita\n"
+
+#~ msgid "Press the < > buttons to browse the game"
+#~ msgstr "Clicca sul tasto < > per visualizzare le mosse giocate"
+
+#~ msgid "Previous Move"
+#~ msgstr "Mossa precedente"
+
+#~ msgid "Quit the Program"
+#~ msgstr "Chiudere il programma"
+
+#~ msgid "Red"
+#~ msgstr "Rosso"
+
+#~ msgid "Red to Move"
+#~ msgstr "Tocca ai Rossi"
+
+#~ msgid "Retract"
+#~ msgstr "Annulla"
+
+#~ msgid "Retract Move"
+#~ msgstr "Annullare l'ultima mossa"
+
+#~ msgid "Running Display"
+#~ msgstr "Visualizzazione in corso"
+
+#~ msgid "Samuel"
+#~ msgstr "Samuel"
+
+#~ msgid "Samuel Help (Online)"
+#~ msgstr "Samuel Aiuto (Online)"
+
+#~ msgid ""
+#~ "Samuel is a draughts program for the Gnome desktop.\n"
+#~ " It is based on the windows program guicheckers"
+#~ msgstr ""
+#~ "Samuel è un gioco di dama per il desktop Gnome.\n"
+#~ " Si basa sul programma windows program guicheckers"
+
+#~ msgid ""
+#~ "Samuel is free software: you can redistribute it and/or modify\n"
+#~ "it under the terms of the GNU General Public License as published by\n"
+#~ "the Free Software Foundation, either version 3 of the License, or\n"
+#~ "(at your option) any later version.\n"
+#~ "\n"
+#~ "Samuel is distributed in the hope that it will be useful,\n"
+#~ "but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+#~ "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
+#~ "GNU General Public License for more details.\n"
+#~ "\n"
+#~ "You should have received a copy of the GNU General Public License\n"
+#~ "along with Samuel.  If not, see <http://www.gnu.org/licenses/>."
+#~ msgstr ""
+#~ "Samuel è un software libero: potete ridistribuirlo e/o modificarlo\n"
+#~ "secondo i termini della GNU General Public License pubblicata dalla\n"
+#~ "Free Software Foundation, nella versione 3 della licenza o\n"
+#~ "in una versione successiva.\n"
+#~ "\n"
+#~ "Samuel viene distribuito nella speranza che possa essere utile,\n"
+#~ "ma SENZA NESSUNA GARANZIA; senza una garanzia implicita di\n"
+#~ "COMMERCIABILITA' o IDONEITA' PER UNO SCOPO PARTICOLARE.  Consultare\n"
+#~ "la GNU General Public License per ulteriori informazioni.\n"
+#~ "\n"
+#~ "Una copia della GNU General Public License vi è stata inviata\n"
+#~ "unitamente a Samuel.   In caso contrario, consultare <http://www.gnu.org/"
+#~ "licenses/>."
+
+#~ msgid "Save Game"
+#~ msgstr "Salva la partita"
+
+#~ msgid "Save.."
+#~ msgstr "Salvare..."
+
+#~ msgid ""
+#~ "Search Depth\n"
+#~ "(max 52)\n"
+#~ msgstr ""
+#~ "Mosse calcolate in anticipo\n"
+#~ "(max 52)\n"
+
+#~ msgid "Set Board"
+#~ msgstr "Posizionare la damiera"
+
+#~ msgid "Set Computer Colour"
+#~ msgstr "Scegli il colore per l'ordinatore"
+
+#~ msgid "Set Custom Level Depth"
+#~ msgstr "Impostare il numero di mosse calcolate in anticipo"
+
+#~ msgid "Set Level"
+#~ msgstr "Impostare il livello"
+
+#~ msgid "Set Side To Move"
+#~ msgstr "Girare la damiera"
+
+#~ msgid "Set Side to Move with the radio buttons\n"
+#~ msgstr "Scegliere il lato per la mossa con i pulsanti d'opzione\n"
+
+#~ msgid "Set User-Defined Level"
+#~ msgstr "Impostare il livello personalizzato"
+
+#~ msgid "Set board position from FEN"
+#~ msgstr "Impostare la posizione della damiera dal FEN"
+
+#~ msgid "Show About Box"
+#~ msgstr "Mostra la finestra A proposito"
+
+#~ msgid "Side to Move"
+#~ msgstr "Lato per effettuare la mossa"
+
+#~ msgid "Start of Moves"
+#~ msgstr "Inizio delle mosse"
+
+#~ msgid "Status Bar"
+#~ msgstr "Barra di stato"
+
+#~ msgid ""
+#~ "Time Limit\n"
+#~ "(in seconds)"
+#~ msgstr ""
+#~ "Tempo limite\n"
+#~ "(in secondi)"
+
+#~ msgid "Use left mouse to set red pieces\n"
+#~ msgstr ""
+#~ "Utilizza il tasto sinistro del mouse per posizionare le pedine Rosse\n"
+
+#~ msgid "Use right mouse to set white pieces\n"
+#~ msgstr ""
+#~ "Utilizza il tasto destro del mouse per posizionare le pedine Bianche\n"
+
+#~ msgid "User-defined"
+#~ msgstr "Personalizzato"
+
+#~ msgid "White"
+#~ msgstr "Bianchi"
+
+#~ msgid "White to Move"
+#~ msgstr "La mano ai Bianchi"
+
+#~ msgid "and Time Limit."
+#~ msgstr "e Tempo limite"
+
+#~ msgid "pdn files"
+#~ msgstr "file pdn"
+
+#~ msgid "samuel.png"
+#~ msgstr "samuel.png"

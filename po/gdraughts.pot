@@ -1,0 +1,78 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the gdraughts package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: gdraughts\n"
+"Report-Msgid-Bugs-To: bugs@ordissimo.com\n"
+"POT-Creation-Date: 2020-07-08 14:26+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../gdraughts/backend.py:715
+msgid "\tENTER to confirm\n"
+msgstr ""
+
+#: ../gdraughts/backend.py:743
+msgid "Case of the eaten piece (default = "
+msgstr ""
+
+#: ../gdraughts/backend.py:712
+msgid "Compulsory take"
+msgstr ""
+
+#: ../desktop/gdraughts.desktop.in:6
+msgid "Draughts Game"
+msgstr ""
+
+#: ../gdraughts/backend.py:733
+msgid "First player's piece (default = "
+msgstr ""
+
+#: ../gdraughts/backend.py:735
+msgid "First player's queen (default = "
+msgstr ""
+
+#: ../desktop/gdraughts.desktop.in:5
+msgid "Gdraughts is a draughts program for the Gnome desktop"
+msgstr ""
+
+#: ../gdraughts/backend.py:741
+msgid "Previous position square (defaul = "
+msgstr ""
+
+#: ../gdraughts/backend.py:739
+msgid "Queen of the second player (default = "
+msgstr ""
+
+#: ../gdraughts/backend.py:714
+msgid "Quit"
+msgstr ""
+
+#: ../gdraughts/backend.py:737
+msgid "Second player's piece (default = "
+msgstr ""
+
+#: ../gdraughts/backend.py:716
+msgid "Select an option: "
+msgstr ""
+
+#: ../gdraughts/backend.py:713
+msgid "The computer plays first"
+msgstr ""
+
+#: ../desktop/gdraughts.desktop.in:4
+msgid "gdraughts"
+msgstr ""
+
+#: ../desktop/gdraughts.desktop.in:7
+msgid "gdraughts.png"
+msgstr ""
