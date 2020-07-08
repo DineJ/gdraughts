@@ -122,6 +122,33 @@ class Draughts(Gtk.Window):
 		self.backend.fin = False
 		self.backend.pl_before_firstclick()
 
+
+	def who_play(self):
+		frame_begin = Gtk.Frame.new("Qui joue en premier ?")
+
+		self.r_player = Gtk.RadioButton.new_with_label_from_widget(None, "Joueur")
+		self.custom_margin(self.r_player, 5, 10, 5, 10)
+		self.r_computer = Gtk.RadioButton.new_from_widget(self.r_player)
+		self.custom_margin(self.r_computer, 5, 10, 5, 10)
+		self.r_computer.set_label("Ordinateur")
+
+
+		grid_begin = Gtk.Grid.new()
+		grid_begin.set_column_homogeneous(True)
+		grid_begin.set_row_homogeneous(True)
+
+		frame_begin.add(grid_begin)
+
+		grid_begin.attach(self.r_player, 0, 0, 1, 1)
+		grid_begin.attach(self.r_computer, 1, 0, 1, 1)
+
+		if self.pc_first:
+			self.r_computer.set_active(True)
+		else:
+			self.r_player.set_active(True)
+
+		return frame_begin
+
 	def level_of_difficulty(self):
 		frame_difficulties =  Gtk.Frame.new("Quelles difficultés voulez-vous?")
 
@@ -217,19 +244,12 @@ class Draughts(Gtk.Window):
 		for element in self.hit_history.get_children():
 			self.hit_history.remove(element)
 
-		frame_begin = Gtk.Frame.new("Qui joue en premier ?")
 		frame_matrice = Gtk.Frame.new("Combien de cases voulez-vous par ligne?")
 		frame_color = Gtk.Frame.new("Quelle couleur voulez-vous dans la case en bas à droite ?")
 		frame_color1 = Gtk.Frame.new("Voulez-vous que votre pion soit en bas à droite?")
 		frame_forced_move = Gtk.Frame.new("Voulez-vous forcer les prises?")
 		frame_eatbehind = Gtk.Frame.new("Voulez-vous ajouter la prise arrière?")
 		frame_eatqueen = Gtk.Frame.new("Un pion peut-il manger une dame?")
-
-		r_player = Gtk.RadioButton.new_with_label_from_widget(None, "Joueur")
-		self.custom_margin(r_player, 5, 10, 5, 10)
-		r_computer = Gtk.RadioButton.new_from_widget(r_player)
-		self.custom_margin(r_computer, 5, 10, 5, 10)
-		r_computer.set_label("Ordinateur")
 
 		r_chercker8 = Gtk.RadioButton.new_with_label_from_widget(None, "8 cases")
 		self.custom_margin(r_chercker8, 5, 10, 5, 10)
@@ -270,7 +290,7 @@ class Draughts(Gtk.Window):
 		#Dialog
 		box_dialog = custom_dialog_box.get_content_area()
 		box_dialog.pack_start(self.level_of_difficulty(), True, True, 3)
-		box_dialog.pack_start(frame_begin, True, True, 3)
+		box_dialog.pack_start(self.who_play(), True, True, 3)
 		box_dialog.pack_start(frame_matrice, True, True, 3)
 		box_dialog.pack_start(frame_color, True, True, 3)
 		box_dialog.pack_start(frame_color1, True, True, 3)
@@ -279,10 +299,6 @@ class Draughts(Gtk.Window):
 		box_dialog.pack_start(frame_eatqueen, True, True, 3)
 
 		#Grid
-		grid_begin = Gtk.Grid.new()
-		grid_begin.set_column_homogeneous(True)
-		grid_begin.set_row_homogeneous(True)
-
 		grid_matrice = Gtk.Grid.new()
 		grid_matrice.set_column_homogeneous(True)
 		grid_matrice.set_row_homogeneous(True)
@@ -308,7 +324,6 @@ class Draughts(Gtk.Window):
 		grid_eatqueen.set_row_homogeneous(True)
 
 
-		frame_begin.add(grid_begin)
 		frame_matrice.add(grid_matrice)
 		frame_color.add(grid_color)
 		frame_color1.add(grid_color1)
@@ -317,9 +332,6 @@ class Draughts(Gtk.Window):
 		frame_eatqueen.add(grid_eatqueen)
 
 		#Grid
-		grid_begin.attach(r_player, 0, 0, 1, 1)
-		grid_begin.attach(r_computer, 1, 0, 1, 1)
-
 		grid_matrice.attach(r_chercker8, 0, 0, 1, 1)
 		grid_matrice.attach(r_chercker10, 1, 0, 1, 1)
 
@@ -337,11 +349,6 @@ class Draughts(Gtk.Window):
 
 		grid_eatqueen.attach(r_eatqueen_y, 0, 0, 1, 1)
 		grid_eatqueen.attach(r_eatqueen_n, 1, 0, 1, 1)
-
-		if self.pc_first:
-			r_computer.set_active(True)
-		else:
-			r_player.set_active(True)
 
 		if self.state == 8:
 			r_chercker8.set_active(True)
@@ -376,10 +383,10 @@ class Draughts(Gtk.Window):
 		custom_dialog_box.show_all()
 		custom_dialog_box.set_transient_for(self)
 		custom_dialog_box.set_position(Gtk.WindowPosition.CENTER_ALWAYS)
-		answer = custom_dialog_box.run()
+		self.answer = custom_dialog_box.run()
 
-		if answer == Gtk.ResponseType.APPLY:
-			if r_player.get_active():
+		if self.answer == Gtk.ResponseType.APPLY:
+			if self.r_player.get_active():
 				self.pc_first = False
 			else:
 				self.pc_first = True
@@ -429,7 +436,7 @@ class Draughts(Gtk.Window):
 			self.backend.pl_before_firstclick()
 			#self.backend.move(self.checker.square.name[0], self.checker.square.name[1],1)
 			#self.pl_move()
-		elif answer == Gtk.ResponseType.CANCEL:
+		elif self.answer == Gtk.ResponseType.CANCEL:
 			custom_dialog_box.destroy()
 		open_dialog = 0
 
@@ -499,6 +506,7 @@ class Draughts(Gtk.Window):
 		#Dialog
 		box_dialog = dialog_box.get_content_area()
 		box_dialog.pack_start(self.level_of_difficulty(), True, True, 4)
+		box_dialog.pack_start(self.who_play(), True, True, 4)
 		box_dialog.pack_start(frame_country, True, True, 4)
 
 		#Grid
@@ -532,9 +540,13 @@ class Draughts(Gtk.Window):
 		dialog_box.show_all()
 		dialog_box.set_transient_for(self)
 		dialog_box.set_position(Gtk.WindowPosition.CENTER_ALWAYS)
-		answer = dialog_box.run()
+		self.answer = dialog_box.run()
 
-		if answer == Gtk.ResponseType.APPLY:
+		if self.answer == Gtk.ResponseType.APPLY:
+			if self.r_player.get_active():
+				self.pc_first = False
+			else:
+				self.pc_first = True
 
 			if r_fr.get_active():
 				self.country = 0
@@ -598,7 +610,7 @@ class Draughts(Gtk.Window):
 			self.backend.pl_before_firstclick()
 			#self.backend.move(self.checker.square.name[0], self.checker.square.name[1],1)
 			#self.pl_move()
-		elif answer == Gtk.ResponseType.CANCEL:
+		elif self.answer == Gtk.ResponseType.CANCEL:
 			dialog_box.destroy()
 		open_dialog = 0
 
