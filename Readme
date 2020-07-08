@@ -1,0 +1,36 @@
+Gdraughts - Dine JRIDI
+
+
+Description:
+
+Gdraughts is a checkers game program written in python3/GTK3. It is licensed under the GPL (see the file named License)
+
+It is aimed mainly at Linux users but should work on other systems too.
+
+This project aims is to be able to play with all the rules. The main problem is that nobody has a version for each way to play this game. I created a checkers game to anwser at that.
+
+
+
+Usage:
+
+When you started the game, you have 3 options :
+    - option 1, play
+    - option 2, open the first dialog box and select a difficulty and a country
+    - option 3, opent the second dialog box, select with which rules you want to play and with what difficulty
+    
+In the first dialog box, you have a limited choice of country (currently France, Spain, England, Netherlands, Italy). 
+Of course, someone may not want to play with these rules for any reason. That's why the second dialog box is here. She allow to create your own game.
+
+On the right of the application, you can see messages appear each time a movement is made. It is the Manoury rating that allows you to redo a game with this list of moves.
+Black moves are always marked in parentheses, the message is made up of 3 parts:
+    -part 1, the starting square
+    -part 2, the information of the move
+    -part 3, the finishing square
+
+For part 1 and part 3, the notation is as follows. Note the boxes 1 by 1 starting with the black side and only on the active boxes. Here is a link with photos to explain in more detail.
+http://www.ffjd.fr/Web/index.php?page=notation
+
+For part 2, there are 2 things. An "-" which signifies a movement or an "x" which signifies that someone has just eaten.
+
+When someone wins, at the end of the message appears a "+", which means the move that wins the game
+
