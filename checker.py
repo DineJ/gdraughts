@@ -265,7 +265,6 @@ class Checker(Gtk.Grid):
     #all this part is about pc (move,hit,game over)
     def play_on_timeout(self, stack):
         if self.draughts.backend.fin == False:
-            row2 = None
             self.draughts.informations_bar.set_markup("<span foreground='#ff710d' size='large' >A vous de jouer </span>")
             self.draughts.backend.pc_move(stack)
             jump = self.draughts.backend.lastjump[:]
@@ -315,14 +314,13 @@ class Checker(Gtk.Grid):
                     self.old_square = square
                     return
                 play = self.draughts.backend.possible_moves(2)
-                if play:
-                    if (self.old_square.name[0] - square.name[0] != 1 and self.old_square.name[0] - square.name[0] != -1) or (self.old_square.name[1] - square.name[1] != 1 and self.old_square.name[1] - square.name[1] != -1):
-                        row1 = ("Coup %d : %d x %d" % (self.draughts.turn, self.matrix_coordonate[int(str(self.old_square.name[0]))][int(str(self.old_square.name[1]))], self.matrix_coordonate[int(str(square.name[0]))][int(str(square.name[1]))]))
-                    else:
-                        row1 = ("Coup %d : %d - %d" % (self.draughts.turn, self.matrix_coordonate[int(str(self.old_square.name[0]))][int(str(self.old_square.name[1]))], self.matrix_coordonate[int(str(square.name[0]))][int(str(square.name[1]))]))
-                    self.draughts.row_label1 = Gtk.Label(row1)
-                    self.draughts.row_label1.show_all()
-                    self.draughts.hit_history.prepend(self.draughts.row_label1)
+                if (self.old_square.name[0] - square.name[0] != 1 and self.old_square.name[0] - square.name[0] != -1) or (self.old_square.name[1] - square.name[1] != 1 and self.old_square.name[1] - square.name[1] != -1):
+                    row1 = ("Coup %d : %d x %d" % (self.draughts.turn, self.matrix_coordonate[int(str(self.old_square.name[0]))][int(str(self.old_square.name[1]))], self.matrix_coordonate[int(str(square.name[0]))][int(str(square.name[1]))]))
+                else:
+                    row1 = ("Coup %d : %d - %d" % (self.draughts.turn, self.matrix_coordonate[int(str(self.old_square.name[0]))][int(str(self.old_square.name[1]))], self.matrix_coordonate[int(str(square.name[0]))][int(str(square.name[1]))]))
+                self.draughts.row_label1 = Gtk.Label(row1)
+                self.draughts.row_label1.show_all()
+                self.draughts.hit_history.prepend(self.draughts.row_label1)
                 self.old_square = None
                 self.draughts.checker.matrix = self.draughts.backend.get_matrix()
                 self.draughts.checker.resize_checker(self.draughts.checker.square_size)
