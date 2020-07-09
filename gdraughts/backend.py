@@ -242,7 +242,7 @@ class Backend(object):
     def possible_moves_queen(self, param, enemy, j, i, jo, io):  # param = 1 - PLAYER, param = 2 - PCoffset = 1
         eat = False
         offset = 1
-        offset_max = self.p_max - 1
+        offset_max = self.p_max
         if self.pawn_queen:
             offset_max = 2
         while offset < offset_max:
