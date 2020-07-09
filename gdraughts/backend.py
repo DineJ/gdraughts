@@ -327,13 +327,16 @@ class Backend(object):
                 coordonate = int(i)
         if coordonate == -1:
             return 0
-        if self.move(old_case, case) == 2:
+        ret = self.move(old_case, case)
+        if ret == 2:
             next_hop = self.eatable(1, case[0], case[1])
             if next_hop:
                 self.pl_after_firstclick(case)
                 self.print()
                 return 2
-            self.print()
+        if ret == 4:
+            return 4
+        self.print()
         return 1
 
 
