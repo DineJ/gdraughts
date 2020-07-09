@@ -26,7 +26,7 @@ import random
 class Draughts(Gtk.Window):
 
 	#managing of the main window
-	def __init__ (self, pc_first=False, country=3, matrix_classic=True, state=8, square_color=0, square_size=0, tool_height=0, checker=None, open_dialog=0, rear_socket=True, forced_move=True, eatqueen=True, depth=5): # country : 0 = France(fr), 1 = Spain(sp), 2 = England(eng), 3 = Netherlands(ne), 4 = Italy(ita)
+	def __init__ (self, pc_first=False, country=3, matrix_classic=True, state=8, square_color=0, square_size=0, tool_height=0, checker=None, open_dialog=0, rear_socket=True, forced_move=True, eatqueen=True, depth=5, queen=False): # country : 0 = France(fr), 1 = Spain(sp), 2 = England(eng), 3 = Netherlands(ne), 4 = Italy(ita)
 		Gtk.Window.__init__(self)
 		self.state = state
 		self.square_color = square_color
@@ -42,6 +42,7 @@ class Draughts(Gtk.Window):
 		self.forced_move = forced_move
 		self.eatqueen = eatqueen
 		self.depth = depth
+		self.queen = queen
 
 		self.set_border_width(10)
 		self.connect('delete-event', Gtk.main_quit)
@@ -250,6 +251,7 @@ class Draughts(Gtk.Window):
 		frame_forced_move = Gtk.Frame.new("Voulez-vous forcer les prises?")
 		frame_eatbehind = Gtk.Frame.new("Voulez-vous ajouter la prise arrière?")
 		frame_eatqueen = Gtk.Frame.new("Un pion peut-il manger une dame?")
+		frame_queen = Gtk.Frame.new("Voulez-vous que la dame ne se déplace que d'une case?")
 
 		r_chercker8 = Gtk.RadioButton.new_with_label_from_widget(None, "8 cases")
 		self.custom_margin(r_chercker8, 5, 10, 5, 10)
@@ -287,6 +289,11 @@ class Draughts(Gtk.Window):
 		self.custom_margin(r_eatqueen_n, 5, 10, 5, 10)
 		r_eatqueen_n.set_label("Non")
 
+		r_queen_y = Gtk.RadioButton.new_with_label_from_widget(None, "Oui")
+		self.custom_margin(r_queen_y, 5, 10, 5, 10)
+		r_queen_n = Gtk.RadioButton.new_from_widget(r_queen_y)
+		r_queen_n.set_label("Non")
+
 		#Dialog
 		box_dialog = custom_dialog_box.get_content_area()
 		box_dialog.pack_start(self.level_of_difficulty(), True, True, 3)
@@ -297,6 +304,7 @@ class Draughts(Gtk.Window):
 		box_dialog.pack_start(frame_forced_move, True, True, 3)
 		box_dialog.pack_start(frame_eatbehind, True, True, 3)
 		box_dialog.pack_start(frame_eatqueen, True, True, 3)
+		box_dialog.pack_start(frame_queen, True, True, 3)
 
 		#Grid
 		grid_matrice = Gtk.Grid.new()
@@ -323,6 +331,9 @@ class Draughts(Gtk.Window):
 		grid_eatqueen.set_column_homogeneous(True)
 		grid_eatqueen.set_row_homogeneous(True)
 
+		grid_queen = Gtk.Grid.new()
+		grid_queen.set_column_homogeneous(True)
+		grid_queen.set_row_homogeneous(True)
 
 		frame_matrice.add(grid_matrice)
 		frame_color.add(grid_color)
@@ -330,6 +341,7 @@ class Draughts(Gtk.Window):
 		frame_forced_move.add(grid_forced_move)
 		frame_eatbehind.add(grid_eatbehind)
 		frame_eatqueen.add(grid_eatqueen)
+		frame_queen.add(grid_queen)
 
 		#Grid
 		grid_matrice.attach(r_chercker8, 0, 0, 1, 1)
@@ -349,6 +361,9 @@ class Draughts(Gtk.Window):
 
 		grid_eatqueen.attach(r_eatqueen_y, 0, 0, 1, 1)
 		grid_eatqueen.attach(r_eatqueen_n, 1, 0, 1, 1)
+
+		grid_queen.attach(r_queen_y, 0, 0, 1, 1)
+		grid_queen.attach(r_queen_n, 1, 0, 1, 1)
 
 		if self.state == 8:
 			r_chercker8.set_active(True)
@@ -379,6 +394,11 @@ class Draughts(Gtk.Window):
 			r_eatqueen_y.set_active(True)
 		else:
 			r_eatqueen_n.set_active(True)
+
+		if self.queen:
+			r_queen_y.set_active(True)
+		else:
+			r_queen_n.set_active(True)
 
 		custom_dialog_box.show_all()
 		custom_dialog_box.set_transient_for(self)
@@ -421,11 +441,16 @@ class Draughts(Gtk.Window):
 			else:
 				self.eatqueen = False
 
+			if r_queen_y.get_active():
+				self.queen = True
+			else:
+				self.queen = False
+
 			self.checker_game.remove(self.checker)
 			self.checker = Checker(self, self.square_size, self.state, self.square_color)
 			self.checker_game.set_center_widget(self.checker)
 			self.checker_game.show_all()
-			self.backend = Backend(self.checker.matrix, self.rear_socket, self.forced_move, self.eatqueen, self.depth)
+			self.backend = Backend(self.checker.matrix, self.rear_socket, self.forced_move, self.eatqueen, self.depth, self.queen)
 			#self.checker.queue_draw()
 			custom_dialog_box.destroy()
 			#pl_moves = self.backend.possible_moves(1)
@@ -555,6 +580,7 @@ class Draughts(Gtk.Window):
 				self.rear_socket = True
 				self.forced_move = True
 				self.matrix_classic = True
+				self.queen = False
 				r_fr.set_active(True)
 
 			elif r_sp.get_active():
@@ -565,6 +591,7 @@ class Draughts(Gtk.Window):
 				self.rear_socket = False
 				self.forced_move = True
 				self.matrix_classic = False
+				self.queen = False
 				r_sp.set_active(True)
 
 			elif r_eng.get_active():
@@ -574,6 +601,7 @@ class Draughts(Gtk.Window):
 				self.rear_socket = False
 				self.matrix_classic = True
 				self.forced_move = True
+				self.queen = False
 				r_eng.set_active(True)
 
 			elif r_ne.get_active():
@@ -583,6 +611,7 @@ class Draughts(Gtk.Window):
 				self.rear_socket = True
 				self.forced_move = True
 				self.matrix_classic = True
+				self.queen = False
 				r_ne.set_active(True)
 
 			elif r_ita.get_active():
@@ -593,13 +622,14 @@ class Draughts(Gtk.Window):
 				self.rear_socket = False
 				self.forced_move = True
 				self.matrix_classic = False
+				self.queen = True
 				r_ita.set_active(True)
 
 			self.checker_game.remove(self.checker)
 			self.checker = Checker(self, self.square_size, self.state, self.square_color)
 			self.checker_game.set_center_widget(self.checker)
 			self.checker_game.show_all()
-			self.backend = Backend(self.checker.matrix, self.rear_socket, self.forced_move, self.eatqueen, self.depth)
+			self.backend = Backend(self.checker.matrix, self.rear_socket, self.forced_move, self.eatqueen, self.depth, self.queen)
 			#self.checker.queue_draw()
 			dialog_box.destroy()
 			#pl_moves = self.backend.possible_moves(1)

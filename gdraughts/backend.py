@@ -145,7 +145,7 @@ class Stack:
 
 
 class Backend(object):
-    def __init__(self, new_matrix=None, rear_socket=True, force_jump=False, eat_queen=True, depth=5, last_jmp=None, game_param=None):
+    def __init__(self, new_matrix=None, rear_socket=True, force_jump=False, eat_queen=True, depth=5, pawn_queen=True,last_jmp=None, game_param=None):
         self.p_max=10
         self.status = ("NEW GAME")
         self.depth = depth
@@ -154,7 +154,7 @@ class Backend(object):
         self.force_jump = force_jump # Force la prise des pions
         self.rear_socket = rear_socket   # autorise la prise des pions en arriere
         self.eat_queen = eat_queen   # autorise la prise des dames par un pion
-
+        self.pawn_queen = pawn_queen
         if not new_matrix:
             if self.p_max==10 :
                 self.matrix = [[0, 2, 0, 2, 0, 2, 0, 2, 0, 2],
@@ -242,7 +242,10 @@ class Backend(object):
     def possible_moves_queen(self, param, enemy, j, i, jo, io):  # param = 1 - PLAYER, param = 2 - PCoffset = 1
         eat = False
         offset = 1
-        while offset < self.p_max - 1  :
+        offset_max = self.p_max - 1
+        if self.pawn_queen:
+            offset_max = 2
+        while offset < offset_max:
             if -1 < j + jo * offset < len(self.matrix) and -1 < i + io * offset < len(self.matrix) and \
                     self.matrix[i + io * offset][j + jo * offset] % 3 != param:
                 if -1 < j + (jo * (offset + 1)) < len(self.matrix) -1 < i + (io * (offset + 1)) < len(self.matrix) and \
