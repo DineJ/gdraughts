@@ -31,6 +31,7 @@ class Checker(Gtk.Grid):
         self.square_size = square_size
         self.matrix_size = matrix_size
         self.matrix_coordonate = matrix_coordonate
+        self.replay = False
         self.stack = Stack([4, 3, 3])
 
         self.matrix8    =  [[0, 2, 0, 2, 0, 2, 0, 2],
@@ -326,32 +327,42 @@ class Checker(Gtk.Grid):
             if square.square_type != 0:
                 self.old_square = square
         else:
+            row3 = None
             if 1 :
                 ret = self.draughts.backend.pl_after_secondclick(self.old_square.name, square.name)
                 if ret == 0:
                     self.old_square = None
-                    return
+                    if self.replay:
+                        self.replay = False
+                    else:
+                        return
                 if ret == 2:
+                    self.draughts.checker.matrix = self.draughts.backend.get_matrix()
+                    self.draughts.checker.resize_checker(self.draughts.checker.square_size)
                     self.old_square = square
+                    self.replay = True
                     return
                 play = self.draughts.backend.possible_moves(2)
-                if (self.old_square.name[0] - square.name[0] != 1 and self.old_square.name[0] - square.name[0] != -1) or (self.old_square.name[1] - square.name[1] != 1 and self.old_square.name[1] - square.name[1] != -1):
+                if self.old_square != None and square != None and ((self.old_square.name[0] - square.name[0] != 1 and \
+                    self.old_square.name[0] - square.name[0] != -1) or (self.old_square.name[1] - square.name[1] != 1 and \
+                    self.old_square.name[1] - square.name[1] != -1)):
                     row1 = ("%d" % (self.matrix_coordonate[int(str(self.old_square.name[0]))][int(str(self.old_square.name[1]))]))
                     row2 = ("%d" % (self.matrix_coordonate[int(str(square.name[0]))][int(str(square.name[1]))])) 
                     if self.draughts.pc_first == False:
                         row3 = ("Coup %d : %s x %s" % (self.draughts.turn,row1,row2))
                     else:
                         row3 = ("Coup %d : (%s) x (%s)" % (self.draughts.turn,row1,row2))
-                else:
+                elif self.old_square != None and square != None:
                     row1 = ("%d" % (self.matrix_coordonate[int(str(self.old_square.name[0]))][int(str(self.old_square.name[1]))]))
                     row2 = ("%d" % (self.matrix_coordonate[int(str(square.name[0]))][int(str(square.name[1]))]))
                     if self.draughts.pc_first == False:
                         row3 = ("Coup %d : %s - %s" % (self.draughts.turn,row1,row2))
                     else:
                         row3 = ("Coup %d : (%s) - (%s)" % (self.draughts.turn,row1,row2))
-                self.draughts.row_label1 = Gtk.Label(row3)
-                self.draughts.row_label1.show_all()
-                self.draughts.hit_history.prepend(self.draughts.row_label1)
+                if row3 != None:
+                    self.draughts.row_label1 = Gtk.Label(row3)
+                    self.draughts.row_label1.show_all()
+                    self.draughts.hit_history.prepend(self.draughts.row_label1)
                 self.old_square = None
                 self.draughts.checker.matrix = self.draughts.backend.get_matrix()
                 self.draughts.checker.resize_checker(self.draughts.checker.square_size)

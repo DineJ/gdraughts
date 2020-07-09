@@ -305,22 +305,19 @@ class Backend(object):
             print_moves(self.cells)
 
     def pl_after_firstclick(self, case=None, explicit=None):
+        self.pl_before_firstclick()
         if not explicit:
             cell_num = -1
-            self.pl_before_firstclick()
             for i, move in enumerate(self.cells):
                 if case[0] == move[0] and case[1] == move[1]:
                     cell_num = int(i)
             if cell_num == -1:
                 return 0
-            position = self.cells[cell_num]
             for moves in self.all_moves:
                 if moves[0] == [self.cells[cell_num][0], self.cells[cell_num][1]]:
                     self.ready_moves.append(moves[1])
         else:
-            for pmoves in explicit:
-                self.ready_moves.append(pmoves)
-            position = explicit[0][0]
+            self.ready_moves.append(explicit)
         return 1
 
     def pl_after_secondclick(self, old_case=None, case=None):
@@ -333,12 +330,10 @@ class Backend(object):
         if self.move(old_case, case) == 2:
             next_hop = self.eatable(1, case[0], case[1])
             if next_hop:
-                self.pl_after_firstclick(None, case)
+                self.pl_after_firstclick(case)
                 self.print()
                 return 2
             self.print()
-            return 2
-
         return 1
 
 
@@ -573,7 +568,7 @@ class Backend(object):
                     self.finish_message(0)
                     return 3
 
-            # Le joueur jour
+            # Le joueur joue
             play = self.pl_move()
             # print("checkers.py Player zavrsio")
             # Jeu terminé ?
