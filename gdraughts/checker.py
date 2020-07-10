@@ -336,12 +336,12 @@ class Checker(Gtk.Grid):
                 if 1 :
                     ret = self.draughts.backend.pl_after_secondclick(self.old_square.name, square.name)
                     if ret == 0:
-                        if self.draughts.backend.force_jump:
-                            return
                         self.old_square = None
                         if self.replay:
                             self.replay = False
                         else:
+                            return
+                        if self.draughts.backend.force_jump:
                             return
                     if ret == 2:
                         self.rafle = True
