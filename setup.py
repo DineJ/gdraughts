@@ -38,7 +38,7 @@ setup (name = 'gdraughts',
     author='Dine Jridi',
     author_email='dinejridi@gmail.com',  
     url='https://gitlab.com/DINE_J/international-checkers-game', 
-    long_description=read("README.rst"),
+    long_description=read("Readme"),
     platforms = ['Linux'],
 
     license = "GPLv3+",
@@ -59,7 +59,7 @@ setup (name = 'gdraughts',
           'Topic :: Games/Entertainment :: Board Games',
           ],
     data_files = [("share/gdraughts/images", glob('images/*.jpg')),
-            ("share/doc/gdraughts-0.1", ["README.rst", "LICENSE"]),
+            ("share/doc/gdraughts-0.1", ["Readme", "LICENSE"]),
             ('share/pixmaps', ['gdraughts.png']),
     ]+ create_localised_files()
 

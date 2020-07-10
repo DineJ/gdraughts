@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: bugs@ordissimo.com\n"
-"POT-Creation-Date: 2020-07-08 14:26+0200\n"
+"POT-Creation-Date: 2020-07-10 16:30+0200\n"
 "PO-Revision-Date: 2019-06-05 14:56+0200\n"
 "Last-Translator: Brice <brice@ordissimo.com>\n"
 "Language-Team: \n"
@@ -18,29 +18,81 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Pootle 2.1.6\n"
 
-#: ../gdraughts/backend.py:715
+#: ../gdraughts/backend.py:719
 msgid "\tENTER to confirm\n"
 msgstr ""
 
-#: ../gdraughts/backend.py:743
+#: ../gdraughts/draughts.py:276
+msgid "10 square"
+msgstr "10 cases"
+
+#: ../gdraughts/draughts.py:272
+msgid "8 square"
+msgstr "8 cases"
+
+#: ../gdraughts/draughts.py:282
+msgid "Black"
+msgstr "Noire"
+
+#: ../gdraughts/backend.py:747
 msgid "Case of the eaten piece (default = "
 msgstr ""
 
-#: ../gdraughts/backend.py:712
+#: ../gdraughts/draughts.py:96
+msgid "Close"
+msgstr "Fermer"
+
+#: ../gdraughts/backend.py:716
 msgid "Compulsory take"
 msgstr ""
+
+#: ../gdraughts/draughts.py:150
+msgid "Computer"
+msgstr "Ordinateur"
+
+#: ../gdraughts/draughts.py:269
+msgid "Do you want pawns can eat a queen?"
+msgstr "Voulez-vous que les pions puissent manger une dame?"
+
+#: ../gdraughts/draughts.py:270
+msgid "Do you want the queens to be able to move one square at a time?"
+msgstr "Voulez-vous que les dames ne se déplace que d'une case à la fois?"
+
+#: ../gdraughts/draughts.py:268
+msgid "Do you want to add being able to eat back?"
+msgstr "Voulez-vous ajouter le fait que les pions mangent en arrières?"
+
+#: ../gdraughts/draughts.py:267
+msgid "Do you want to force them to eat?"
+msgstr "Voulez-vous forcer les prises?"
+
+#: ../gdraughts/draughts.py:266
+msgid "Do you want your pawn to be on the bottom right?"
+msgstr "Voulez-vous que votre pions soit en bas à droite?"
 
 #: ../desktop/gdraughts.desktop.in:6
 msgid "Draughts Game"
 msgstr "Jeu de dames"
 
-#: ../gdraughts/backend.py:733
+#: ../gdraughts/draughts.py:172
+msgid "Easy"
+msgstr "Facile"
+
+#: ../gdraughts/draughts.py:534
+msgid "England"
+msgstr "Angleterre"
+
+#: ../gdraughts/backend.py:737
 msgid "First player's piece (default = "
 msgstr ""
 
-#: ../gdraughts/backend.py:735
+#: ../gdraughts/backend.py:739
 msgid "First player's queen (default = "
 msgstr ""
+
+#: ../gdraughts/draughts.py:542
+msgid "France"
+msgstr "France"
 
 #: ../desktop/gdraughts.desktop.in:5
 #, fuzzy
@@ -48,31 +100,141 @@ msgstr ""
 msgid "Gdraughts is a draughts program for the Gnome desktop"
 msgstr "Samuel est un jeu de dames pour le bureau Gnome"
 
-#: ../gdraughts/backend.py:741
+#: ../gdraughts/draughts.py:176
+msgid "Hard"
+msgstr "Dur"
+
+#: ../gdraughts/draughts.py:76
+msgid "Historical"
+msgstr "Historique"
+
+#: ../gdraughts/checker.py:282 ../gdraughts/checker.py:284
+#: ../gdraughts/checker.py:289 ../gdraughts/checker.py:291
+#: ../gdraughts/checker.py:297 ../gdraughts/checker.py:299
+#: ../gdraughts/checker.py:304 ../gdraughts/checker.py:306
+#: ../gdraughts/checker.py:365 ../gdraughts/checker.py:367
+#: ../gdraughts/checker.py:372 ../gdraughts/checker.py:374
+msgid "Hit"
+msgstr "Coup"
+
+#: ../gdraughts/draughts.py:264
+msgid "How many square do you want per ligne?"
+msgstr "Combien de cases voulez-vous par ligne?"
+
+#: ../gdraughts/draughts.py:519
+msgid "Italy"
+msgstr "Italie"
+
+#: ../gdraughts/draughts.py:174
+msgid "Medium"
+msgstr "Moyen"
+
+#: ../gdraughts/draughts.py:510
+msgid "Netherlands"
+msgstr "Pays-Bas"
+
+#: ../gdraughts/draughts.py:97
+msgid "New game"
+msgstr "Nouvelle partie"
+
+#: ../gdraughts/draughts.py:284 ../gdraughts/draughts.py:294
+#: ../gdraughts/draughts.py:300 ../gdraughts/draughts.py:306
+#: ../gdraughts/draughts.py:311
+msgid "No"
+msgstr "Non"
+
+#: ../gdraughts/draughts.py:146
+msgid "Player"
+msgstr "Joueur"
+
+#: ../gdraughts/backend.py:745
 msgid "Previous position square (defaul = "
 msgstr ""
 
-#: ../gdraughts/backend.py:739
+#: ../gdraughts/backend.py:743
 msgid "Queen of the second player (default = "
 msgstr ""
 
-#: ../gdraughts/backend.py:714
+#: ../gdraughts/backend.py:718
 msgid "Quit"
 msgstr "Fermer"
 
-#: ../gdraughts/backend.py:737
+#: ../gdraughts/backend.py:741
 msgid "Second player's piece (default = "
 msgstr ""
 
-#: ../gdraughts/backend.py:716
+#: ../gdraughts/backend.py:720
 msgid "Select an option: "
 msgstr ""
 
-#: ../gdraughts/backend.py:713
+#: ../gdraughts/draughts.py:98
+msgid "Settings"
+msgstr "Paramètres"
+
+#: ../gdraughts/draughts.py:526
+msgid "Spain"
+msgstr "Espagne"
+
+#: ../gdraughts/draughts.py:105
+msgid "Start the game"
+msgstr "Commencer la partie"
+
+#: ../gdraughts/backend.py:717
 #, fuzzy
 #| msgid "Computer Plays White"
 msgid "The computer plays first"
 msgstr "L'ordinateur joue les Blancs"
+
+#: ../gdraughts/checker.py:318
+msgid "The computer won"
+msgstr "L'ordinateur a gagné"
+
+#: ../gdraughts/checker.py:393
+msgid "To the computer to play"
+msgstr "À L'ordinateur de jouer"
+
+#: ../gdraughts/draughts.py:265
+msgid "What color do you want in the square at the bottom right?"
+msgstr "Quelle couleur voulez-vous dans le case en bas à droite?"
+
+#: ../gdraughts/draughts.py:170
+msgid "What difficulties do you want?"
+msgstr "Quelles difficulté voulez-vous?"
+
+#. Frame
+#: ../gdraughts/draughts.py:504
+msgid "What rules do you want to play with?"
+msgstr "Avec quelles règles voulez-vous jouer?"
+
+#: ../gdraughts/draughts.py:278
+msgid "White"
+msgstr "Blanche"
+
+#: ../gdraughts/checker.py:274
+msgid "Who do you want to move"
+msgstr "Qui voulez-vous déplacer?"
+
+#: ../gdraughts/draughts.py:144
+msgid "Who plays first?"
+msgstr "Qui joue en premier?"
+
+#: ../gdraughts/draughts.py:288 ../gdraughts/draughts.py:290
+#: ../gdraughts/draughts.py:296 ../gdraughts/draughts.py:302
+#: ../gdraughts/draughts.py:308
+msgid "Yes"
+msgstr "Oui"
+
+#: ../gdraughts/checker.py:346
+msgid "You are forced to continue eating"
+msgstr "Vous êtes obligé de continuer la rafle"
+
+#: ../gdraughts/checker.py:343
+msgid "You made an illegal hit, start your hit again"
+msgstr "Vous avez fait un coup illégal, recommencez votre coup"
+
+#: ../gdraughts/checker.py:383
+msgid "You won"
+msgstr "Tu as gagné"
 
 #: ../desktop/gdraughts.desktop.in:4
 #, fuzzy
@@ -83,6 +245,9 @@ msgstr "Jeu de dames"
 #: ../desktop/gdraughts.desktop.in:7
 msgid "gdraughts.png"
 msgstr ""
+
+#~ msgid "You must eat"
+#~ msgstr "Vous devez manger"
 
 #~ msgid "%d Positions Loaded"
 #~ msgstr "%d Position sauvée"
@@ -115,9 +280,6 @@ msgstr ""
 #~ msgid "Book Full!"
 #~ msgstr "Livre complet"
 
-#~ msgid "Cancel"
-#~ msgstr "Annuler"
-
 #~ msgid "Click Cancel to discard changes"
 #~ msgstr "Cliquer sur Annuler pour ne pas enregistrer les changements"
 
@@ -126,9 +288,6 @@ msgstr ""
 
 #~ msgid "Computer Move"
 #~ msgstr "Déplacement de l'ordinateur."
-
-#~ msgid "Computer Off"
-#~ msgstr "Arrêt de l'ordinateur"
 
 #~ msgid "Computer Plays Red"
 #~ msgstr "L'ordinateur joue les Rouges"
@@ -235,9 +394,6 @@ msgstr ""
 #~ msgid "Move: %ld%c%ld Time: %.2fs  KNodes: %ld KN/Sec: %d"
 #~ msgstr "Déplacement: %ld%c%ld Temps: %.2fs  NCoeurs: %ld NC/Sec: %d"
 
-#~ msgid "New Game"
-#~ msgstr "Nouvelle partie"
-
 #~ msgid "Next Move"
 #~ msgstr "Coup suivant"
 
@@ -291,9 +447,6 @@ msgstr ""
 
 #~ msgid "Previous Move"
 #~ msgstr "Coup précédent"
-
-#~ msgid "Quit the Program"
-#~ msgstr "Fermer le programme"
 
 #~ msgid "Red"
 #~ msgstr "Rouge"
@@ -412,9 +565,6 @@ msgstr ""
 
 #~ msgid "User-defined"
 #~ msgstr "Personnalisé"
-
-#~ msgid "White"
-#~ msgstr "Blancs"
 
 #~ msgid "White to Move"
 #~ msgstr "Aux Blancs de jouer"
