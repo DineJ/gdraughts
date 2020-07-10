@@ -271,7 +271,7 @@ class Checker(Gtk.Grid):
     #all this part is about pc (move,hit,game over)
     def play_on_timeout(self, stack):
         if self.draughts.backend.fin == False:
-            self.draughts.set_informations(_("Who do you want to move"))
+            self.draughts.set_informations(_("Your turn"))
             self.draughts.backend.pc_move(stack)
             jump = self.draughts.backend.lastjump[:]
             if len(str(jump[0])) == 4 :
@@ -391,7 +391,7 @@ class Checker(Gtk.Grid):
                         self.draughts.turn += 1
                     self.draughts.backend.lastjump[:] = []
                     GLib.timeout_add(2.0, self.play_on_timeout, self.stack)
-                    self.draughts.set_informations(_("To the computer to play"))
+                    self.draughts.set_informations(_("Computer turn"))
 
     #change square
     def echange_square(self, old_square, square): 

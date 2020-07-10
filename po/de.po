@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: bugs@ordissimo.com\n"
-"POT-Creation-Date: 2020-07-10 16:30+0200\n"
+"POT-Creation-Date: 2020-07-10 17:32+0200\n"
 "PO-Revision-Date: 2019-08-14 10:05+0200\n"
 "Last-Translator: Anna <an.ulbricht@gmail.com>\n"
 "Language-Team: \n"
@@ -18,7 +18,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.1.6\n"
 
-#: ../gdraughts/backend.py:719
+#: ../gdraughts/backend.py:724
 msgid "\tENTER to confirm\n"
 msgstr ""
 
@@ -34,7 +34,7 @@ msgstr ""
 msgid "Black"
 msgstr ""
 
-#: ../gdraughts/backend.py:747
+#: ../gdraughts/backend.py:752
 msgid "Case of the eaten piece (default = "
 msgstr ""
 
@@ -42,12 +42,16 @@ msgstr ""
 msgid "Close"
 msgstr ""
 
-#: ../gdraughts/backend.py:716
+#: ../gdraughts/backend.py:721
 msgid "Compulsory take"
 msgstr ""
 
 #: ../gdraughts/draughts.py:150
 msgid "Computer"
+msgstr ""
+
+#: ../gdraughts/checker.py:394
+msgid "Computer turn"
 msgstr ""
 
 #: ../gdraughts/draughts.py:269
@@ -82,11 +86,11 @@ msgstr ""
 msgid "England"
 msgstr ""
 
-#: ../gdraughts/backend.py:737
+#: ../gdraughts/backend.py:742
 msgid "First player's piece (default = "
 msgstr ""
 
-#: ../gdraughts/backend.py:739
+#: ../gdraughts/backend.py:744
 msgid "First player's queen (default = "
 msgstr ""
 
@@ -110,8 +114,8 @@ msgstr ""
 #: ../gdraughts/checker.py:289 ../gdraughts/checker.py:291
 #: ../gdraughts/checker.py:297 ../gdraughts/checker.py:299
 #: ../gdraughts/checker.py:304 ../gdraughts/checker.py:306
-#: ../gdraughts/checker.py:365 ../gdraughts/checker.py:367
-#: ../gdraughts/checker.py:372 ../gdraughts/checker.py:374
+#: ../gdraughts/checker.py:366 ../gdraughts/checker.py:368
+#: ../gdraughts/checker.py:373 ../gdraughts/checker.py:375
 msgid "Hit"
 msgstr ""
 
@@ -145,23 +149,23 @@ msgstr ""
 msgid "Player"
 msgstr ""
 
-#: ../gdraughts/backend.py:745
+#: ../gdraughts/backend.py:750
 msgid "Previous position square (defaul = "
 msgstr ""
 
-#: ../gdraughts/backend.py:743
+#: ../gdraughts/backend.py:748
 msgid "Queen of the second player (default = "
 msgstr ""
 
-#: ../gdraughts/backend.py:718
+#: ../gdraughts/backend.py:723
 msgid "Quit"
 msgstr ""
 
-#: ../gdraughts/backend.py:741
+#: ../gdraughts/backend.py:746
 msgid "Second player's piece (default = "
 msgstr ""
 
-#: ../gdraughts/backend.py:720
+#: ../gdraughts/backend.py:725
 msgid "Select an option: "
 msgstr ""
 
@@ -177,16 +181,8 @@ msgstr ""
 msgid "Start the game"
 msgstr ""
 
-#: ../gdraughts/backend.py:717
+#: ../gdraughts/backend.py:722
 msgid "The computer plays first"
-msgstr ""
-
-#: ../gdraughts/checker.py:318
-msgid "The computer won"
-msgstr ""
-
-#: ../gdraughts/checker.py:393
-msgid "To the computer to play"
 msgstr ""
 
 #: ../gdraughts/draughts.py:265
@@ -206,10 +202,6 @@ msgstr ""
 msgid "White"
 msgstr ""
 
-#: ../gdraughts/checker.py:274
-msgid "Who do you want to move"
-msgstr ""
-
 #: ../gdraughts/draughts.py:144
 msgid "Who plays first?"
 msgstr ""
@@ -220,7 +212,7 @@ msgstr ""
 msgid "Yes"
 msgstr ""
 
-#: ../gdraughts/checker.py:346
+#: ../gdraughts/checker.py:347
 msgid "You are forced to continue eating"
 msgstr ""
 
@@ -228,8 +220,16 @@ msgstr ""
 msgid "You made an illegal hit, start your hit again"
 msgstr ""
 
-#: ../gdraughts/checker.py:383
+#: ../gdraughts/backend.py:240 ../gdraughts/backend.py:268
+msgid "You must eat"
+msgstr ""
+
+#: ../gdraughts/checker.py:384
 msgid "You won"
+msgstr ""
+
+#: ../gdraughts/checker.py:274
+msgid "Your turn"
 msgstr ""
 
 #: ../desktop/gdraughts.desktop.in:4

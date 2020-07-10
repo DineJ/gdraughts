@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: bugs@ordissimo.com\n"
-"POT-Creation-Date: 2020-07-10 16:30+0200\n"
+"POT-Creation-Date: 2020-07-10 17:32+0200\n"
 "PO-Revision-Date: 2019-08-30 18:59+0200\n"
 "Last-Translator: Sara <sisajola@gmail.com>\n"
 "Language-Team: \n"
@@ -18,7 +18,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.1.6\n"
 
-#: ../gdraughts/backend.py:719
+#: ../gdraughts/backend.py:724
 msgid "\tENTER to confirm\n"
 msgstr ""
 
@@ -34,7 +34,7 @@ msgstr ""
 msgid "Black"
 msgstr ""
 
-#: ../gdraughts/backend.py:747
+#: ../gdraughts/backend.py:752
 msgid "Case of the eaten piece (default = "
 msgstr ""
 
@@ -42,7 +42,7 @@ msgstr ""
 msgid "Close"
 msgstr ""
 
-#: ../gdraughts/backend.py:716
+#: ../gdraughts/backend.py:721
 msgid "Compulsory take"
 msgstr ""
 
@@ -50,6 +50,12 @@ msgstr ""
 #, fuzzy
 #| msgid "Computer Off"
 msgid "Computer"
+msgstr "Computer Off"
+
+#: ../gdraughts/checker.py:394
+#, fuzzy
+#| msgid "Computer Off"
+msgid "Computer turn"
 msgstr "Computer Off"
 
 #: ../gdraughts/draughts.py:269
@@ -84,11 +90,11 @@ msgstr ""
 msgid "England"
 msgstr ""
 
-#: ../gdraughts/backend.py:737
+#: ../gdraughts/backend.py:742
 msgid "First player's piece (default = "
 msgstr ""
 
-#: ../gdraughts/backend.py:739
+#: ../gdraughts/backend.py:744
 msgid "First player's queen (default = "
 msgstr ""
 
@@ -116,8 +122,8 @@ msgstr ""
 #: ../gdraughts/checker.py:289 ../gdraughts/checker.py:291
 #: ../gdraughts/checker.py:297 ../gdraughts/checker.py:299
 #: ../gdraughts/checker.py:304 ../gdraughts/checker.py:306
-#: ../gdraughts/checker.py:365 ../gdraughts/checker.py:367
-#: ../gdraughts/checker.py:372 ../gdraughts/checker.py:374
+#: ../gdraughts/checker.py:366 ../gdraughts/checker.py:368
+#: ../gdraughts/checker.py:373 ../gdraughts/checker.py:375
 msgid "Hit"
 msgstr ""
 
@@ -153,23 +159,23 @@ msgstr ""
 msgid "Player"
 msgstr ""
 
-#: ../gdraughts/backend.py:745
+#: ../gdraughts/backend.py:750
 msgid "Previous position square (defaul = "
 msgstr ""
 
-#: ../gdraughts/backend.py:743
+#: ../gdraughts/backend.py:748
 msgid "Queen of the second player (default = "
 msgstr ""
 
-#: ../gdraughts/backend.py:718
+#: ../gdraughts/backend.py:723
 msgid "Quit"
 msgstr "Chiudi"
 
-#: ../gdraughts/backend.py:741
+#: ../gdraughts/backend.py:746
 msgid "Second player's piece (default = "
 msgstr ""
 
-#: ../gdraughts/backend.py:720
+#: ../gdraughts/backend.py:725
 msgid "Select an option: "
 msgstr ""
 
@@ -187,22 +193,10 @@ msgstr ""
 msgid "Start the game"
 msgstr "Chiudere il programma"
 
-#: ../gdraughts/backend.py:717
+#: ../gdraughts/backend.py:722
 #, fuzzy
 #| msgid "Computer Plays White"
 msgid "The computer plays first"
-msgstr "Il computer gioca le pedine Bianche"
-
-#: ../gdraughts/checker.py:318
-#, fuzzy
-#| msgid "Computer Plays White"
-msgid "The computer won"
-msgstr "Il computer gioca le pedine Bianche"
-
-#: ../gdraughts/checker.py:393
-#, fuzzy
-#| msgid "Computer Plays White"
-msgid "To the computer to play"
 msgstr "Il computer gioca le pedine Bianche"
 
 #: ../gdraughts/draughts.py:265
@@ -222,10 +216,6 @@ msgstr ""
 msgid "White"
 msgstr "Bianchi"
 
-#: ../gdraughts/checker.py:274
-msgid "Who do you want to move"
-msgstr ""
-
 #: ../gdraughts/draughts.py:144
 #, fuzzy
 #| msgid "Computer Plays White"
@@ -238,7 +228,7 @@ msgstr "Il computer gioca le pedine Bianche"
 msgid "Yes"
 msgstr ""
 
-#: ../gdraughts/checker.py:346
+#: ../gdraughts/checker.py:347
 msgid "You are forced to continue eating"
 msgstr ""
 
@@ -246,8 +236,16 @@ msgstr ""
 msgid "You made an illegal hit, start your hit again"
 msgstr ""
 
-#: ../gdraughts/checker.py:383
+#: ../gdraughts/backend.py:240 ../gdraughts/backend.py:268
+msgid "You must eat"
+msgstr ""
+
+#: ../gdraughts/checker.py:384
 msgid "You won"
+msgstr ""
+
+#: ../gdraughts/checker.py:274
+msgid "Your turn"
 msgstr ""
 
 #: ../desktop/gdraughts.desktop.in:4
@@ -259,6 +257,16 @@ msgstr "Gioco della dama"
 #: ../desktop/gdraughts.desktop.in:7
 msgid "gdraughts.png"
 msgstr ""
+
+#, fuzzy
+#~| msgid "Computer Plays White"
+#~ msgid "The computer won"
+#~ msgstr "Il computer gioca le pedine Bianche"
+
+#, fuzzy
+#~| msgid "Computer Plays White"
+#~ msgid "To the computer to play"
+#~ msgstr "Il computer gioca le pedine Bianche"
 
 #~ msgid "%d Positions Loaded"
 #~ msgstr "%d Posizione salvata"
