@@ -271,7 +271,7 @@ class Checker(Gtk.Grid):
     #all this part is about pc (move,hit,game over)
     def play_on_timeout(self, stack):
         if self.draughts.backend.fin == False:
-            self.draughts.informations_bar.set_markup('<span foreground="#ff710d" size="large" >%s</span>' % _("Who do you want to move"))
+            self.draughts.set_informations(_("Who do you want to move"))
             self.draughts.backend.pc_move(stack)
             jump = self.draughts.backend.lastjump[:]
             if len(str(jump[0])) == 4 :
@@ -315,7 +315,7 @@ class Checker(Gtk.Grid):
             play = self.draughts.backend.possible_moves(1)
             if len(play) == 0:
                 self.draughts.hit_history.remove(self.draughts.hit_history.get_children()[0])
-                self.draughts.informations_bar.set_markup('<span foreground="#ff710d" size="large" >%s</span>' %_("The computer won"))
+                self.draughts.set_informations(("The computer won"))
                 self.draughts.backend.fin = True
                 self.draughts.row_endgame = Gtk.Label(" %s+ " % (row3))
                 self.draughts.row_endgame.show_all()
@@ -340,10 +340,11 @@ class Checker(Gtk.Grid):
                         if self.replay:
                             self.replay = False
                         else:
-                            self.draughts.informations_bar.set_markup('<span foreground="#ff710d" size="large" >%s</span>' %_("You made an illegal hit, start your hit again"))
+                            self.draughts.set_informations(_("You made an illegal hit, start your hit again"))
                             return
                         if self.draughts.backend.force_jump:
-                            self.draughts.informations_bar.set_markup('<span foreground="#ff710d" size="large" >%s</span>' %_("You are forced to continue eating"))
+                            
+                            self.draughts.set_informations(_("You are forced to continue eating"))
                             return
                     if ret == 2:
                         self.rafle = True
@@ -380,7 +381,7 @@ class Checker(Gtk.Grid):
                     self.draughts.checker.resize_checker(self.draughts.checker.square_size)
                     if len(play) == 0:
                         self.draughts.hit_history.remove(self.draughts.hit_history.get_children()[0])
-                        self.draughts.informations_bar.set_markup('<span foreground="#ff710d" size="large" >%s</span>' % _("You won"))
+                        self.draughts.set_informations(_("You won"))
                         self.draughts.backend.fin = True
                         self.draughts.row_endgame = Gtk.Label(" %s+ " % (row3))
                         self.draughts.row_endgame.show_all()
@@ -390,7 +391,7 @@ class Checker(Gtk.Grid):
                         self.draughts.turn += 1
                     self.draughts.backend.lastjump[:] = []
                     GLib.timeout_add(2.0, self.play_on_timeout, self.stack)
-                    self.draughts.informations_bar.set_markup('<span foreground="#ff710d" size="large" >%s</span>' %_("To the computer to play"))
+                    self.draughts.set_informations(_("To the computer to play"))
 
     #change square
     def echange_square(self, old_square, square): 
