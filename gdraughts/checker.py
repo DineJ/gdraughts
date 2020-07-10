@@ -340,8 +340,10 @@ class Checker(Gtk.Grid):
                         if self.replay:
                             self.replay = False
                         else:
+                            self.draughts.informations_bar.set_markup('<span foreground="#ff710d" size="large" >%s</span>' %_("You made an illegal hit, start your hit again"))
                             return
                         if self.draughts.backend.force_jump:
+                            self.draughts.informations_bar.set_markup('<span foreground="#ff710d" size="large" >%s</span>' %_("You are forced to continue eating"))
                             return
                     if ret == 2:
                         self.rafle = True

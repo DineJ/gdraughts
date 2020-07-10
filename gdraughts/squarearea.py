@@ -15,9 +15,13 @@ along with this checkers game ; see the file LICENSE.  If not, write to the Free
 Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA."""
 
 
+import gi
+gi.require_version('PangoCairo', '1.0')
 from gi.repository import Gtk, Gdk, cairo, Pango, PangoCairo
 from gi.repository import GObject
 import math
+import gettext
+
 
 #draw each square of the checker
 class SquareArea(Gtk.DrawingArea): 
@@ -96,6 +100,6 @@ class SquareArea(Gtk.DrawingArea):
 		cr.restore()
 
 	#resize pawn 
-	def resize_pawn(self, taille): 
-		self.set_size_request(taille, taille)
+	def resize_pawn(self, size): 
+		self.set_size_request(size, size)
 		self.queue_draw()

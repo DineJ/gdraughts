@@ -16,10 +16,23 @@ along with this checkers game ; see the file LICENSE.  If not, write to the Free
 Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA."""
 
 
+import gi
+gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, GdkPixbuf
 from checker import Checker
 from backend import Backend, Node, Stack
 import random
+import gettext
+
+## Localization.
+# if getattr(sys, 'frozen', False):
+#     APP_DIR = os.path.dirname(dirname(sys.executable))
+# else:
+#     APP_DIR     = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+# LOCALDIR      = os.path.join(APP_DIR, 'locale')
+
+# DOMAIN = 'gdraughts'
+gettext.install('gdraughts', '/usr/share/locale/')
 
 
 #create application
@@ -60,7 +73,7 @@ class Draughts(Gtk.Window):
 		self.box_rows.set_homogeneous(False)
 
 		self.head_label = Gtk.Label()
-		self.head_label.set_markup('<span weight="bold">Historique</span>')
+		self.head_label.set_markup('<span weight="bold">%s</span>' % _("Historical"))
 		self.box_rows.pack_start(self.head_label, False, True, 0)
 
 		self.scrolled_window = Gtk.ScrolledWindow()
@@ -80,16 +93,16 @@ class Draughts(Gtk.Window):
 		img = Gtk.Image.new_from_icon_name('preferences-system', 0)
 		custom_button = Gtk.ToolButton.new(img)
 
-		quit_button.set_label("Quitter")
-		play_button.set_label("Nouvelle partie")
-		custom_button.set_label("Personnalisateur")
+		quit_button.set_label(_("Close"))
+		play_button.set_label(_("New game"))
+		custom_button.set_label(_("Settings"))
 		quit_button.set_is_important(True)
 		play_button.set_is_important(True)
 		custom_button.set_is_important(True)
 
 
 		self.informations_bar = Gtk.Label()
-		self.informations_bar.set_markup("<span foreground='#ff710d' size='large' >Commencez une nouvelle partie</span>")
+		self.informations_bar.set_markup(('<span foreground="#ff710d" size="large" >%s</span>' %_("Start the game")))
 		self.informations_bar.set_size_request(-1, 30)
 
 		r_chercker8 = Gtk.RadioButton.new()
@@ -116,6 +129,9 @@ class Draughts(Gtk.Window):
 		game_area.pack_start(self.box_rows, False, True, 0)
 		self.add(application)
 
+	def set_informations(self, label):
+		self.informations_bar.set_markup(("<span foreground='#ff710d' size='large' >%s</span>" % label))
+
 	#show the application
 	def play(self):
 		self.show_all()
@@ -125,13 +141,13 @@ class Draughts(Gtk.Window):
 
 
 	def who_play(self):
-		frame_begin = Gtk.Frame.new("Qui joue en premier ?")
+		frame_begin = Gtk.Frame.new(_("Who plays first?"))
 
-		self.r_player = Gtk.RadioButton.new_with_label_from_widget(None, "Joueur")
+		self.r_player = Gtk.RadioButton.new_with_label_from_widget(None, _("Player"))
 		self.custom_margin(self.r_player, 5, 10, 5, 10)
 		self.r_computer = Gtk.RadioButton.new_from_widget(self.r_player)
 		self.custom_margin(self.r_computer, 5, 10, 5, 10)
-		self.r_computer.set_label("Ordinateur")
+		self.r_computer.set_label(_("Computer"))
 
 
 		grid_begin = Gtk.Grid.new()
@@ -151,13 +167,13 @@ class Draughts(Gtk.Window):
 		return frame_begin
 
 	def level_of_difficulty(self):
-		frame_difficulties =  Gtk.Frame.new("Quelles difficultés voulez-vous?")
+		frame_difficulties =  Gtk.Frame.new(_("What difficulties do you want?"))
 
-		self.t_easy = Gtk.ToggleButton.new_with_label("Facile")
+		self.t_easy = Gtk.ToggleButton.new_with_label(_("Easy"))
 		self.custom_margin(self.t_easy, 5, 5, 0, 5)
-		self.t_medium = Gtk.ToggleButton.new_with_label("Moyen")
+		self.t_medium = Gtk.ToggleButton.new_with_label(_("Medium"))
 		self.custom_margin(self.t_medium, 0, 5, 0, 5)
-		self.t_hard = Gtk.ToggleButton.new_with_label("Dur")
+		self.t_hard = Gtk.ToggleButton.new_with_label(_("Hard"))
 		self.custom_margin(self.t_hard, 0, 5, 5, 5)
 
 		grid_difficulties = Gtk.Grid.new()
@@ -245,54 +261,54 @@ class Draughts(Gtk.Window):
 		for element in self.hit_history.get_children():
 			self.hit_history.remove(element)
 
-		frame_matrice = Gtk.Frame.new("Combien de cases voulez-vous par ligne?")
-		frame_color = Gtk.Frame.new("Quelle couleur voulez-vous dans la case en bas à droite ?")
-		frame_color1 = Gtk.Frame.new("Voulez-vous que votre pion soit en bas à droite?")
-		frame_forced_move = Gtk.Frame.new("Voulez-vous forcer les prises?")
-		frame_eatbehind = Gtk.Frame.new("Voulez-vous ajouter la prise arrière?")
-		frame_eatqueen = Gtk.Frame.new("Un pion peut-il manger une dame?")
-		frame_queen = Gtk.Frame.new("Voulez-vous que la dame ne se déplace que d'une case?")
+		frame_matrice = Gtk.Frame.new(_("How many square do you want per ligne?"))
+		frame_color = Gtk.Frame.new(_("What color do you want in the square at the bottom right?"))
+		frame_color1 = Gtk.Frame.new(_("Do you want your pawn to be on the bottom right?"))
+		frame_forced_move = Gtk.Frame.new(_("Do you want to force them to eat?"))
+		frame_eatbehind = Gtk.Frame.new(_("Do you want to add being able to eat back?"))
+		frame_eatqueen = Gtk.Frame.new(_("Do you want pawns can eat a queen?"))
+		frame_queen = Gtk.Frame.new(_("Do you want the queens to be able to move one square at a time?"))
 
-		r_chercker8 = Gtk.RadioButton.new_with_label_from_widget(None, "8 cases")
+		r_chercker8 = Gtk.RadioButton.new_with_label_from_widget(None, _("8 square"))
 		self.custom_margin(r_chercker8, 5, 10, 5, 10)
 		r_chercker10 = Gtk.RadioButton.new_from_widget(r_chercker8)
 		self.custom_margin(r_chercker10, 5, 10, 5, 10)
-		r_chercker10.set_label("10 cases")
+		r_chercker10.set_label(_("10 square"))
 
-		r_color_w = Gtk.RadioButton.new_with_label_from_widget(None, "Blanches")
+		r_color_w = Gtk.RadioButton.new_with_label_from_widget(None, _("White"))
 		self.custom_margin(r_color_w, 5, 10, 5, 10)
 		r_color_b = Gtk.RadioButton.new_from_widget(r_color_w)
 		self.custom_margin(r_color_b, 5, 10, 5, 10)
-		r_color_b.set_label("Noires")
+		r_color_b.set_label(_("Black"))
 
-		r_color1_b = Gtk.RadioButton.new_with_label_from_widget(None, "Non")
+		r_color1_b = Gtk.RadioButton.new_with_label_from_widget(None, _("No"))
 		self.custom_margin(r_color1_b, 5, 10, 5, 10)
 		r_color1_w = Gtk.RadioButton.new_from_widget(r_color1_b)
 		self.custom_margin(r_color1_w, 5, 10, 5, 10)
-		r_color1_w.set_label("Oui")
+		r_color1_w.set_label(_("Yes"))
 
-		r_forced_move_y = Gtk.RadioButton.new_with_label_from_widget(None, "Oui")
+		r_forced_move_y = Gtk.RadioButton.new_with_label_from_widget(None, _("Yes"))
 		self.custom_margin(r_forced_move_y, 5, 10, 5, 10)
 		r_forced_move_n = Gtk.RadioButton.new_from_widget(r_forced_move_y)
 		self.custom_margin(r_forced_move_n, 5, 10, 5, 10)
-		r_forced_move_n.set_label("Non")
+		r_forced_move_n.set_label(_("No"))
 
-		r_eatbehind_y = Gtk.RadioButton.new_with_label_from_widget(None, "Oui")
+		r_eatbehind_y = Gtk.RadioButton.new_with_label_from_widget(None,_("Yes"))
 		self.custom_margin(r_eatbehind_y, 5, 10, 5, 10)
 		r_eatbehind_n = Gtk.RadioButton.new_from_widget(r_eatbehind_y)
 		self.custom_margin(r_eatbehind_n, 5, 10, 5, 10)
-		r_eatbehind_n.set_label("Non")
+		r_eatbehind_n.set_label(_("No"))
 
-		r_eatqueen_y = Gtk.RadioButton.new_with_label_from_widget(None, "Oui")
+		r_eatqueen_y = Gtk.RadioButton.new_with_label_from_widget(None, _("Yes"))
 		self.custom_margin(r_eatqueen_y, 5, 10, 5, 10)
 		r_eatqueen_n = Gtk.RadioButton.new_from_widget(r_eatqueen_y)
 		self.custom_margin(r_eatqueen_n, 5, 10, 5, 10)
-		r_eatqueen_n.set_label("Non")
+		r_eatqueen_n.set_label(_("No"))
 
-		r_queen_y = Gtk.RadioButton.new_with_label_from_widget(None, "Oui")
+		r_queen_y = Gtk.RadioButton.new_with_label_from_widget(None, _("Yes"))
 		self.custom_margin(r_queen_y, 5, 10, 5, 10)
 		r_queen_n = Gtk.RadioButton.new_from_widget(r_queen_y)
-		r_queen_n.set_label("Non")
+		r_queen_n.set_label(_("No"))
 
 		#Dialog
 		box_dialog = custom_dialog_box.get_content_area()
@@ -485,13 +501,13 @@ class Draughts(Gtk.Window):
 			self.hit_history.remove(element)
 
 		#Frame
-		frame_country = Gtk.Frame.new("Avec quelles règles voulez-vous jouer?")
+		frame_country = Gtk.Frame.new(_("What rules do you want to play with?"))
 
 		#Radio Button
 		flag = GdkPixbuf.Pixbuf()
 		pixbuf = flag.new_from_file_at_size("/usr/share/gdraughts/images/netherlands.jpg", 30, 30)
 		image = Gtk.Image.new_from_pixbuf(pixbuf)
-		r_ne = Gtk.RadioButton.new_with_label_from_widget(None, "Netherlands")
+		r_ne = Gtk.RadioButton.new_with_label_from_widget(None, _("Netherlands"))
 		r_ne.set_image(image)
 		r_ne.set_always_show_image(True)
 		self.custom_margin(r_ne, 5, 10, 5, 5)
@@ -500,14 +516,14 @@ class Draughts(Gtk.Window):
 		image = Gtk.Image.new_from_pixbuf(pixbuf)
 		r_ita = Gtk.RadioButton.new_from_widget(r_ne)
 		r_ita.set_image(image)
-		r_ita.set_label("Italy")
+		r_ita.set_label(_("Italy"))
 		r_ita.set_always_show_image(True)
 		self.custom_margin(r_ita, 5, 5, 5, 5)
 
 		pixbuf = flag.new_from_file_at_scale("/usr/share/gdraughts/images/spain.jpg", 30, 30, True)
 		image = Gtk.Image.new_from_pixbuf(pixbuf)
 		r_sp = Gtk.RadioButton.new_from_widget(r_ne)
-		r_sp.set_label("Spain")
+		r_sp.set_label(_("Spain"))
 		r_sp.set_image(image)
 		r_sp.set_always_show_image(True)
 		self.custom_margin(r_sp, 5, 5, 5, 10)
@@ -515,7 +531,7 @@ class Draughts(Gtk.Window):
 		pixbuf = flag.new_from_file_at_scale("/usr/share/gdraughts/images/uk.jpg", 30, 30, True)
 		image = Gtk.Image.new_from_pixbuf(pixbuf)
 		r_eng = Gtk.RadioButton.new_from_widget(r_ne)
-		r_eng.set_label("England")
+		r_eng.set_label(_("England"))
 		r_eng.set_image(image)
 		r_eng.set_always_show_image(True)
 		self.custom_margin(r_eng, 5, 5, 5, 5)
@@ -523,7 +539,7 @@ class Draughts(Gtk.Window):
 		r_fr = Gtk.RadioButton.new_from_widget(r_ne)
 		pixbuf = flag.new_from_file_at_scale("/usr/share/gdraughts/images/france.jpg", 30, 30, True)
 		image = Gtk.Image.new_from_pixbuf(pixbuf)
-		r_fr.set_label("France")
+		r_fr.set_label(_("France"))
 		r_fr.set_image(image)
 		r_fr.set_always_show_image(True)
 		self.custom_margin(r_fr, 5, 10, 5, 5)
