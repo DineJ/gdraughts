@@ -14,12 +14,15 @@ You should have received a copy of the GNU General Public License
 along with this checkers game ; see the file LICENSE.  If not, write to the Free
 Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA."""
 
-
+import gi
+gi.require_version('PangoCairo', '1.0')
+gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, Gdk, cairo, Pango, PangoCairo, GLib
 from squarearea import SquareArea
 from backend import Backend, Node, Stack
 import random
 import time
+import gettext
 
 #create the checker game
 class Checker(Gtk.Grid):
@@ -268,7 +271,7 @@ class Checker(Gtk.Grid):
     #all this part is about pc (move,hit,game over)
     def play_on_timeout(self, stack):
         if self.draughts.backend.fin == False:
-            self.draughts.informations_bar.set_markup("<span foreground='#ff710d' size='large' >A vous de jouer </span>")
+            self.draughts.informations_bar.set_markup('<span foreground="#ff710d" size="large" >%s</span>' % _("Who do you want to move"))
             self.draughts.backend.pc_move(stack)
             jump = self.draughts.backend.lastjump[:]
             if len(str(jump[0])) == 4 :
@@ -276,31 +279,31 @@ class Checker(Gtk.Grid):
                     row1 = ("%s" % (self.matrix_coordonate[int(str(jump[0])[0])][int(str(jump[0])[1])]))
                     row2 = ("%s" % (self.matrix_coordonate[int(str(jump[0])[2])][int(str(jump[0])[3])]))
                     if self.draughts.pc_first == False:
-                        row3 = ("Coup %d : (%s) x (%s)" % (self.draughts.turn,row1,row2))
+                        row3 = ('%s %d : (%s) x (%s)' % (_("Hit"),self.draughts.turn,row1,row2))
                     else:
-                        row3 = ("Coup %d : %s x %s" % (self.draughts.turn,row1,row2))
+                        row3 = ('%s %d : %s x %s' % (_("Hit"),self.draughts.turn,row1,row2))
                 else:
                     row1 = ("%s" % (self.matrix_coordonate[int(str(jump[0])[0])][int(str(jump[0])[1])]))
                     row2 = ("%s" % (self.matrix_coordonate[int(str(jump[0])[2])][int(str(jump[0])[3])]))
                     if self.draughts.pc_first == False:
-                        row3 = ("Coup %d : (%s) - (%s)" % (self.draughts.turn,row1,row2))
+                        row3 = ('%s %d : (%s) - (%s)' % (_("Hit"),self.draughts.turn,row1,row2))
                     else:
-                        row3 = ("Coup %d : %s - %s" % (self.draughts.turn,row1,row2))
+                        row3 = ('%s %d : %s - %s' % (_("Hit"),self.draughts.turn,row1,row2))
             elif len(str(jump[0])) == 3:
                 if (self.print_pc_hit(jump[0])[1] - self.print_pc_hit(jump[0])[2] !=1 and self.print_pc_hit(jump[0])[1] - self.print_pc_hit(jump[0])[2] != -1) or (self.print_pc_hit(jump[0])[0] - self.print_pc_hit(jump[0])[3] !=1 and self.print_pc_hit(jump[0])[0] - self.print_pc_hit(jump[0])[3] != -1):
                     row1 = ("%s" % (self.matrix_coordonate[int(str("0"))][int(str(jump[0])[0])]))
                     row2 = ("%s" % (self.matrix_coordonate[int(str(jump[0])[1])][int(str(jump[0])[2])]))
                     if self.draughts.pc_first == False:
-                        row3 = ("Coup %d : (%s) x (%s)" % (self.draughts.turn,row1,row2))
+                        row3 = ('%s %d : (%s) x (%s)' % (_("Hit"),self.draughts.turn,row1,row2))
                     else:
-                        row3 = ("Coup %d : %s x %s" % (self.draughts.turn,row1,row2))
+                        row3 = ('%s %d : %s x %s' % (_("Hit"),self.draughts.turn,row1,row2))
                 else:
                     row1 = ("%s" % (self.matrix_coordonate[int(str("0"))][int(str(jump[0])[0])]))
                     row2 = ("%s" % (self.matrix_coordonate[int(str(jump[0])[1])][int(str(jump[0])[2])]))
                     if self.draughts.pc_first == False:
-                        row3 = ("Coup %d : (%s) - (%s)" % (self.draughts.turn,row1,row2))
+                        row3 = ('%s %d : (%s) - (%s)' % (_("Hit"),self.draughts.turn,row1,row2))
                     else:
-                        row3 = ("Coup %d : %s - %s" % (self.draughts.turn,row1,row2))
+                        row3 = ('%s %d : %s - %s' % (_("Hit"),self.draughts.turn,row1,row2))
             self.draughts.row_label2 = Gtk.Label(row3)
             if self.draughts.pc_first == False:
                 self.draughts.turn += 1
@@ -312,7 +315,7 @@ class Checker(Gtk.Grid):
             play = self.draughts.backend.possible_moves(1)
             if len(play) == 0:
                 self.draughts.hit_history.remove(self.draughts.hit_history.get_children()[0])
-                self.draughts.informations_bar.set_markup("<span foreground='#ff710d' size='large' >L'ordinateur a gagne</span>")
+                self.draughts.informations_bar.set_markup('<span foreground="#ff710d" size="large" >%s</span>' %_("The computer won"))
                 self.draughts.backend.fin = True
                 self.draughts.row_endgame = Gtk.Label(" %s+ " % (row3))
                 self.draughts.row_endgame.show_all()
@@ -357,16 +360,16 @@ class Checker(Gtk.Grid):
                             self.rafle = False
                             self.replay = False
                         if self.draughts.pc_first == False:
-                            row3 = ("Coup %d : %s x %s" % (self.draughts.turn,row1,row2))
+                            row3 = ('%s %d : %s x %s' % (_("Hit"),self.draughts.turn,row1,row2))
                         else:
-                            row3 = ("Coup %d : (%s) x (%s)" % (self.draughts.turn,row1,row2))
+                            row3 = ('%s %d : (%s) x (%s)' % (_("Hit"),self.draughts.turn,row1,row2))
                     elif ret == 1:
                         row1 = ("%d" % (self.matrix_coordonate[int(str(self.old_square.name[0]))][int(str(self.old_square.name[1]))]))
                         row2 = ("%d" % (self.matrix_coordonate[int(str(square.name[0]))][int(str(square.name[1]))]))
                         if self.draughts.pc_first == False:
-                            row3 = ("Coup %d : %s - %s" % (self.draughts.turn,row1,row2))
+                            row3 = ('%s %d : %s - %s' % (_("Hit") ,self.draughts.turn,row1,row2))
                         else:
-                            row3 = ("Coup %d : (%s) - (%s)" % (self.draughts.turn,row1,row2))
+                            row3 = ('%s %d : (%s) - (%s)' % (_("Hit"),self.draughts.turn,row1,row2))
                     self.draughts.row_label1 = Gtk.Label(row3)
                     self.draughts.row_label1.show_all()
                     self.draughts.hit_history.prepend(self.draughts.row_label1)
@@ -375,7 +378,7 @@ class Checker(Gtk.Grid):
                     self.draughts.checker.resize_checker(self.draughts.checker.square_size)
                     if len(play) == 0:
                         self.draughts.hit_history.remove(self.draughts.hit_history.get_children()[0])
-                        self.draughts.informations_bar.set_markup("<span foreground='#ff710d' size='large' >Tu as gagne</span>")
+                        self.draughts.informations_bar.set_markup('<span foreground="#ff710d" size="large" >%s</span>' % _("You won"))
                         self.draughts.backend.fin = True
                         self.draughts.row_endgame = Gtk.Label(" %s+ " % (row3))
                         self.draughts.row_endgame.show_all()
@@ -385,7 +388,7 @@ class Checker(Gtk.Grid):
                         self.draughts.turn += 1
                     self.draughts.backend.lastjump[:] = []
                     GLib.timeout_add(2.0, self.play_on_timeout, self.stack)
-                    self.draughts.informations_bar.set_markup("<span foreground='#ff710d' size='large' >A l'ordinateur de jouer </span>")
+                    self.draughts.informations_bar.set_markup('<span foreground="#ff710d" size="large" >%s</span>' %_("To the computer to play"))
 
     #change square
     def echange_square(self, old_square, square): 
