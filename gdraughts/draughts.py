@@ -135,7 +135,7 @@ class Draughts(Gtk.Window):
 	#show the application
 	def play(self):
 		self.show_all()
-		self.backend = Backend(self.checker.matrix)
+		self.backend = Backend(self.checker.matrix, self)
 		self.backend.fin = False
 		self.backend.pl_before_firstclick()
 
@@ -466,7 +466,7 @@ class Draughts(Gtk.Window):
 			self.checker = Checker(self, self.square_size, self.state, self.square_color)
 			self.checker_game.set_center_widget(self.checker)
 			self.checker_game.show_all()
-			self.backend = Backend(self.checker.matrix, self.rear_socket, self.forced_move, self.eatqueen, self.depth, self.queen)
+			self.backend = Backend(self.checker.matrix, self, self.rear_socket, self.forced_move, self.eatqueen, self.depth, self.queen)
 			#self.checker.queue_draw()
 			custom_dialog_box.destroy()
 			#pl_moves = self.backend.possible_moves(1)
@@ -645,7 +645,7 @@ class Draughts(Gtk.Window):
 			self.checker = Checker(self, self.square_size, self.state, self.square_color)
 			self.checker_game.set_center_widget(self.checker)
 			self.checker_game.show_all()
-			self.backend = Backend(self.checker.matrix, self.rear_socket, self.forced_move, self.eatqueen, self.depth, self.queen)
+			self.backend = Backend(self.checker.matrix, self, self.rear_socket, self.forced_move, self.eatqueen, self.depth, self.queen)
 			#self.checker.queue_draw()
 			dialog_box.destroy()
 			#pl_moves = self.backend.possible_moves(1)

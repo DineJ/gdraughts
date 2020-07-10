@@ -19,7 +19,6 @@ import copy
 import time
 import random
 import gettext
-
 #lang_translations = gettext.translation('checkers', localedir='locales', languages=['fr'])
 #lang_translations.install()
 # define _ shortcut for translations
@@ -145,7 +144,7 @@ class Stack:
 
 
 class Backend(object):
-    def __init__(self, new_matrix=None, rear_socket=True, force_jump=False, eat_queen=True, depth=5, pawn_queen=True,last_jmp=None, game_param=None):
+    def __init__(self, new_matrix=None, draughts=None, rear_socket=True, force_jump=False, eat_queen=True, depth=5, pawn_queen=True,last_jmp=None, game_param=None):
         self.p_max=10
         self.status = ("NEW GAME")
         self.depth = depth
@@ -155,6 +154,7 @@ class Backend(object):
         self.rear_socket = rear_socket   # autorise la prise des pions en arriere
         self.eat_queen = eat_queen   # autorise la prise des dames par un pion
         self.pawn_queen = pawn_queen
+        self.draughts = draughts
         if not new_matrix:
             if self.p_max==10 :
                 self.matrix = [[0, 2, 0, 2, 0, 2, 0, 2, 0, 2],
@@ -235,6 +235,8 @@ class Backend(object):
                 #print("EAT " + str(i) + ", " + str(j) + " => " + str(i + vertical*2) + ", " + str(j - 2))
                 self.p_moves.append([[i, j], [i + io * 2, j + jo * 2]])
                 self.p_force_moves.append([[i, j], [i + io * 2, j + jo * 2]])
+                if self.force_jump and param == 1:
+                    self.draughts.set_informations(_("You must eat"))
             elif moves and self.matrix[i + io][j + jo] % 3 == 0:
                 #print(str(i) + ", " + str(j) + " => " + str(i-vertical) + ", " + str(j-1))
                 self.p_moves.append([[i, j], [i + io, j + jo]]) 
@@ -261,6 +263,8 @@ class Backend(object):
                     #print("EAT " + str(i) + ", " + str(j) + " => " + str(i + vertical*2) + ", " + str(j - 2))
                     self.p_moves.append([[i, j], [i + io * (offset + 1), j + jo * (offset + 1)]])
                     self.p_force_moves.append([[i, j], [i + io * (offset + 1), j + jo * (offset + 1)]])
+                    if self.force_jump and param == 1:
+                        self.draughts.set_informations(_("You must eat"))
                     eat = True
                 elif self.matrix[i + io * offset][j + jo * offset] % 3 == 0:
                     #print(str(i) + ", " + str(j) + " => " + str(i-vertical) + ", " + str(j-1))
