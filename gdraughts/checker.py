@@ -390,7 +390,7 @@ class Checker(Gtk.Grid):
                     if self.draughts.pc_first:
                         self.draughts.turn += 1
                     self.draughts.backend.lastjump[:] = []
-                    GLib.timeout_add(2.0, self.play_on_timeout, self.stack)
+                    GLib.timeout_add(5.0, self.play_on_timeout, self.stack)
                     self.draughts.set_informations(_("Computer turn"))
 
     #change square

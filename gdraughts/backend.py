@@ -240,25 +240,31 @@ class Backend(object):
         if self.pawn_queen:
             offset_max = 2
         while offset < offset_max:
+            if -1 < j + (jo * offset) < len(self.matrix) and \
+                -1 < i + (io * offset) < len(self.matrix) and \
+                self.matrix[i + (io * offset)][j + (jo * offset)] % 3 == param:
+                    print("test1")
+                    break
             if -1 < j + jo * offset < len(self.matrix) and -1 < i + io * offset < len(self.matrix) and \
                     self.matrix[i + io * offset][j + jo * offset] % 3 != param:
-                if -1 < j + (jo * (offset + 1)) < len(self.matrix) -1 < i + (io * (offset + 1)) < len(self.matrix) and \
-                        self.matrix[i + (io * offset)][j + (jo * offset)] % 3 != enemy:
-                    break
+                if -1 < j + jo * (offset + 1) < len(self.matrix) and  \
+                    -1 < i + io * (offset + 1) < len(self.matrix) and \
+                    self.matrix[i + io * offset][j + jo * offset] % 3 == enemy and \
+                    self.matrix[i + io * (offset + 1)][j + jo * (offset + 1)] % 3 == enemy:
+                        print("test2")
+                        break
                 elif -1 < j + jo * (offset + 1) < len(self.matrix) and -1 < i + io * (offset + 1) < len(self.matrix) and \
                         self.matrix[i + io * offset][j + jo * offset] % 3 == enemy and \
-                        self.matrix[i + io * (offset + 1)][j + jo * (offset + 1)] % 3 == enemy:
-                    break
-                elif -1 < j + jo * (offset + 1) < len(self.matrix) and -1 < i + io * (offset + 1) < len(self.matrix) and \
-                          self.matrix[i + io * offset][j + jo * offset] % 3 == enemy and \
-                          self.matrix[i + io * (offset + 1)][j + jo * (offset + 1)] % 3 == 0:
+                        self.matrix[i + io * (offset + 1)][j + jo * (offset + 1)] % 3 == 0:
                     #print("EAT " + str(i) + ", " + str(j) + " => " + str(i + vertical*2) + ", " + str(j - 2))
+                    print("test3")
                     self.p_moves.append([[i, j], [i + io * (offset + 1), j + jo * (offset + 1)]])
                     self.p_force_moves.append([[i, j], [i + io * (offset + 1), j + jo * (offset + 1)]])
                     if self.draughts != None and self.force_jump and param == 1:
                         self.draughts.set_informations(_("You must eat"))
                     eat = True
                 elif self.matrix[i + io * offset][j + jo * offset] % 3 == 0:
+                    print("test4")
                     #print(str(i) + ", " + str(j) + " => " + str(i-vertical) + ", " + str(j-1))
                     self.p_moves.append([[i, j], [i + io * offset, j + jo * offset]])
                     if eat == True:
