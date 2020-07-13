@@ -199,6 +199,13 @@ class Checker(Gtk.Grid):
         y = int (((z - number*10**counter) - (w*10**(counter-1))) - x*10**(counter-2))
         return number,w,x,y
 
+    def count_figures(self):
+        value = 0
+        for enum_i, i in enumerate(self.matrix):
+            for enum_j, j in enumerate(i):
+                if j == 1 or j == 4:
+                    value += 1
+        return value
 
     #after you choose an option in dialog window, it destroy the last checker and build another one
     def modify_checker(self, matrix_size = 10, color = 0): 
@@ -272,34 +279,35 @@ class Checker(Gtk.Grid):
     def play_on_timeout(self, stack):
         if self.draughts.backend.fin == False:
             self.draughts.set_informations(_("Your turn"))
+            count = self.count_figures()
             self.draughts.backend.pc_move(stack)
+            self.matrix = self.draughts.backend.get_matrix()
             jump = self.draughts.backend.lastjump[:]
+            x = len(jump) - 1
+            count2 = self.count_figures()
+            print(jump)
             if len(str(jump[0])) == 4 :
-                if (self.print_pc_hit(jump[0])[0] - self.print_pc_hit(jump[0])[2] !=1 and self.print_pc_hit(jump[0])[0] - self.print_pc_hit(jump[0])[2] != -1) or (self.print_pc_hit(jump[0])[1] - self.print_pc_hit(jump[0])[3] !=1 and self.print_pc_hit(jump[0])[1] - self.print_pc_hit(jump[0])[3] != -1):
-                    row1 = ("%s" % (self.matrix_coordonate[int(str(jump[0])[0])][int(str(jump[0])[1])]))
-                    row2 = ("%s" % (self.matrix_coordonate[int(str(jump[0])[2])][int(str(jump[0])[3])]))
+                row1 = ("%s" % (self.matrix_coordonate[int(str(jump[0])[0])][int(str(jump[0])[1])]))
+                row2 = ("%s" % (self.matrix_coordonate[int(str(jump[x])[2])][int(str(jump[x])[3])]))
+                if count - count2 >= 1:
                     if self.draughts.pc_first == False:
                         row3 = ('%s %d : (%s) x (%s)' % (_("Hit"),self.draughts.turn,row1,row2))
                     else:
                         row3 = ('%s %d : %s x %s' % (_("Hit"),self.draughts.turn,row1,row2))
                 else:
-                    row1 = ("%s" % (self.matrix_coordonate[int(str(jump[0])[0])][int(str(jump[0])[1])]))
-                    row2 = ("%s" % (self.matrix_coordonate[int(str(jump[0])[2])][int(str(jump[0])[3])]))
                     if self.draughts.pc_first == False:
                         row3 = ('%s %d : (%s) - (%s)' % (_("Hit"),self.draughts.turn,row1,row2))
                     else:
                         row3 = ('%s %d : %s - %s' % (_("Hit"),self.draughts.turn,row1,row2))
             elif len(str(jump[0])) == 3:
-                if (self.print_pc_hit(jump[0])[1] - self.print_pc_hit(jump[0])[2] !=1 and self.print_pc_hit(jump[0])[1] - self.print_pc_hit(jump[0])[2] != -1) or (self.print_pc_hit(jump[0])[0] - self.print_pc_hit(jump[0])[3] !=1 and self.print_pc_hit(jump[0])[0] - self.print_pc_hit(jump[0])[3] != -1):
-                    row1 = ("%s" % (self.matrix_coordonate[int(str("0"))][int(str(jump[0])[0])]))
-                    row2 = ("%s" % (self.matrix_coordonate[int(str(jump[0])[1])][int(str(jump[0])[2])]))
+                row1 = ("%s" % (self.matrix_coordonate[int(str("0"))][int(str(jump[x])[0])]))
+                row2 = ("%s" % (self.matrix_coordonate[int(str(jump[x])[1])][int(str(jump[x])[2])]))
+                if count - count2 >= 1:
                     if self.draughts.pc_first == False:
                         row3 = ('%s %d : (%s) x (%s)' % (_("Hit"),self.draughts.turn,row1,row2))
                     else:
                         row3 = ('%s %d : %s x %s' % (_("Hit"),self.draughts.turn,row1,row2))
                 else:
-                    row1 = ("%s" % (self.matrix_coordonate[int(str("0"))][int(str(jump[0])[0])]))
-                    row2 = ("%s" % (self.matrix_coordonate[int(str(jump[0])[1])][int(str(jump[0])[2])]))
                     if self.draughts.pc_first == False:
                         row3 = ('%s %d : (%s) - (%s)' % (_("Hit"),self.draughts.turn,row1,row2))
                     else:
@@ -310,7 +318,6 @@ class Checker(Gtk.Grid):
             self.draughts.row_label2.show_all()
             self.draughts.hit_history.prepend(self.draughts.row_label2)
             jump = []
-            self.matrix = self.draughts.backend.get_matrix()
             self.resize_checker(self.draughts.checker.square_size)
             play = self.draughts.backend.possible_moves(1)
             if len(play) == 0:
