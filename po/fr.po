@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: bugs@ordissimo.com\n"
-"POT-Creation-Date: 2020-07-10 17:32+0200\n"
+"POT-Creation-Date: 2020-07-13 15:37+0200\n"
 "PO-Revision-Date: 2019-06-05 14:56+0200\n"
 "Last-Translator: Brice <brice@ordissimo.com>\n"
 "Language-Team: \n"
@@ -18,7 +18,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Pootle 2.1.6\n"
 
-#: ../gdraughts/backend.py:724
+#: ../gdraughts/backend.py:720
 msgid "\tENTER to confirm\n"
 msgstr ""
 
@@ -34,7 +34,7 @@ msgstr "8 cases"
 msgid "Black"
 msgstr "Noire"
 
-#: ../gdraughts/backend.py:752
+#: ../gdraughts/backend.py:748
 msgid "Case of the eaten piece (default = "
 msgstr ""
 
@@ -42,7 +42,7 @@ msgstr ""
 msgid "Close"
 msgstr "Fermer"
 
-#: ../gdraughts/backend.py:721
+#: ../gdraughts/backend.py:717
 msgid "Compulsory take"
 msgstr ""
 
@@ -86,11 +86,11 @@ msgstr "Facile"
 msgid "England"
 msgstr "Angleterre"
 
-#: ../gdraughts/backend.py:742
+#: ../gdraughts/backend.py:738
 msgid "First player's piece (default = "
 msgstr ""
 
-#: ../gdraughts/backend.py:744
+#: ../gdraughts/backend.py:740
 msgid "First player's queen (default = "
 msgstr ""
 
@@ -151,23 +151,23 @@ msgstr "Non"
 msgid "Player"
 msgstr "Joueur"
 
-#: ../gdraughts/backend.py:750
+#: ../gdraughts/backend.py:746
 msgid "Previous position square (defaul = "
 msgstr ""
 
-#: ../gdraughts/backend.py:748
+#: ../gdraughts/backend.py:744
 msgid "Queen of the second player (default = "
 msgstr ""
 
-#: ../gdraughts/backend.py:723
+#: ../gdraughts/backend.py:719
 msgid "Quit"
 msgstr "Fermer"
 
-#: ../gdraughts/backend.py:746
+#: ../gdraughts/backend.py:742
 msgid "Second player's piece (default = "
 msgstr ""
 
-#: ../gdraughts/backend.py:725
+#: ../gdraughts/backend.py:721
 msgid "Select an option: "
 msgstr ""
 
@@ -183,11 +183,15 @@ msgstr "Espagne"
 msgid "Start the game"
 msgstr "Commencez la partie"
 
-#: ../gdraughts/backend.py:722
+#: ../gdraughts/backend.py:718
 #, fuzzy
 #| msgid "Computer Plays White"
 msgid "The computer plays first"
 msgstr "L'ordinateur joue les Blancs"
+
+#: ../gdraughts/checker.py:318
+msgid "The computer won"
+msgstr "L'ordinateur a gagné"
 
 #: ../gdraughts/draughts.py:265
 msgid "What color do you want in the square at the bottom right?"
@@ -224,7 +228,7 @@ msgstr "Vous êtes obligé de continuer la rafle"
 msgid "You made an illegal hit, start your hit again"
 msgstr "Vous avez fait un coup illégal, recommencez votre coup"
 
-#: ../gdraughts/backend.py:240 ../gdraughts/backend.py:268
+#: ../gdraughts/backend.py:231 ../gdraughts/backend.py:264
 msgid "You must eat"
 msgstr "Vous devez manger"
 
@@ -245,9 +249,6 @@ msgstr "Jeu de dames"
 #: ../desktop/gdraughts.desktop.in:7
 msgid "gdraughts.png"
 msgstr ""
-
-#~ msgid "The computer won"
-#~ msgstr "L'ordinateur a gagné"
 
 #~ msgid "To the computer to play"
 #~ msgstr "À L'ordinateur de jouer"

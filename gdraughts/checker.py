@@ -315,7 +315,7 @@ class Checker(Gtk.Grid):
             play = self.draughts.backend.possible_moves(1)
             if len(play) == 0:
                 self.draughts.hit_history.remove(self.draughts.hit_history.get_children()[0])
-                self.draughts.set_informations(("The computer won"))
+                self.draughts.set_informations(_("The computer won"))
                 self.draughts.backend.fin = True
                 self.draughts.row_endgame = Gtk.Label(" %s+ " % (row3))
                 self.draughts.row_endgame.show_all()
