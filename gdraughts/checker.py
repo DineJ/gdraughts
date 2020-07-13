@@ -310,8 +310,8 @@ class Checker(Gtk.Grid):
             self.draughts.row_label2.show_all()
             self.draughts.hit_history.prepend(self.draughts.row_label2)
             jump = []
-            self.draughts.checker.matrix = self.draughts.backend.get_matrix()
-            self.draughts.checker.resize_checker(self.draughts.checker.square_size)
+            self.matrix = self.draughts.backend.get_matrix()
+            self.resize_checker(self.draughts.checker.square_size)
             play = self.draughts.backend.possible_moves(1)
             if len(play) == 0:
                 self.draughts.hit_history.remove(self.draughts.hit_history.get_children()[0])
@@ -349,8 +349,8 @@ class Checker(Gtk.Grid):
                     if ret == 2:
                         self.rafle = True
                         self.square_notation = self.old_square
-                        self.draughts.checker.matrix = self.draughts.backend.get_matrix()
-                        self.draughts.checker.resize_checker(self.draughts.checker.square_size)
+                        self.matrix = self.draughts.backend.get_matrix()
+                        self.resize_checker(self.draughts.checker.square_size)
                         self.old_square = square
                         self.replay = True
                         return
@@ -377,8 +377,8 @@ class Checker(Gtk.Grid):
                     self.draughts.row_label1.show_all()
                     self.draughts.hit_history.prepend(self.draughts.row_label1)
                     self.old_square = None
-                    self.draughts.checker.matrix = self.draughts.backend.get_matrix()
-                    self.draughts.checker.resize_checker(self.draughts.checker.square_size)
+                    self.matrix = self.draughts.backend.get_matrix()
+                    self.resize_checker(self.draughts.checker.square_size)
                     if len(play) == 0:
                         self.draughts.hit_history.remove(self.draughts.hit_history.get_children()[0])
                         self.draughts.set_informations(_("You won"))
