@@ -24,10 +24,7 @@ import gettext
 # define _ shortcut for translations
 
 def minimax(node, depth_ab, alpha, beta, maximizing, depth=5):
-    # if depth_ab == depth - 1:
-    #     time.sleep(0.01)
-    # def minimax(node, depth, maximizing):
-    if depth_ab == 0:  # or game OVER
+    if depth_ab == 0:
         node.calc()
         return node
 
@@ -39,7 +36,6 @@ def minimax(node, depth_ab, alpha, beta, maximizing, depth=5):
             return Node(-900)
         for child in node.children:
             calc = minimax(child, depth_ab - 1, alpha, beta, False, depth)
-            # calc = minimax(child, depth-1, False)
             max_value = max(max_value, calc)
             alpha = max(calc, alpha)
             if beta <= alpha:
@@ -53,7 +49,6 @@ def minimax(node, depth_ab, alpha, beta, maximizing, depth=5):
             node.value = 900
             return Node(900)
         for child in node.children:
-            # calc = minimax(child, depth-1, True)
             calc = minimax(child, depth_ab - 1, alpha, beta, True, depth)
             min_value = min(min_value, calc)
             beta = min(calc, beta)
@@ -70,9 +65,7 @@ class Node(object):
         self.children = []
 
     def calc(self):
-        # print(self.Backend.calculate())
         self.value = self.Backend.calculate()
-        # sprint(self.value)
 
     def add_child(self, obj):
         self.children.append(obj)
@@ -82,10 +75,6 @@ class Node(object):
 
     def __str__(self, level=0):
         return str(self.Backend) + " | " + str(self.value)
-
-    # def __cmp__(self, other):
-    #     input("OPAA")
-    #     return cmp(self.value, other.value)
 
     def __lt__(self, other):
         if isinstance(other, Node):
@@ -205,16 +194,6 @@ class Backend(object):
 
         return value
 
-    def count_figures(self):
-        value = 0
-        for enum_i, i in enumerate(self.matrix):
-            for enum_j, j in enumerate(i):
-                if j == 1: value -= 1
-                if j == 2: value += 1
-                if j == 4: value -= 2
-                if j == 5: value += 2
-        return value
-
     def possible_moves_square(self, param, enemy, j, i, jo, io, moves=True):
         cell = self.matrix[i][j]
         if -1 < j + jo < len(self.matrix) and -1 < i + io < len(self.matrix) and \
@@ -274,8 +253,7 @@ class Backend(object):
             for j in range(len(self.matrix[i])):
                 if self.matrix[i][j] == 0 or self.matrix[i][j] % 3 != param:
                     continue
-                #print(i,j)
-                vertical = 1 if param == 2 else -1  # ako je param = 1, to su PC figure koje idu dole
+                vertical = 1 if param == 2 else -1
                 enemy = 1 if param == 2 else 2
                 cell = self.matrix[i][j]
                 if cell == 1 or cell == 2:
@@ -379,7 +357,6 @@ class Backend(object):
         vertical = 1 if param == 2 else -1
         enemy = 1 if param == 2 else 2
         cell = self.matrix[i][j]
-        # print(self.matrix)
 
         if cell == 1 or cell == 2:
             self.eatable_square(param, enemy, j, i, -1, vertical)
@@ -404,12 +381,6 @@ class Backend(object):
         else:
             self.matrix[new[0]][new[1]] = cell
         if abs(old[0] - new[0]) >= 2:
-            # self.lastjump += str(chr(old[0] + 65)) + str(old[1] + 1) + " --> " + str(chr(new[0] + 65)) + str(
-            #     new[1] + 1) + " (" + str(chr(int((old[0] + new[0]) / 2) + 65)) + str(
-            #     int((old[1] + new[1]) / 2) + 1) + ")" + "\n"
-
-            # A2 -> C4 (B3) is [01, 23, 12]
-            # A == 0; B == 1...
             if first_layer_depth:
                 self.lastjump.append(old[0] * 1000 + old[1] * 100 + new[0] * 10 + new[1])
             x = 1
@@ -435,18 +406,14 @@ class Backend(object):
                 eatable_cells = self.eatable(param, new[0], new[1])
                 if len(eatable_cells) > 1:
                     if param == 1:
-                        #print("Isma jos da se jede PLAYER")
                         return 2
                     else:
-                        #print("Ima jos da se jede PC")
                         return 3
-                return 4  # Pojeo
-        # self.lastjump += str(chr(old[0] + 65)) + str(old[1] + 1) + " --> " + str(chr(new[0] + 65)) + str(
-        #     new[1] + 1) + "\n"
+                return 4
         if first_layer_depth:
             self.lastjump.append(old[0] * 1000 + old[1] * 100 + new[0] * 10 + new[1])
 
-        return 1  # Samo MOVE                
+        return 1
 
     def pc_move(self, stack):
         if self.fin == False:
@@ -454,7 +421,6 @@ class Backend(object):
             time1 = time.time()
             self.minimax_heuristic = minimax(root, self.depth, Node(-1000), Node(1000), True, self.depth)
             think = time.time() - time1
-            #print(("Time (sec):"), think)
             stack.push(think)
 
             if not root.children:
@@ -471,9 +437,6 @@ class Backend(object):
                     self.matrix[enum_i][enum_j] = 0
 
     def print(self, highlighted=0, moves=[], clear_trails=False):
-        #print(("HV Value:"), self.calculate())
-        #print(("Turn:"), self.turn)
-
         cells = []
         order = 0
         if highlighted == 1:
@@ -483,24 +446,9 @@ class Backend(object):
                     cells.append(cell[0])
             if not cells:
                 return None
-
-        #if self.p_max == 8 :
-            #print("     1      2      3      4      5      6       7       8")
-        #elif self.p_max == 10 :
-            #print("     1      2      3      4      5      6       7       8      9     10")
-
-        #print("  |" + "－－－|" * self.p_max)
         for enum_i, i in enumerate(self.matrix):
-            #print(str(chr(enum_i + 65)), end=" |")
             for enum_j, j in enumerate(i):
                 if j == 0: j = " "
-                #if j == 1: j = self.v1
-                #if j == 2: j = self.v2
-                #if j == 3: j = self.v3
-                #if j == 4: j = self.v4
-                #if j == 5: j = self.v5
-                #if j == 6: j = self.v6
-
                 num = " "
                 try:
                     if highlighted == 1 and cells[0][0] == enum_i and cells[0][1] == enum_j:
@@ -517,15 +465,9 @@ class Backend(object):
                     pass
                 except IndexError:
                     pass
-
-                #print(" " + str(num) + str(j), end="   |")
-                # print("  " + num + str(j), end="    ❙")
                 if clear_trails and (self.matrix[enum_i][enum_j] == 3 or self.matrix[enum_i][enum_j] == 6):
                     self.matrix[enum_i][enum_j] = 0
-            #print("\n  |" + "－－－|" * self.p_max)
-        # if highlighted != 5:
-        # print(self.lastjump)
-        # last_jump_to_str(self.lastjump)
+
 
     def finish_message(self, s):
         print('finish_message:', s)
@@ -573,13 +515,6 @@ def accurate_calculate(matrix):
 
 
 def print_moves(moves):
-    #for i, move in enumerate(moves):
-        # print(chr(move[0]+65))
-        #print(str(i + 1) + ") " + str(chr(move[0] + 65)) + str(move[1] + 1), end="   |  ")
-    #print()
-
-    #for i, move in enumerate(moves):
-        #print(str(i + 1) + ") " + str(move[0]) + str(move[1]), end="   |  ")
     print()
 
 def player_move():
@@ -665,9 +600,6 @@ def last_jump_to_list(last_jump):
 if __name__ == '__main__':
 
     while True:
-        # config_print()
-        # f_jump()
-        # Creation de la matrice
         matrix = [[0, 2, 0, 2, 0, 2, 0, 2],
                   [2, 0, 2, 0, 2, 0, 2, 0],
                   [0, 2, 0, 2, 0, 2, 0, 2],
@@ -676,7 +608,5 @@ if __name__ == '__main__':
                   [1, 0, 1, 0, 1, 0, 1, 0],
                   [0, 1, 0, 1, 0, 1, 0, 1],
                   [1, 0, 1, 0, 1, 0, 1, 0]]
-        # Creation du Damier 
         tabla1 = Backend(matrix)
-        # Lancement du jeu
         tabla1.play_game()
