@@ -243,7 +243,6 @@ class Backend(object):
             if -1 < j + (jo * offset) < len(self.matrix) and \
                 -1 < i + (io * offset) < len(self.matrix) and \
                 self.matrix[i + (io * offset)][j + (jo * offset)] % 3 == param:
-                    print("test1")
                     break
             if -1 < j + jo * offset < len(self.matrix) and -1 < i + io * offset < len(self.matrix) and \
                     self.matrix[i + io * offset][j + jo * offset] % 3 != param:
@@ -251,20 +250,17 @@ class Backend(object):
                     -1 < i + io * (offset + 1) < len(self.matrix) and \
                     self.matrix[i + io * offset][j + jo * offset] % 3 == enemy and \
                     self.matrix[i + io * (offset + 1)][j + jo * (offset + 1)] % 3 == enemy:
-                        print("test2")
                         break
                 elif -1 < j + jo * (offset + 1) < len(self.matrix) and -1 < i + io * (offset + 1) < len(self.matrix) and \
                         self.matrix[i + io * offset][j + jo * offset] % 3 == enemy and \
                         self.matrix[i + io * (offset + 1)][j + jo * (offset + 1)] % 3 == 0:
                     #print("EAT " + str(i) + ", " + str(j) + " => " + str(i + vertical*2) + ", " + str(j - 2))
-                    print("test3")
                     self.p_moves.append([[i, j], [i + io * (offset + 1), j + jo * (offset + 1)]])
                     self.p_force_moves.append([[i, j], [i + io * (offset + 1), j + jo * (offset + 1)]])
                     if self.draughts != None and self.force_jump and param == 1:
                         self.draughts.set_informations(_("You must eat"))
                     eat = True
                 elif self.matrix[i + io * offset][j + jo * offset] % 3 == 0:
-                    print("test4")
                     #print(str(i) + ", " + str(j) + " => " + str(i-vertical) + ", " + str(j-1))
                     self.p_moves.append([[i, j], [i + io * offset, j + jo * offset]])
                     if eat == True:
@@ -530,124 +526,6 @@ class Backend(object):
         # if highlighted != 5:
         # print(self.lastjump)
         # last_jump_to_str(self.lastjump)
-
-    def play_game(self):
-        self.turn = 0
-        stack = Stack([4, 3, 3])
-
-        # Si pc commence le jeu
-        if self.pc_first:
-            # Choix possible de pion qui peuvent être déplacer
-            pc_moves = self.possible_moves(2)
-            # Choix aleatoir du pion déplacée
-            rand_move = random.choice(pc_moves)
-            # Démplacement de la pièces>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<>><<<<<<<<<
-            self.move(rand_move[0], rand_move[1], 2)
-        while True:
-            if self.variable_depth and (stack.three_sum() > 11 or stack.peek() > 4.5):
-                self.depth -= 1
-                stack.set([4, 4, 4])
-                print(("Depth reduced to"), self.depth)
-            elif self.variable_depth and (stack.three_sum() < 2):
-                self.depth += 1
-                stack.set([4, 4, 4])
-                print(("Increasing the depth"), self.depth)
-            self.turn += 1
-            self.print(1)
-            self.lastjump[:] = []
-            # Si la partie à plus de 80 coup (la partie est finie).
-            if self.turn > 80:
-                # Compte le nombre de piece de differrence entre le
-                # pc et le joueur
-                # resultat positif le pc à l'avantage
-                # resultat negatif le joueur à l'avantage
-                # resultat à zero égalité 
-                count = self.count_figures()
-                if count > 0:
-                    self.status = ("The computer has an advantage")
-                    self.finish_message(4)
-                    return 0
-                elif count < 0:
-                    self.status = ("The player has an advantage")
-                    self.finish_message(3)
-                    return 1
-                else:
-                    self.status = ("Draw")
-                    self.finish_message(0)
-                    return 3
-
-            # Le joueur joue
-            play = self.pl_move()
-            # print("checkers.py Player zavrsio")
-            # Jeu terminé ?
-            if not play:
-                self.status = ("The computer won")
-                self.finish_message(2)
-                return 0
-            self.print(clear_trails=True)
-            self.turn += 1
-            self.print(clear_trails=False)
-            #print("==PC==")
-            self.lastjump[:] = []
-            # Le PC joue
-            play = self.pc_move(stack)
-            time.sleep(0.1)
-            # Jeu terminé ?
-            if not play:
-                self.status = ("You've won!")
-                self.finish_message(1)
-                return 1
-
-    def pl_move(self, param=1, explicit=None):
-        #if self.player_signal:  # If GUI exist call another function that does not require input from keyBackend
-        #    return self.pl_gui_move(explicit)
-
-        # self.pc_move(None, 1)
-        all_moves = self.possible_moves(param)
-        cells = []
-        ready_moves = []
-        if not explicit:
-            for cell in all_moves:
-                if cell[0] not in cells:
-                    cells.append(cell[0])
-            if not cells:
-                return None
-
-            #print(cells)
-            print_moves(cells)
-            #while True:
-                #cell_num = input(("Enter the square number:"))
-
-                # print("--- Poziv pauze ---")
-                # self.player_signal.wait_for_move()
-
-                #if cell_num.isnumeric():
-                    #cell_num = int(cell_num) - 1
-                    #if 0 <= cell_num < len(cells):
-                        #break
-            #position = cells[cell_num]
-            #for moves in all_moves:
-                #if moves[0] == [cells[cell_num][0], cells[cell_num][1]]:
-                    #ready_moves.append(moves[1])
-        else:
-            for pmoves in explicit:
-                ready_moves.append(pmoves[1])
-            position = explicit[0][0]
-        # print(ready_moves)
-        self.print(2, copy.deepcopy(ready_moves))
-        print_moves(ready_moves)
-
-        #while True:
-            #coordonate = input(("Enter the shot sequence number"))
-            #if coordonate.isnumeric():
-                #coordonate = int(coordonate) - 1
-                #if 0 <= int(coordonate) < len(ready_moves):
-                    #break
-        #if self.move(position, ready_moves[int(coordonate)]) == 2:
-        #next_hop = self.eatable(1, ready_moves[int(coordonate)][0], ready_moves[int(coordonate)][1])
-        self.print()
-        #self.pl_move(1, next_hop)
-        return 1
 
     def finish_message(self, s):
         print('finish_message:', s)
