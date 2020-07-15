@@ -336,11 +336,13 @@ class Checker(Gtk.Grid):
                 if self.draughts.backend.pl_after_firstclick(square.name) == 0:
                     return
                 if square.square_type != 0:
+                    square.square_selected(self.square_size, True)
                     self.old_square = square
             else:
                 row3 = None
                 if 1 :
                     ret = self.draughts.backend.pl_after_secondclick(self.old_square.name, square.name)
+                    self.old_square.square_selected(self.square_size, False)
                     if ret == 0 or ret == 5:
                         self.old_square = None
                         if self.replay:
@@ -355,6 +357,7 @@ class Checker(Gtk.Grid):
                     if ret == 2:
                         self.rafle = True
                         self.square_notation = self.old_square
+                        square.square_selected(self.square_size, True)
                         self.matrix = self.draughts.backend.get_matrix()
                         self.resize_checker(self.draughts.checker.square_size)
                         self.old_square = square

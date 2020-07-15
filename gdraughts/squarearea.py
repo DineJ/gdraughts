@@ -38,6 +38,7 @@ class SquareArea(Gtk.DrawingArea):
 		self.vexpand = True
 		self.set_halign = Gtk.Align.FILL
 		self.set_valign = Gtk.Align.FILL
+		self.selected = False
 		self.connect('draw', self.do_draw_cb)
 
 
@@ -46,7 +47,10 @@ class SquareArea(Gtk.DrawingArea):
 		height = widget.get_allocated_height()
 		width = widget.get_allocated_width()
 		cr.rectangle(0, 0, width, height)
-		cr.set_source_rgba(self.color, self.color, self.color, 1.0)
+		if self.selected:
+			cr.set_source_rgba(1.0, 0.0, 0.0, 1.0)
+		else:
+			cr.set_source_rgba(self.color, self.color, self.color, 1.0)
 		cr.fill()
 		if self.square_type == 1 or self.square_type == 2:
 			self.draw_pawn(cr, width, height)
@@ -98,6 +102,11 @@ class SquareArea(Gtk.DrawingArea):
 		cr.set_line_width(6)
 		cr.stroke()
 		cr.restore()
+
+	def square_selected(self, size, selected):
+		self.selected = selected
+		self.set_size_request(size, size)
+		self.queue_draw()
 
 	#resize pawn 
 	def resize_pawn(self, size): 
