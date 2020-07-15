@@ -130,6 +130,7 @@ class Draughts(Gtk.Window):
 		game_area.pack_start(self.box_rows, False, True, 0)
 		self.add(application)
 
+	#modify the information label
 	def set_informations(self, label):
 		self.informations_bar.set_markup(("<span foreground='#ff710d' size='large' >%s</span>" % label))
 
@@ -140,7 +141,7 @@ class Draughts(Gtk.Window):
 		self.backend.fin = False
 		self.backend.pl_before_firstclick()
 
-
+	#designates who plays first
 	def who_play(self):
 		frame_begin = Gtk.Frame.new(_("Who plays first?"))
 
@@ -167,6 +168,7 @@ class Draughts(Gtk.Window):
 
 		return frame_begin
 
+	#indicates difficulty levels
 	def level_of_difficulty(self):
 		frame_difficulties =  Gtk.Frame.new(_("What difficulties do you want?"))
 
@@ -200,21 +202,21 @@ class Draughts(Gtk.Window):
 
 		return frame_difficulties
 
-
+	#calibrate the difficulty for min max
 	def output_state1(self,button):
 		if self.t_easy.get_active():
 			self.t_medium.set_active(False)
 			self.t_hard.set_active(False)
 		self.depth = 3
 
-
+	#calibrate the difficulty for min max
 	def output_state2(self,button):
 		if self.t_medium.get_active():
 			self.t_easy.set_active(False)
 			self.t_hard.set_active(False)
 		self.depth = 4
 
-
+	#calibrate the difficulty for min max
 	def output_state3(self,button):
 		if self.t_hard.get_active():
 			self.t_easy.set_active(False)
@@ -240,14 +242,15 @@ class Draughts(Gtk.Window):
 		else:
 			self.checker.resize_checker(self.square_size)
 
+	#gives margins in dialog boxes
 	def custom_margin(self, widget, l, t, r, b):
 		widget.set_margin_top(t)
 		widget.set_margin_bottom(b)
 		widget.set_margin_start(l)
 		widget.set_margin_end(r)
 
+	#create a new dialog boxe
 	def custom_dialog(self,button):
-
 		#Dialog
 		self.open_dialog = 1
 		custom_dialog_box = Gtk.Dialog.new()
@@ -262,6 +265,7 @@ class Draughts(Gtk.Window):
 		for element in self.hit_history.get_children():
 			self.hit_history.remove(element)
 
+		#Frame
 		frame_matrice = Gtk.Frame.new(_("How many square do you want per ligne?"))
 		frame_color = Gtk.Frame.new(_("What color do you want in the square at the bottom right?"))
 		frame_color1 = Gtk.Frame.new(_("Do you want your pawn to be on the bottom right?"))
@@ -271,6 +275,7 @@ class Draughts(Gtk.Window):
 		frame_queen = Gtk.Frame.new(_("Do you want the queens to be able to move one square at a time?"))
 		frame_promotion_eat = Gtk.Frame.new(_("Do you want the pawns to become queens during a roundup?"))
 
+		#RadioButton
 		r_chercker8 = Gtk.RadioButton.new_with_label_from_widget(None, _("8 square"))
 		self.custom_margin(r_chercker8, 5, 10, 5, 10)
 		r_chercker10 = Gtk.RadioButton.new_from_widget(r_chercker8)
@@ -363,6 +368,7 @@ class Draughts(Gtk.Window):
 		grid_promotion_eat.set_column_homogeneous(True)
 		grid_promotion_eat.set_row_homogeneous(True)
 
+		#Frame
 		frame_matrice.add(grid_matrice)
 		frame_color.add(grid_color)
 		frame_color1.add(grid_color1)
@@ -493,16 +499,12 @@ class Draughts(Gtk.Window):
 			self.checker_game.set_center_widget(self.checker)
 			self.checker_game.show_all()
 			self.backend = Backend(self.checker.matrix, self, self.rear_socket, self.forced_move, self.eatqueen, self.depth, self.queen, self.promotion_eat)
-			#self.checker.queue_draw()
 			custom_dialog_box.destroy()
-			#pl_moves = self.backend.possible_moves(1)
 			if self.pc_first:
 				self.checker.play_on_timeout(self.checker.stack)
 			self.checker.matrix = self.backend.get_matrix()
 			self.checker.resize_checker(self.checker.square_size)
 			self.backend.pl_before_firstclick()
-			#self.backend.move(self.checker.square.name[0], self.checker.square.name[1],1)
-			#self.pl_move()
 		elif self.answer == Gtk.ResponseType.CANCEL:
 			custom_dialog_box.destroy()
 		open_dialog = 0
@@ -677,23 +679,17 @@ class Draughts(Gtk.Window):
 			self.checker_game.set_center_widget(self.checker)
 			self.checker_game.show_all()
 			self.backend = Backend(self.checker.matrix, self, self.rear_socket, self.forced_move, self.eatqueen, self.depth, self.queen, self.promotion_eat)
-			#self.checker.queue_draw()
 			dialog_box.destroy()
-			#pl_moves = self.backend.possible_moves(1)
 			if self.pc_first:
 				self.checker.play_on_timeout(self.checker.stack)
 			self.checker.matrix = self.backend.get_matrix()
 			self.checker.resize_checker(self.checker.square_size)
 			self.backend.pl_before_firstclick()
-			#self.backend.move(self.checker.square.name[0], self.checker.square.name[1],1)
-			#self.pl_move()
 		elif self.answer == Gtk.ResponseType.CANCEL:
 			dialog_box.destroy()
 		open_dialog = 0
 
 
-#test = Board(self.checker.matrix)
 draughts = Draughts()
 draughts.play()
-#test.play()
 Gtk.main()

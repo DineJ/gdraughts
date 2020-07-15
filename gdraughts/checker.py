@@ -199,6 +199,7 @@ class Checker(Gtk.Grid):
         y = int (((z - number*10**counter) - (w*10**(counter-1))) - x*10**(counter-2))
         return number,w,x,y
 
+    #count how many figures you have
     def count_figures(self):
         value = 0
         for enum_i, i in enumerate(self.matrix):
@@ -340,67 +341,65 @@ class Checker(Gtk.Grid):
                     self.old_square = square
             else:
                 row3 = None
-                if 1 :
-                    ret = self.draughts.backend.pl_after_secondclick(self.old_square.name, square.name)
-                    self.old_square.square_selected(self.square_size, False)
-                    if ret == 0 or ret == 5:
-                        self.old_square = None
-                        if self.replay:
-                            self.replay = False
-                        else:
-                            self.draughts.set_informations(_("You made an illegal hit, start your hit again"))
-                            return
-                        if self.draughts.backend.force_jump:
-                            
-                            self.draughts.set_informations(_("You are forced to continue eating"))
-                            return
-                    if ret == 2:
-                        self.rafle = True
-                        self.square_notation = self.old_square
-                        square.square_selected(self.square_size, True)
-                        self.matrix = self.draughts.backend.get_matrix()
-                        self.resize_checker(self.draughts.checker.square_size)
-                        self.old_square = square
-                        self.replay = True
-                        return
-                    play = self.draughts.backend.possible_moves(2)
-                    if ret == 4:
-                        row1 = ("%d" % (self.matrix_coordonate[int(str(self.old_square.name[0]))][int(str(self.old_square.name[1]))]))
-                        row2 = ("%d" % (self.matrix_coordonate[int(str(square.name[0]))][int(str(square.name[1]))])) 
-                        if self.rafle:
-                            row1 = ("%d" % (self.matrix_coordonate[int(str(self.square_notation.name[0]))][int(str(self.square_notation.name[1]))]))
-                            self.rafle = False
-                            self.replay = False
-                        if self.draughts.pc_first == False:
-                            row3 = ('%s %d : %s x %s' % (_("Hit"),self.draughts.turn,row1,row2))
-                        else:
-                            row3 = ('%s %d : (%s) x (%s)' % (_("Hit"),self.draughts.turn,row1,row2))
-                    elif ret == 1:
-                        row1 = ("%d" % (self.matrix_coordonate[int(str(self.old_square.name[0]))][int(str(self.old_square.name[1]))]))
-                        row2 = ("%d" % (self.matrix_coordonate[int(str(square.name[0]))][int(str(square.name[1]))]))
-                        if self.draughts.pc_first == False:
-                            row3 = ('%s %d : %s - %s' % (_("Hit") ,self.draughts.turn,row1,row2))
-                        else:
-                            row3 = ('%s %d : (%s) - (%s)' % (_("Hit"),self.draughts.turn,row1,row2))
-                    self.draughts.row_label1 = Gtk.Label(row3)
-                    self.draughts.row_label1.show_all()
-                    self.draughts.hit_history.prepend(self.draughts.row_label1)
+                ret = self.draughts.backend.pl_after_secondclick(self.old_square.name, square.name)
+                self.old_square.square_selected(self.square_size, False)
+                if ret == 0 or ret == 5:
                     self.old_square = None
+                    if self.replay:
+                        self.replay = False
+                    else:
+                        self.draughts.set_informations(_("You made an illegal hit, start your hit again"))
+                        return
+                    if self.draughts.backend.force_jump:
+                        self.draughts.set_informations(_("You are forced to continue eating"))
+                        return
+                if ret == 2:
+                    self.rafle = True
+                    self.square_notation = self.old_square
+                    square.square_selected(self.square_size, True)
                     self.matrix = self.draughts.backend.get_matrix()
                     self.resize_checker(self.draughts.checker.square_size)
-                    if len(play) == 0:
-                        self.draughts.hit_history.remove(self.draughts.hit_history.get_children()[0])
-                        self.draughts.set_informations(_("You won"))
-                        self.draughts.backend.fin = True
-                        self.draughts.row_endgame = Gtk.Label(" %s+ " % (row3))
-                        self.draughts.row_endgame.show_all()
-                        self.draughts.hit_history.prepend(self.draughts.row_endgame)
-                        return 0
-                    if self.draughts.pc_first:
-                        self.draughts.turn += 1
-                    self.draughts.backend.lastjump[:] = []
-                    GLib.timeout_add(5.0, self.play_on_timeout, self.stack)
-                    self.draughts.set_informations(_("Computer turn"))
+                    self.old_square = square
+                    self.replay = True
+                    return
+                play = self.draughts.backend.possible_moves(2)
+                if ret == 4:
+                    row1 = ("%d" % (self.matrix_coordonate[int(str(self.old_square.name[0]))][int(str(self.old_square.name[1]))]))
+                    row2 = ("%d" % (self.matrix_coordonate[int(str(square.name[0]))][int(str(square.name[1]))])) 
+                    if self.rafle:
+                        row1 = ("%d" % (self.matrix_coordonate[int(str(self.square_notation.name[0]))][int(str(self.square_notation.name[1]))]))
+                        self.rafle = False
+                        self.replay = False
+                    if self.draughts.pc_first == False:
+                        row3 = ('%s %d : %s x %s' % (_("Hit"),self.draughts.turn,row1,row2))
+                    else:
+                        row3 = ('%s %d : (%s) x (%s)' % (_("Hit"),self.draughts.turn,row1,row2))
+                elif ret == 1:
+                    row1 = ("%d" % (self.matrix_coordonate[int(str(self.old_square.name[0]))][int(str(self.old_square.name[1]))]))
+                    row2 = ("%d" % (self.matrix_coordonate[int(str(square.name[0]))][int(str(square.name[1]))]))
+                    if self.draughts.pc_first == False:
+                        row3 = ('%s %d : %s - %s' % (_("Hit") ,self.draughts.turn,row1,row2))
+                    else:
+                        row3 = ('%s %d : (%s) - (%s)' % (_("Hit"),self.draughts.turn,row1,row2))
+                self.draughts.row_label1 = Gtk.Label(row3)
+                self.draughts.row_label1.show_all()
+                self.draughts.hit_history.prepend(self.draughts.row_label1)
+                self.old_square = None
+                self.matrix = self.draughts.backend.get_matrix()
+                self.resize_checker(self.draughts.checker.square_size)
+                if len(play) == 0:
+                    self.draughts.hit_history.remove(self.draughts.hit_history.get_children()[0])
+                    self.draughts.set_informations(_("You won"))
+                    self.draughts.backend.fin = True
+                    self.draughts.row_endgame = Gtk.Label(" %s+ " % (row3))
+                    self.draughts.row_endgame.show_all()
+                    self.draughts.hit_history.prepend(self.draughts.row_endgame)
+                    return 0
+                if self.draughts.pc_first:
+                    self.draughts.turn += 1
+                self.draughts.backend.lastjump[:] = []
+                GLib.timeout_add(5.0, self.play_on_timeout, self.stack)
+                self.draughts.set_informations(_("Computer turn"))
 
     #change square
     def echange_square(self, old_square, square): 
@@ -429,10 +428,3 @@ class Checker(Gtk.Grid):
                 checker_square.resize_pawn(square_size)
                 x += 1
             y += 1
-
-
-    #def drag_drop(self, old_square, square):
-        #self.drag_source_set(Gdk.ModifierType.BUTTON1_MASK, old_square, Gdk.DragAction.MOVE)
-        #self.drag_dest_set(Gdk.DestDefaults.DROP, square, Gdk.DragAction.MOVE)
-        #self.SelectionData.get_data()
-        #self.TargetEntry()

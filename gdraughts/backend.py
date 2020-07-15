@@ -139,9 +139,9 @@ class Backend(object):
         self.depth = depth
         self.variable_depth = True
         self.fin = False
-        self.force_jump = force_jump # Force la prise des pions
-        self.rear_socket = rear_socket   # autorise la prise des pions en arriere
-        self.eat_queen = eat_queen   # autorise la prise des dames par un pion
+        self.force_jump = force_jump # force the pawns to eat
+        self.rear_socket = rear_socket   # allow pawns to eat back
+        self.eat_queen = eat_queen   # allow queens to be eaten by pawns
         self.pawn_queen = pawn_queen
         self.draughts = draughts
         self.promotion_eat = promotion_eat
@@ -195,6 +195,7 @@ class Backend(object):
 
         return value
 
+    #defines the movements of the pawn
     def possible_moves_square(self, param, enemy, j, i, jo, io, moves=True):
         cell = self.matrix[i][j]
         if -1 < j + jo < len(self.matrix) and -1 < i + io < len(self.matrix) and \
@@ -213,6 +214,7 @@ class Backend(object):
                 #print(str(i) + ", " + str(j) + " => " + str(i-vertical) + ", " + str(j-1))
                 self.p_moves.append([[i, j], [i + io, j + jo]]) 
 
+    #defines the movements of the queen
     def possible_moves_queen(self, param, enemy, j, i, jo, io):  # param = 1 - PLAYER, param = 2 - PCoffset = 1
         eat = False
         offset = 1
@@ -252,8 +254,9 @@ class Backend(object):
                         self.p_moves.append([[i, j], [i + io * offset, j + jo * offset]])
                         if eat == True:
                             self.p_force_moves.append([[i, j], [i + io * offset, j + jo * offset]])
-            offset += 1 
+            offset += 1
 
+    #defines the movements
     def possible_moves(self, param):  # param = 1 - PLAYER, param = 2 - PC
         self.p_moves = []
         self.p_force_moves = []
@@ -280,7 +283,7 @@ class Backend(object):
         else:
             return self.p_moves
 
-
+    #define player movement
     def pl_before_firstclick(self, explicit=None):
         self.all_moves = self.possible_moves(1)
         self.cells = []
@@ -289,8 +292,7 @@ class Backend(object):
             for self.cell in self.all_moves:
                 if self.cell[0] not in self.cells:
                     self.cells.append(self.cell[0])
-            print_moves(self.cells)
-
+    #define player movement
     def pl_after_firstclick(self, case=None, explicit=None):
         self.pl_before_firstclick()
         if not explicit:
@@ -307,6 +309,7 @@ class Backend(object):
             self.ready_moves.append(explicit)
         return 1
 
+    #define player movement
     def pl_after_secondclick(self, old_case=None, case=None):
         coordonate = -1
         for i, move in enumerate(self.ready_moves):
@@ -319,16 +322,14 @@ class Backend(object):
             next_hop = self.eatable(1, case[0], case[1])
             if next_hop:
                 self.pl_after_firstclick(case)
-                self.print()
                 return 2
         elif ret == 4:
             return 4
         elif ret == 5:
             return 5
-        self.print()
         return 1
 
-
+    # defines the movements to eat of the pawn
     def eatable_square(self, param, enemy, j, i, jo, io):
         if -1 < j + jo < len(self.matrix) and -1 < i + io < len(self.matrix) and \
                 self.matrix[i + io][j + jo] % 3 != param:
@@ -339,6 +340,7 @@ class Backend(object):
                        self.matrix[i + io][j + jo] < 4):
                 self.eat_moves.append([[i, j], [i + io * 2, j + jo * 2]])
 
+    # defines the movements to eat of the queen
     def eatable_queen(self, param, enemy, j, i, jo, io):
         eat = False
         offset = 1
@@ -362,6 +364,7 @@ class Backend(object):
                         self.eat_moves.append([[i, j], [i + io * offset, j + jo * offset]])
             offset += 1 
 
+    # defines who is edible
     def eatable(self, param, i, j):
         self.eat_moves = [[[i, j], [i, j]]]
         vertical = 1 if param == 2 else -1
@@ -381,6 +384,7 @@ class Backend(object):
             self.eatable_queen(param, enemy, j, i, 1, vertical)
         return self.eat_moves
 
+    ## defines the movements
     def move(self, old, new, param=1, first_layer_depth=True):
         promotion = False
         one = 0
@@ -436,6 +440,7 @@ class Backend(object):
             self.lastjump.append(old[0] * 1000 + old[1] * 100 + new[0] * 10 + new[1])
         return 1
 
+    # defines pc movements
     def pc_move(self, stack):
         if self.fin == False:
             root = Node(0, self)
@@ -451,49 +456,6 @@ class Backend(object):
             self.lastjump = copy.deepcopy(max(root.children).Backend.lastjump)
             return 1
 
-    def clear_table_trails(self):
-        for enum_i, i in enumerate(self.matrix):
-            for enum_j, j in enumerate(i):
-                if self.matrix[enum_i][enum_j] == 3 or self.matrix[enum_i][enum_j] == 6:
-                    self.matrix[enum_i][enum_j] = 0
-
-    def print(self, highlighted=0, moves=[], clear_trails=False):
-        cells = []
-        order = 0
-        if highlighted == 1:
-            all_moves = self.possible_moves(1)
-            for cell in all_moves:
-                if cell[0] not in cells:
-                    cells.append(cell[0])
-            if not cells:
-                return None
-        for enum_i, i in enumerate(self.matrix):
-            for enum_j, j in enumerate(i):
-                if j == 0: j = " "
-                num = " "
-                try:
-                    if highlighted == 1 and cells[0][0] == enum_i and cells[0][1] == enum_j:
-                        order += 1
-                        num = order
-                        cells.pop(0)
-
-                    if highlighted == 2:
-                        # print(moves)
-                        num = moves.index([enum_i, enum_j]) + 1
-                        if num == 0:
-                            num = " "
-                except ValueError:
-                    pass
-                except IndexError:
-                    pass
-                if clear_trails and (self.matrix[enum_i][enum_j] == 3 or self.matrix[enum_i][enum_j] == 6):
-                    self.matrix[enum_i][enum_j] = 0
-
-
-    def finish_message(self, s):
-        print('finish_message:', s)
-
-
 def generate(node, param, depth_ab, depth):
     table = node.Backend
     for move in table.possible_moves(param):
@@ -502,7 +464,6 @@ def generate(node, param, depth_ab, depth):
 
 def next_hop_add(node, table, move, param, depth_ab, depth):
     first_layer_depth = True if depth_ab == depth else False
-    # first_layer_depth = True
     temp_new_table = Backend(copy.deepcopy(table.matrix), None, table.rear_socket, table.force_jump, table.eat_queen, table.depth, table.pawn_queen, table.promotion_eat)
     if first_layer_depth:
         temp_new_table.lastjump = copy.deepcopy(table.lastjump)
@@ -513,122 +474,9 @@ def next_hop_add(node, table, move, param, depth_ab, depth):
             for n_move in next_hop[1:]:
                 next_hop_add(node, temp_new_table, n_move, param, depth_ab, depth)
 
-    # new_table = Backend([1,23])
     new_table = Backend(copy.deepcopy(table.matrix), None, table.rear_socket, table.force_jump, table.eat_queen, table.depth, table.pawn_queen, table.promotion_eat)
     if first_layer_depth:
         new_table.lastjump = copy.deepcopy(table.lastjump)
     new_table.move(move[0], move[1], param, first_layer_depth=first_layer_depth)
     node.add_child(Node(None, new_table))
     return
-
-
-def accurate_calculate(matrix):
-    value = 0
-    for enum_i, i in enumerate(matrix):
-        for enum_j, j in enumerate(i):
-            horizontal = abs(enum_j - 3) if enum_j < 4 else abs(enum_j - 4)
-            vertical = abs(enum_i - 3) if enum_i < 4 else abs(enum_i - 4)
-            if j == 1: value -= 5 + 7 - enum_i + horizontal + vertical
-            if j == 2: value += 5 + enum_i + horizontal + vertical
-            if j == 4: value -= 14 + horizontal + vertical
-            if j == 5: value += 14 + horizontal + vertical
-
-    return value
-
-
-def print_moves(moves):
-    print()
-
-def player_move():
-    pass
-
-
-def f_jump(Backend):
-    opt1 = "X"
-    opt2 = "X"
-    while True:
-        print("\n" * 15)
-        print("\n", Backend.status, "\n")
-        print("1)", "[" + opt1 + "]", _("Compulsory take"))
-        print("2)", "[" + opt2 + "]", _("The computer plays first"))
-        print("9)", _("Quit"))
-        print(_("\tENTER to confirm\n"))
-        user_input = input(_("Select an option: "))
-        if user_input == "":
-            break
-        if user_input.isnumeric():
-            if int(user_input) == 1:
-                opt1 = "O" if opt1 == "X" else "X"
-                print(opt1)
-            if int(user_input) == 2:
-                opt2 = "O" if opt2 == "X" else "X"
-            if int(user_input) == 9:
-                exit()
-
-    Backend.force_jump = True if opt1 == "O" else False
-    Backend.pc_first = True if opt2 == "O" else False
-
-
-def config_print(Backend):
-    str1=("%s○): " % _("First player's piece (default = "))
-    Backend.v1 = input(str1)
-    str2=("%s⬤): " % _("First player's queen (default = "))
-    Backend.v4 = input(str2)
-    str3=("%s⬛): " % _("Second player's piece (default = "))
-    Backend.v2 = input(str3)
-    str4=("%s□): " % _("Queen of the second player (default = "))
-    Backend.v5 = input(str4)
-    str5=("%s)░: " % _("Previous position square (defaul = "))
-    Backend.v3 = input(str5)
-    str6=("%s－): " % _("Case of the eaten piece (default = "))
-    Backend.v6 = input(str6)
-
-    Backend.v1 = "○" if Backend.v1 == "" else Backend.v1
-    Backend.v2 = "⬤" if Backend.v2 == "" else Backend.v2
-    Backend.v3 = "░" if Backend.v3 == "" else Backend.v3
-    Backend.v4 = "□" if Backend.v4 == "" else Backend.v4
-    Backend.v5 = "⬛" if Backend.v5 == "" else Backend.v5
-    Backend.v6 = "－" if Backend.v6 == "" else Backend.v6
-
-
-def last_jump_to_str(last_jump):
-    for lj in last_jump:
-        b2 = lj % 10
-        lj = int(lj / 10)
-        b1 = lj % 10
-        lj = int(lj / 10)
-        a2 = lj % 10
-        lj = int(lj / 10)
-        a1 = lj % 10
-
-        print(a1, a2, b1, b2)
-
-
-def last_jump_to_list(last_jump):
-    jumps = []
-    for lj in last_jump:
-        b2 = lj % 10
-        lj = int(lj / 10)
-        b1 = lj % 10
-        lj = int(lj / 10)
-        a2 = lj % 10
-        lj = int(lj / 10)
-        a1 = lj % 10
-
-        jumps.append([[a1, a2], [b1, b2]])
-    return jumps
-
-
-if __name__ == '__main__':
-
-    while True:
-        matrix = [[0, 2, 0, 2, 0, 2, 0, 2],
-                  [2, 0, 2, 0, 2, 0, 2, 0],
-                  [0, 2, 0, 2, 0, 2, 0, 2],
-                  [0, 0, 0, 0, 0, 0, 0, 0],
-                  [0, 0, 0, 0, 0, 0, 0, 0],
-                  [1, 0, 1, 0, 1, 0, 1, 0],
-                  [0, 1, 0, 1, 0, 1, 0, 1],
-                  [1, 0, 1, 0, 1, 0, 1, 0]]
-        tabla1 = Backend(matrix)
-        tabla1.play_game()

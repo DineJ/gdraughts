@@ -103,6 +103,7 @@ class SquareArea(Gtk.DrawingArea):
 		cr.stroke()
 		cr.restore()
 
+	#select a square
 	def square_selected(self, size, selected):
 		self.selected = selected
 		self.set_size_request(size, size)
