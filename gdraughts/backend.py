@@ -133,7 +133,7 @@ class Stack:
 
 
 class Backend(object):
-    def __init__(self, new_matrix=None, draughts=None, rear_socket=True, force_jump=False, eat_queen=True, depth=5, pawn_queen=True,last_jmp=None):
+    def __init__(self, new_matrix=None, draughts=None, rear_socket=True, force_jump=False, eat_queen=True, depth=5, pawn_queen=True, promotion_eat=True, last_jmp=None):
         self.p_max=10
         self.status = ("NEW GAME")
         self.depth = depth
@@ -144,6 +144,7 @@ class Backend(object):
         self.eat_queen = eat_queen   # autorise la prise des dames par un pion
         self.pawn_queen = pawn_queen
         self.draughts = draughts
+        self.promotion_eat = promotion_eat
         if not new_matrix:
             if self.p_max==10 :
                 self.matrix = [[0, 2, 0, 2, 0, 2, 0, 2, 0, 2],
@@ -220,30 +221,37 @@ class Backend(object):
             offset_max = 2
         while offset < offset_max:
             if -1 < j + (jo * offset) < len(self.matrix) and \
-                -1 < i + (io * offset) < len(self.matrix) and \
-                self.matrix[i + (io * offset)][j + (jo * offset)] % 3 == param:
+               -1 < i + (io * offset) < len(self.matrix) and \
+               self.matrix[i + (io * offset)][j + (jo * offset)] % 3 == param:
                     break
-            if -1 < j + jo * offset < len(self.matrix) and -1 < i + io * offset < len(self.matrix) and \
-                    self.matrix[i + io * offset][j + jo * offset] % 3 != param:
-                if -1 < j + jo * (offset + 1) < len(self.matrix) and  \
-                    -1 < i + io * (offset + 1) < len(self.matrix) and \
-                    self.matrix[i + io * offset][j + jo * offset] % 3 == enemy and \
-                    self.matrix[i + io * (offset + 1)][j + jo * (offset + 1)] % 3 == enemy:
-                        break
-                elif -1 < j + jo * (offset + 1) < len(self.matrix) and -1 < i + io * (offset + 1) < len(self.matrix) and \
-                        self.matrix[i + io * offset][j + jo * offset] % 3 == enemy and \
-                        self.matrix[i + io * (offset + 1)][j + jo * (offset + 1)] % 3 == 0:
-                    #print("EAT " + str(i) + ", " + str(j) + " => " + str(i + vertical*2) + ", " + str(j - 2))
-                    self.p_moves.append([[i, j], [i + io * (offset + 1), j + jo * (offset + 1)]])
-                    self.p_force_moves.append([[i, j], [i + io * (offset + 1), j + jo * (offset + 1)]])
-                    if self.draughts != None and self.force_jump and param == 1:
-                        self.draughts.set_informations(_("You must eat"))
-                    eat = True
-                elif self.matrix[i + io * offset][j + jo * offset] % 3 == 0:
-                    #print(str(i) + ", " + str(j) + " => " + str(i-vertical) + ", " + str(j-1))
-                    self.p_moves.append([[i, j], [i + io * offset, j + jo * offset]])
-                    if eat == True:
-                        self.p_force_moves.append([[i, j], [i + io * offset, j + jo * offset]])
+            if -1 < j + jo * offset < len(self.matrix) and \
+               -1 < i + io * offset < len(self.matrix) and \
+               self.matrix[i + io * offset][j + jo * offset] % 3 != param:
+                    if -1 < j + jo * (offset + 1) < len(self.matrix) and \
+                       -1 < i + io * (offset + 1) < len(self.matrix) and \
+                       self.matrix[i + io * offset][j + jo * offset] % 3 == enemy and \
+                       self.matrix[i + io * (offset + 1)][j + jo * (offset + 1)] % 3 == param:
+                            break
+                    elif -1 < j + jo * (offset + 1) < len(self.matrix) and \
+                         -1 < i + io * (offset + 1) < len(self.matrix) and \
+                         self.matrix[i + io * offset][j + jo * offset] % 3 == enemy and \
+                         self.matrix[i + io * (offset + 1)][j + jo * (offset + 1)] % 3 == enemy:
+                            break
+                    elif -1 < j + jo * (offset + 1) < len(self.matrix) and \
+                         -1 < i + io * (offset + 1) < len(self.matrix) and \
+                         self.matrix[i + io * offset][j + jo * offset] % 3 == enemy and \
+                         self.matrix[i + io * (offset + 1)][j + jo * (offset + 1)] % 3 == 0:
+                            #print("EAT " + str(i) + ", " + str(j) + " => " + str(i + vertical*2) + ", " + str(j - 2))
+                            self.p_moves.append([[i, j], [i + io * (offset + 1), j + jo * (offset + 1)]])
+                            self.p_force_moves.append([[i, j], [i + io * (offset + 1), j + jo * (offset + 1)]])
+                            if self.draughts != None and self.force_jump and param == 1:
+                                self.draughts.set_informations(_("You must eat"))
+                            eat = True
+                    elif self.matrix[i + io * offset][j + jo * offset] % 3 == 0:
+                        #print(str(i) + ", " + str(j) + " => " + str(i-vertical) + ", " + str(j-1))
+                        self.p_moves.append([[i, j], [i + io * offset, j + jo * offset]])
+                        if eat == True:
+                            self.p_force_moves.append([[i, j], [i + io * offset, j + jo * offset]])
             offset += 1 
 
     def possible_moves(self, param):  # param = 1 - PLAYER, param = 2 - PC
@@ -313,8 +321,10 @@ class Backend(object):
                 self.pl_after_firstclick(case)
                 self.print()
                 return 2
-        if ret == 4:
+        elif ret == 4:
             return 4
+        elif ret == 5:
+            return 5
         self.print()
         return 1
 
@@ -372,12 +382,21 @@ class Backend(object):
         return self.eat_moves
 
     def move(self, old, new, param=1, first_layer_depth=True):
+        promotion = False
+        one = 0
+        two = 0
         cell = self.matrix[old[0]][old[1]]
         self.matrix[old[0]][old[1]] = 0
         if (new[0] == (self.p_max - 1) or new[0] == 0) and cell < 3 and \
                 (param == 1 and old[0] > new[0] or \
                 param == 2 and old[0] < new[0]):
-            self.matrix[new[0]][new[1]] = cell + 3
+            if self.promotion_eat:
+                self.matrix[new[0]][new[1]] = cell + 3
+            else:
+                promotion = True
+                self.matrix[new[0]][new[1]] = cell
+                one = new[0]
+                two = new[1]
         else:
             self.matrix[new[0]][new[1]] = cell
         if abs(old[0] - new[0]) >= 2:
@@ -409,10 +428,12 @@ class Backend(object):
                         return 2
                     else:
                         return 3
+                elif promotion:
+                    self.matrix[one][two] =  cell + 3
+                    return 5
                 return 4
         if first_layer_depth:
             self.lastjump.append(old[0] * 1000 + old[1] * 100 + new[0] * 10 + new[1])
-
         return 1
 
     def pc_move(self, stack):
@@ -482,17 +503,18 @@ def generate(node, param, depth_ab, depth):
 def next_hop_add(node, table, move, param, depth_ab, depth):
     first_layer_depth = True if depth_ab == depth else False
     # first_layer_depth = True
-    temp_new_table = Backend(copy.deepcopy(table.matrix), None, table.rear_socket, table.force_jump, table.eat_queen, table.depth, table.pawn_queen)
+    temp_new_table = Backend(copy.deepcopy(table.matrix), None, table.rear_socket, table.force_jump, table.eat_queen, table.depth, table.pawn_queen, table.promotion_eat)
     if first_layer_depth:
         temp_new_table.lastjump = copy.deepcopy(table.lastjump)
-    if temp_new_table.move(move[0], move[1], param, first_layer_depth=first_layer_depth) > 1:
+    ret = temp_new_table.move(move[0], move[1], param, first_layer_depth=first_layer_depth)
+    if ret > 1 and ret < 5:
         next_hop = temp_new_table.eatable(param, move[1][0], move[1][1])
         if len(next_hop) > 1:
             for n_move in next_hop[1:]:
                 next_hop_add(node, temp_new_table, n_move, param, depth_ab, depth)
 
     # new_table = Backend([1,23])
-    new_table = Backend(copy.deepcopy(table.matrix), None, table.rear_socket, table.force_jump, table.eat_queen, table.depth, table.pawn_queen)
+    new_table = Backend(copy.deepcopy(table.matrix), None, table.rear_socket, table.force_jump, table.eat_queen, table.depth, table.pawn_queen, table.promotion_eat)
     if first_layer_depth:
         new_table.lastjump = copy.deepcopy(table.lastjump)
     new_table.move(move[0], move[1], param, first_layer_depth=first_layer_depth)

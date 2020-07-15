@@ -285,7 +285,6 @@ class Checker(Gtk.Grid):
             jump = self.draughts.backend.lastjump[:]
             x = len(jump) - 1
             count2 = self.count_figures()
-            print(jump)
             if len(str(jump[0])) == 4 :
                 row1 = ("%s" % (self.matrix_coordonate[int(str(jump[0])[0])][int(str(jump[0])[1])]))
                 row2 = ("%s" % (self.matrix_coordonate[int(str(jump[x])[2])][int(str(jump[x])[3])]))
@@ -342,7 +341,7 @@ class Checker(Gtk.Grid):
                 row3 = None
                 if 1 :
                     ret = self.draughts.backend.pl_after_secondclick(self.old_square.name, square.name)
-                    if ret == 0:
+                    if ret == 0 or ret == 5:
                         self.old_square = None
                         if self.replay:
                             self.replay = False
