@@ -513,7 +513,6 @@ class Draughts(Gtk.Window):
 
 	#create a dialog window with 5 choice, each choice gives the rules of the different countries
 	def dialog(self,button):
-
 		#Dialog
 		self.open_dialog = 1
 		dialog_box = Gtk.Dialog.new()
@@ -620,6 +619,7 @@ class Draughts(Gtk.Window):
 			if r_fr.get_active():
 				self.country = 0
 				self.state = 10
+				self.square_color = 0
 				self.eatqueen = True
 				self.rear_socket = True
 				self.forced_move = True
@@ -643,6 +643,7 @@ class Draughts(Gtk.Window):
 			elif r_eng.get_active():
 				self.country = 2
 				self.state = 8
+				self.square_color = 0
 				self.eatqueen = True
 				self.rear_socket = False
 				self.matrix_classic = True
@@ -654,6 +655,7 @@ class Draughts(Gtk.Window):
 			elif r_ne.get_active():
 				self.country = 3
 				self.state = 10
+				self.square_color = 0
 				self.eatqueen = True
 				self.rear_socket = True
 				self.forced_move = True
