@@ -188,10 +188,12 @@ class Backend(object):
             for enum_j, j in enumerate(i):
                 if j == 0:
                     continue
-                if j == 1: value -= 5 + 7 - enum_i + abs(enum_j - 4) + abs(enum_i - 4)
+                matrix_size = len(self.matrix) - 1
+                matrix_sizex2 = matrix_size * 2
+                if j == 1: value -= 5 + matrix_size - enum_i + abs(enum_j - 4) + abs(enum_i - 4)
                 if j == 2: value += 5 + enum_i + abs(enum_j - 4) + abs(enum_i - 4)
-                if j == 4: value -= 14 + abs(enum_j - 4) + abs(enum_i - 4)
-                if j == 5: value += 14 + abs(enum_j - 4) + abs(enum_i - 4)
+                if j == 4: value -= matrix_sizex2 + abs(enum_j - 4) + abs(enum_i - 4)
+                if j == 5: value += matrix_sizex2 + abs(enum_j - 4) + abs(enum_i - 4)
 
         return value
 
