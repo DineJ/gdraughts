@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: bugs@ordissimo.com\n"
-"POT-Creation-Date: 2020-07-15 10:32+0200\n"
+"POT-Creation-Date: 2020-07-17 10:21+0200\n"
 "PO-Revision-Date: 2018-07-28 03:51+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -18,63 +18,52 @@ msgstr ""
 "X-Generator: Poedit 1.8.7.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../gdraughts/backend.py:548
-msgid "\tENTER to confirm\n"
-msgstr ""
-
-#: ../gdraughts/draughts.py:278
+#: ../gdraughts/draughts.py:363
 msgid "10 square"
 msgstr ""
 
-#: ../gdraughts/draughts.py:274
+#. RadioButton
+#: ../gdraughts/draughts.py:359
 msgid "8 square"
 msgstr ""
 
-#: ../gdraughts/draughts.py:284
+#: ../gdraughts/draughts.py:369
 msgid "Black"
 msgstr ""
 
-#: ../gdraughts/backend.py:576
-msgid "Case of the eaten piece (default = "
-msgstr ""
-
-#: ../gdraughts/draughts.py:97
+#: ../gdraughts/draughts.py:100
 msgid "Close"
 msgstr ""
 
-#: ../gdraughts/backend.py:545
-msgid "Compulsory take"
-msgstr ""
-
-#: ../gdraughts/draughts.py:151
+#: ../gdraughts/draughts.py:233
 msgid "Computer"
 msgstr ""
 
-#: ../gdraughts/checker.py:400
+#: ../gdraughts/checker.py:402
 msgid "Computer turn"
 msgstr ""
 
-#: ../gdraughts/draughts.py:270
+#: ../gdraughts/draughts.py:354
 msgid "Do you want pawns can eat a queen?"
 msgstr ""
 
-#: ../gdraughts/draughts.py:272
+#: ../gdraughts/draughts.py:356
 msgid "Do you want the pawns to become queens during a roundup?"
 msgstr ""
 
-#: ../gdraughts/draughts.py:271
-msgid "Do you want the queens to be able to move one square at a time?"
+#: ../gdraughts/draughts.py:355
+msgid "Do you want the queens to be able to move one square?"
 msgstr ""
 
-#: ../gdraughts/draughts.py:269
+#: ../gdraughts/draughts.py:353
 msgid "Do you want to add being able to eat back?"
 msgstr ""
 
-#: ../gdraughts/draughts.py:268
+#: ../gdraughts/draughts.py:352
 msgid "Do you want to force them to eat?"
 msgstr ""
 
-#: ../gdraughts/draughts.py:267
+#: ../gdraughts/draughts.py:351
 msgid "Do you want your pawn to be on the bottom right?"
 msgstr ""
 
@@ -82,23 +71,15 @@ msgstr ""
 msgid "Draughts Game"
 msgstr ""
 
-#: ../gdraughts/draughts.py:173
+#: ../gdraughts/draughts.py:256
 msgid "Easy"
 msgstr ""
 
-#: ../gdraughts/draughts.py:560
+#: ../gdraughts/draughts.py:641
 msgid "England"
 msgstr ""
 
-#: ../gdraughts/backend.py:566
-msgid "First player's piece (default = "
-msgstr ""
-
-#: ../gdraughts/backend.py:568
-msgid "First player's queen (default = "
-msgstr ""
-
-#: ../gdraughts/draughts.py:568
+#: ../gdraughts/draughts.py:649
 msgid "France"
 msgstr ""
 
@@ -106,137 +87,118 @@ msgstr ""
 msgid "Gdraughts is a draughts program for the Gnome desktop"
 msgstr ""
 
-#: ../gdraughts/draughts.py:177
+#: ../gdraughts/draughts.py:260
 msgid "Hard"
 msgstr ""
 
-#: ../gdraughts/draughts.py:77
+#: ../gdraughts/draughts.py:103
+msgid "Help"
+msgstr ""
+
+#: ../gdraughts/draughts.py:78
 msgid "Historical"
 msgstr ""
 
-#: ../gdraughts/checker.py:293 ../gdraughts/checker.py:295
-#: ../gdraughts/checker.py:298 ../gdraughts/checker.py:300
-#: ../gdraughts/checker.py:306 ../gdraughts/checker.py:308
-#: ../gdraughts/checker.py:311 ../gdraughts/checker.py:313
-#: ../gdraughts/checker.py:372 ../gdraughts/checker.py:374
-#: ../gdraughts/checker.py:379 ../gdraughts/checker.py:381
+#: ../gdraughts/checker.py:294 ../gdraughts/checker.py:296
+#: ../gdraughts/checker.py:299 ../gdraughts/checker.py:301
+#: ../gdraughts/checker.py:307 ../gdraughts/checker.py:309
+#: ../gdraughts/checker.py:312 ../gdraughts/checker.py:314
+#: ../gdraughts/checker.py:374 ../gdraughts/checker.py:376
+#: ../gdraughts/checker.py:381 ../gdraughts/checker.py:383
 msgid "Hit"
 msgstr ""
 
-#: ../gdraughts/draughts.py:265
+#. Frame
+#: ../gdraughts/draughts.py:349
 msgid "How many square do you want per ligne?"
 msgstr ""
 
-#: ../gdraughts/draughts.py:545
+#: ../gdraughts/draughts.py:626
 msgid "Italy"
 msgstr ""
 
-#: ../gdraughts/draughts.py:175
+#: ../gdraughts/draughts.py:258
 msgid "Medium"
 msgstr ""
 
-#: ../gdraughts/draughts.py:536
+#: ../gdraughts/draughts.py:617
 msgid "Netherlands"
 msgstr ""
 
-#: ../gdraughts/draughts.py:98
+#: ../gdraughts/draughts.py:101
 msgid "New game"
 msgstr ""
 
-#: ../gdraughts/draughts.py:286 ../gdraughts/draughts.py:296
-#: ../gdraughts/draughts.py:302 ../gdraughts/draughts.py:308
-#: ../gdraughts/draughts.py:313 ../gdraughts/draughts.py:318
+#: ../gdraughts/draughts.py:371 ../gdraughts/draughts.py:381
+#: ../gdraughts/draughts.py:387 ../gdraughts/draughts.py:393
+#: ../gdraughts/draughts.py:398 ../gdraughts/draughts.py:403
 msgid "No"
 msgstr ""
 
-#: ../gdraughts/draughts.py:147
+#: ../gdraughts/draughts.py:229
 msgid "Player"
 msgstr ""
 
-#: ../gdraughts/backend.py:574
-msgid "Previous position square (defaul = "
-msgstr ""
-
-#: ../gdraughts/backend.py:572
-msgid "Queen of the second player (default = "
-msgstr ""
-
-#: ../gdraughts/backend.py:547
-msgid "Quit"
-msgstr ""
-
-#: ../gdraughts/backend.py:570
-msgid "Second player's piece (default = "
-msgstr ""
-
-#: ../gdraughts/backend.py:549
-msgid "Select an option: "
-msgstr ""
-
-#: ../gdraughts/draughts.py:99
+#: ../gdraughts/draughts.py:102
 msgid "Settings"
 msgstr ""
 
-#: ../gdraughts/draughts.py:552
+#: ../gdraughts/draughts.py:633
 msgid "Spain"
 msgstr ""
 
-#: ../gdraughts/draughts.py:106
+#: ../gdraughts/draughts.py:110
 msgid "Start the game"
 msgstr ""
 
-#: ../gdraughts/backend.py:546
-msgid "The computer plays first"
-msgstr ""
-
-#: ../gdraughts/checker.py:324
+#: ../gdraughts/checker.py:325
 msgid "The computer won"
 msgstr ""
 
-#: ../gdraughts/draughts.py:266
+#: ../gdraughts/draughts.py:350
 msgid "What color do you want in the square at the bottom right?"
 msgstr ""
 
-#: ../gdraughts/draughts.py:171
+#: ../gdraughts/draughts.py:254
 msgid "What difficulties do you want?"
 msgstr ""
 
 #. Frame
-#: ../gdraughts/draughts.py:530
+#: ../gdraughts/draughts.py:611
 msgid "What rules do you want to play with?"
 msgstr ""
 
-#: ../gdraughts/draughts.py:280
+#: ../gdraughts/draughts.py:365
 msgid "White"
 msgstr ""
 
-#: ../gdraughts/draughts.py:145
+#: ../gdraughts/draughts.py:227
 msgid "Who plays first?"
 msgstr ""
 
-#: ../gdraughts/draughts.py:290 ../gdraughts/draughts.py:292
-#: ../gdraughts/draughts.py:298 ../gdraughts/draughts.py:304
-#: ../gdraughts/draughts.py:310 ../gdraughts/draughts.py:315
+#: ../gdraughts/draughts.py:375 ../gdraughts/draughts.py:377
+#: ../gdraughts/draughts.py:383 ../gdraughts/draughts.py:389
+#: ../gdraughts/draughts.py:395 ../gdraughts/draughts.py:400
 msgid "Yes"
 msgstr ""
 
-#: ../gdraughts/checker.py:353
+#: ../gdraughts/checker.py:354
 msgid "You are forced to continue eating"
 msgstr ""
 
-#: ../gdraughts/checker.py:349
+#: ../gdraughts/checker.py:351
 msgid "You made an illegal hit, start your hit again"
 msgstr ""
 
-#: ../gdraughts/backend.py:211 ../gdraughts/backend.py:248
+#: ../gdraughts/backend.py:214 ../gdraughts/backend.py:252
 msgid "You must eat"
 msgstr ""
 
-#: ../gdraughts/checker.py:390
+#: ../gdraughts/checker.py:392
 msgid "You won"
 msgstr ""
 
-#: ../gdraughts/checker.py:281
+#: ../gdraughts/checker.py:282
 msgid "Your turn"
 msgstr ""
 
