@@ -114,7 +114,6 @@ class Draughts(Gtk.Window):
 		tool_bar.insert(quit_button, 0)
 		tool_bar.insert(play_button, 1)
 		tool_bar.insert(custom_button, 2)
-		tool_bar.insert(help_button, 3)
 		quit_button.show()
 		play_button.show()
 		custom_button.show()
@@ -140,13 +139,13 @@ class Draughts(Gtk.Window):
 		loc = locale.getdefaultlocale()[0].split('_')[0]
 		if loc == "fr":
 			self.france()
-		elif loc == "eng":
+		elif loc == "en":
 			self.england()
-		elif loc == "sp":
+		elif loc == "es":
 			self.spain()
-		elif loc == "ita":
+		elif loc == "it":
 			self.italy()
-		elif loc == "ne":
+		elif loc == "nl":
 			self.netherlands()
 		self.checker_game.remove(self.checker)
 		self.checker = Checker(self, self.square_size, self.state, self.square_color)
