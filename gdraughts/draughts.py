@@ -21,6 +21,7 @@ gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, GdkPixbuf
 from checker import Checker
 from backend import Backend, Node, Stack
+import locale
 import random
 import gettext
 
@@ -101,7 +102,6 @@ class Draughts(Gtk.Window):
 		play_button.set_is_important(True)
 		custom_button.set_is_important(True)
 
-
 		self.informations_bar = Gtk.Label()
 		self.informations_bar.set_markup(('<span foreground="#ff710d" size="large" >%s</span>' %_("Start the game")))
 		self.informations_bar.set_size_request(-1, 30)
@@ -114,10 +114,10 @@ class Draughts(Gtk.Window):
 		tool_bar.insert(quit_button, 0)
 		tool_bar.insert(play_button, 1)
 		tool_bar.insert(custom_button, 2)
+		tool_bar.insert(help_button, 3)
 		quit_button.show()
 		play_button.show()
 		custom_button.show()
-
 
 		quit_button.connect('clicked', Gtk.main_quit)
 		play_button.connect('clicked', self.dialog)
@@ -137,9 +137,84 @@ class Draughts(Gtk.Window):
 	#show the application
 	def play(self):
 		self.show_all()
-		self.backend = Backend(self.checker.matrix, self)
+		loc = locale.getdefaultlocale()[0].split('_')[0]
+		if loc == "fr":
+			self.france()
+		elif loc == "eng":
+			self.england()
+		elif loc == "sp":
+			self.spain()
+		elif loc == "ita":
+			self.italy()
+		elif loc == "ne":
+			self.netherlands()
+		self.checker_game.remove(self.checker)
+		self.checker = Checker(self, self.square_size, self.state, self.square_color)
+		self.checker_game.set_center_widget(self.checker)
+		self.checker_game.show_all()
+		self.backend = Backend(self.checker.matrix, self, self.rear_socket, self.forced_move, self.eatqueen, self.depth, self.queen, self.promotion_eat)
 		self.backend.fin = False
 		self.backend.pl_before_firstclick()
+
+	#set country rules
+	def france(self):
+		self.country = 0
+		self.state = 10
+		self.square_color = 0
+		self.eatqueen = True
+		self.rear_socket = True
+		self.forced_move = True
+		self.matrix_classic = True
+		self.queen = False
+		self.promotion_eat = False
+
+	#set country rules
+	def spain(self):
+		self.country = 1
+		self.state = 8
+		self.square_color = 0
+		self.eatqueen = True
+		self.rear_socket = False
+		self.forced_move = True
+		self.matrix_classic = False
+		self.queen = False
+		self.promotion_eat = False
+
+	#set country rules
+	def england(self):
+		self.country = 2
+		self.state = 8
+		self.square_color = 0
+		self.eatqueen = True
+		self.rear_socket = False
+		self.matrix_classic = True
+		self.forced_move = True
+		self.queen = False
+		self.promotion_eat = False
+
+	#set country rules
+	def netherlands(self):
+		self.country = 3
+		self.state = 10
+		self.square_color = 0
+		self.eatqueen = True
+		self.rear_socket = True
+		self.forced_move = True
+		self.matrix_classic = True
+		self.queen = False
+		self.promotion_eat = False
+
+	#set country rules
+	def italy(self):
+		self.country = 4
+		self.state = 8
+		self.square_color = 1
+		self.eatqueen = False
+		self.rear_socket = False
+		self.forced_move = True
+		self.matrix_classic = False
+		self.queen = True
+		self.promotion_eat = True
 
 	#designates who plays first
 	def who_play(self):
@@ -223,7 +298,6 @@ class Draughts(Gtk.Window):
 			self.t_medium.set_active(False)
 		self.depth = 5
 
-
 	#resize checker after each interraction with main window
 	def on_resize(self,widget):
 		checker_width = self.checker_game.get_allocation().width
@@ -272,7 +346,7 @@ class Draughts(Gtk.Window):
 		frame_forced_move = Gtk.Frame.new(_("Do you want to force them to eat?"))
 		frame_eatbehind = Gtk.Frame.new(_("Do you want to add being able to eat back?"))
 		frame_eatqueen = Gtk.Frame.new(_("Do you want pawns can eat a queen?"))
-		frame_queen = Gtk.Frame.new(_("Do you want the queens to be able to move one square at a time?"))
+		frame_queen = Gtk.Frame.new(_("Do you want the queens to be able to move one square?"))
 		frame_promotion_eat = Gtk.Frame.new(_("Do you want the pawns to become queens during a roundup?"))
 
 		#RadioButton
@@ -601,6 +675,7 @@ class Draughts(Gtk.Window):
 		elif self.country == 2:
 			r_eng.set_active(True)
 		elif self.country == 3:
+			
 			r_ne.set_active(True)
 		elif self.country == 4:
 			r_ita.set_active(True)
@@ -617,63 +692,23 @@ class Draughts(Gtk.Window):
 				self.pc_first = True
 
 			if r_fr.get_active():
-				self.country = 0
-				self.state = 10
-				self.square_color = 0
-				self.eatqueen = True
-				self.rear_socket = True
-				self.forced_move = True
-				self.matrix_classic = True
-				self.queen = False
-				self.promotion_eat = False
+				self.france()
 				r_fr.set_active(True)
 
 			elif r_sp.get_active():
-				self.country = 1
-				self.state = 8
-				self.square_color = 0
-				self.eatqueen = True
-				self.rear_socket = False
-				self.forced_move = True
-				self.matrix_classic = False
-				self.queen = False
-				self.promotion_eat = False
+				self.spain()
 				r_sp.set_active(True)
 
 			elif r_eng.get_active():
-				self.country = 2
-				self.state = 8
-				self.square_color = 0
-				self.eatqueen = True
-				self.rear_socket = False
-				self.matrix_classic = True
-				self.forced_move = True
-				self.queen = False
-				self.promotion_eat = False
+				self.england()
 				r_eng.set_active(True)
 
 			elif r_ne.get_active():
-				self.country = 3
-				self.state = 10
-				self.square_color = 0
-				self.eatqueen = True
-				self.rear_socket = True
-				self.forced_move = True
-				self.matrix_classic = True
-				self.queen = False
-				self.promotion_eat = False
+				self.netherlands()
 				r_ne.set_active(True)
 
 			elif r_ita.get_active():
-				self.country = 4
-				self.state = 8
-				self.square_color = 1
-				self.eatqueen = False
-				self.rear_socket = False
-				self.forced_move = True
-				self.matrix_classic = False
-				self.queen = True
-				self.promotion_eat = True
+				self.italy()
 				r_ita.set_active(True)
 
 			self.checker_game.remove(self.checker)
@@ -690,7 +725,6 @@ class Draughts(Gtk.Window):
 		elif self.answer == Gtk.ResponseType.CANCEL:
 			dialog_box.destroy()
 		open_dialog = 0
-
 
 draughts = Draughts()
 draughts.play()

@@ -63,8 +63,8 @@ msgid "Do you want the pawns to become queens during a roundup?"
 msgstr "Voulez-vous que les pions deviennent des dames pendant les rafle?"
 
 #: ../gdraughts/draughts.py:271
-msgid "Do you want the queens to be able to move one square at a time?"
-msgstr "Voulez-vous que les dames ne se déplace que d'une case à la fois?"
+msgid "Do you want the queens to be able to move one square?"
+msgstr "Voulez-vous que les dames se déplace d'une case?"
 
 #: ../gdraughts/draughts.py:269
 msgid "Do you want to add being able to eat back?"
