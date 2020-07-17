@@ -57,7 +57,7 @@ msgstr "Voulez-vous que les dames se déplace d'une case?"
 
 #: ../gdraughts/draughts.py:353
 msgid "Do you want to add being able to eat back?"
-msgstr "Voulez-vous ajouter le fait que les pions mangent en arrières?"
+msgstr "Voulez-vous ajouter le fait que les pions mangent en arrière?"
 
 #: ../gdraughts/draughts.py:352
 msgid "Do you want to force them to eat?"
@@ -65,7 +65,7 @@ msgstr "Voulez-vous forcer les prises?"
 
 #: ../gdraughts/draughts.py:351
 msgid "Do you want your pawn to be on the bottom right?"
-msgstr "Voulez-vous que votre pions soit en bas à droite?"
+msgstr "Voulez-vous que votre pion soit en bas à droite?"
 
 #: ../desktop/gdraughts.desktop.in:6
 msgid "Draughts Game"
