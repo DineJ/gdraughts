@@ -1,0 +1,52 @@
+A) Opening the application
+- Click on "Close" which will close the application
+- Play directly
+- "New game" and "Settings" will open options
+
+B) "New Game" and "Settings"
+A dialog box appears in the middle of your screen. This dialog is made up of a part which deals with the difficulty of the computer, another part  on who will play white; a part with which rules you will play and finally, the part which takes care of if you want to validate your choices or just close the dialog box.
+
+To choose an option, click on it. I want to play on easy difficulty so I click on "Easy". I want to play first, I click on "Player". For the third part, I choose a country for example "France", when we select a country we select a set of official rules of the country.
+If I just want to close the dialog and it doesn't take into account what I have selected, I click on "Cancel" if I want to play according to the criteria I have selected ("Easy", " Player "," France "), I press" Apply ". In both cases the dialog box will close if you have pressed "Apply", the game board will return to its initial position and then will apply the modifications, however if you have pressed "Cancel", it will not there will be only the closing of the dialog box.
+For "Settings" you click on the options you want and then you decide either to apply or to cancel your choices.
+
+"New Game" has pre-defined rules which allow you to play directly with the rules of the country of your choice.
+"Settings" which allows you to customize your game according to your own wishes.
+
+	- In "Settings"
+		- First choice, what is the level of the computer?
+		- Second choice, who should make the first move?
+		- Third choice, how many pawns do you want per line?
+		- Fourth choice, on which squares you do not want to play?
+		- Fifth choice, should your pawn be in the right corner?
+		- Sixth choice, are the sockets compulsory?
+		- Seventh choice, can pawns eat backwards?
+		- Eighth choice, are pawns allowed to eat a queen?
+		- Ninth choice, should a queen move only one square?
+		- Tenth choice, can pawns promote during a roundup?
+
+
+	- In "New Game"
+		- First choice, identical to "Parameters"
+		- Second choice, identical to "Parameters"
+		- Third choice, according to the rules of which countries do you want to play?
+
+
+Here is the list of countries with the rules applied:
+- Netherlands, the size of a line is equal to 10, the white boxes are the boxes used, the pawn is not in the right corner, the holds are compulsory, the pawns can eat backwards, the pawns can eat a queen, the queen does not move only one space, the pawns cannot make a promotion during a roundup
+- France, the size of a line is equal to 10, the white boxes are the boxes used, the pawn is not in the right corner, the holds are compulsory, the pawns can eat backwards, the pawns can eat a queen, the queen does not move only one square, the pawns cannot make a promotion during a roundup
+- Spain, the size of a line is equal to 8, the white boxes are the boxes used, the pawn is in the right corner, the holds are compulsory, the pawns cannot eat backwards, the pawns can eat a queen, the queen does not move one space only, pawns cannot make a promotion during a roundup
+- Italy, the size of a line is equal to 8, the black boxes are the boxes used, the pawn is in the right corner, the holds are compulsory, the pawns cannot eat backwards, the pawns cannot eat a queen , the queen does not move only one square, the pawns can make a promotion during a roundup
+- England the size of a line is equal to 8, the black boxes are the boxes used, the pawn is not in the right corner, the holds are compulsory, the pawns cannot eat backwards, the pawns can eat a queen , the queen moves only one square, the pawns cannot make a promotion during a roundup
+
+The basic rules:
+	- The pawns advance and eat only diagonally
+	- When a pawn arrives on the last line, he makes a promotion and becomes a queen
+	- Pawns only advance one space at a time
+	- Whites always start
+
+C) The tray
+To make a move, you have to click on the pawn you want to move (its box is colored in red), and then click on the box where you want to go. If the first click, the box does not turn red, it means that the game does not allow the move.
+Above the game board, there are messages that appear to guide you through the game.
+D) "History"
+This part is used for players who know the Manoury notation which allows you to redo and analyze the games later.
