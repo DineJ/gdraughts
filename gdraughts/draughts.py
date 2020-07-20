@@ -94,13 +94,17 @@ class Draughts(Gtk.Window):
 		play_button = Gtk.ToolButton.new(img)
 		img = Gtk.Image.new_from_icon_name('preferences-system', 0)
 		custom_button = Gtk.ToolButton.new(img)
+		img = Gtk.Image.new_from_icon_name('dialog-question', 0)
+		help_button = Gtk.ToolButton.new(img)
 
 		quit_button.set_label(_("Close"))
 		play_button.set_label(_("New game"))
 		custom_button.set_label(_("Settings"))
+		help_button.set_label(_("Help"))
 		quit_button.set_is_important(True)
 		play_button.set_is_important(True)
 		custom_button.set_is_important(True)
+		help_button.set_is_important(True)
 
 		self.informations_bar = Gtk.Label()
 		self.informations_bar.set_markup(('<span foreground="#ff710d" size="large" >%s</span>' %_("Start the game")))
@@ -114,13 +118,16 @@ class Draughts(Gtk.Window):
 		tool_bar.insert(quit_button, 0)
 		tool_bar.insert(play_button, 1)
 		tool_bar.insert(custom_button, 2)
+		tool_bar.insert(help_button, 3)
 		quit_button.show()
 		play_button.show()
 		custom_button.show()
+		help_button.show()
 
 		quit_button.connect('clicked', Gtk.main_quit)
 		play_button.connect('clicked', self.dialog)
 		custom_button.connect('clicked', self.custom_dialog)
+		help_button.connect('clicked', self.help_dialog)
 
 		application.pack_start(tool_bar, False, True, 0)
 		application.pack_start(self.informations_bar, False, False, 0)
@@ -136,16 +143,16 @@ class Draughts(Gtk.Window):
 	#show the application
 	def play(self):
 		self.show_all()
-		loc = locale.getdefaultlocale()[0].split('_')[0]
-		if loc == "fr":
+		self.loc = locale.getdefaultlocale()[0].split('_')[0]
+		if self.loc == "fr":
 			self.france()
-		elif loc == "en":
+		elif self.loc == "en":
 			self.england()
-		elif loc == "es":
+		elif self.loc == "es":
 			self.spain()
-		elif loc == "it":
+		elif self.loc == "it":
 			self.italy()
-		elif loc == "nl":
+		elif self.loc == "nl":
 			self.netherlands()
 		self.checker_game.remove(self.checker)
 		self.checker = Checker(self, self.square_size, self.state, self.square_color)
@@ -725,6 +732,57 @@ class Draughts(Gtk.Window):
 			dialog_box.destroy()
 		open_dialog = 0
 
+	#Create a dialog box to help users
+	def help_dialog(self,button):
+		#Dialog
+		help_dialog_box = Gtk.Dialog.new()
+		help_dialog_box.fullscreen()
+		help_dialog_box.set_border_width(10)
+		help_dialog_box.connect('delete-event', Gtk.main_quit)
+		help_dialog_box.show_all()
+		img = Gtk.Image.new_from_icon_name('window-close', 0)
+		help_dialog_box.add_button(Gtk.STOCK_CLOSE, Gtk.ResponseType.CLOSE)
+		help_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
+		help_box = help_dialog_box.get_content_area()
+
+		textview = Gtk.TextView()
+		textbuffer = textview.get_buffer()
+		textview.set_wrap_mode(Gtk.WrapMode.WORD)
+
+		help_scrolled = Gtk.ScrolledWindow()
+		help_scrolled.set_border_width(10)
+		help_scrolled.set_hexpand(True)
+		help_scrolled.set_vexpand(True)
+		help_scrolled.add(textview)
+		help_box.pack_start(help_scrolled, True, True, 0)
+
+		if self.loc == "fr":
+			country_file = "fr-help.txt"
+		elif self.loc == "en":
+			country_file = "en-help.txt"
+		elif self.loc == "es":
+			country_file = "es-help.txt"
+		elif self.loc == "it":
+			country_file = "it-help.txt"
+		elif self.loc == "nl":
+			country_file = "nl-help.txt"
+		selected_file = country_file
+		with open(selected_file, 'r') as f:
+			data = f.read()
+			textbuffer.set_text(data)
+
+		help_dialog_box.show_all()
+		help_dialog_box.set_transient_for(self)
+		help_dialog_box.set_position(Gtk.WindowPosition.CENTER_ALWAYS)
+		self.answer = help_dialog_box.run()
+
+		if self.answer == Gtk.ResponseType.CLOSE:
+			help_dialog_box.destroy()
+
+	#Save the game
+	def save_dialog(self,button):
+		#Dialog
+		save_dialog_box = Gtk.Dialog.new()
 draughts = Draughts()
 draughts.play()
 Gtk.main()
