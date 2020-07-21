@@ -234,7 +234,6 @@ class Checker(Gtk.Grid):
         while y < self.matrix_size:
             x = 0
             color += 1
-
             while x < self.matrix_size:
                 test = self.matrix[y][x]
                 name =  [y,x]

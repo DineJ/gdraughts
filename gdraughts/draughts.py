@@ -24,7 +24,8 @@ from backend import Backend, Node, Stack
 import locale
 import random
 import gettext
-
+import os.path
+from os import path
 ## Localization.
 # if getattr(sys, 'frozen', False):
 #     APP_DIR = os.path.dirname(dirname(sys.executable))
@@ -124,7 +125,7 @@ class Draughts(Gtk.Window):
 		custom_button.show()
 		help_button.show()
 
-		quit_button.connect('clicked', Gtk.main_quit)
+		quit_button.connect('clicked', self.leave)
 		play_button.connect('clicked', self.dialog)
 		custom_button.connect('clicked', self.custom_dialog)
 		help_button.connect('clicked', self.help_dialog)
@@ -140,6 +141,21 @@ class Draughts(Gtk.Window):
 	def set_informations(self, label):
 		self.informations_bar.set_markup(("<span foreground='#ff710d' size='large' >%s</span>" % label))
 
+	#exit the application
+	def leave(self,button):
+		save_file = open("save.txt","w")
+		for line in self.checker.matrix:
+			virg = False
+			for x in line:
+				if virg:
+					arr = (",%s" % str(x))
+				else:
+					arr = ("%s" % str(x))
+				save_file.write(arr)
+			save_file.write("\n")
+		save_file.close()
+		Gtk.main_quit()
+
 	#show the application
 	def play(self):
 		self.show_all()
@@ -154,8 +170,23 @@ class Draughts(Gtk.Window):
 			self.italy()
 		elif self.loc == "nl":
 			self.netherlands()
+
+		
 		self.checker_game.remove(self.checker)
 		self.checker = Checker(self, self.square_size, self.state, self.square_color)
+		try:
+			if path.exists("save.txt"):
+				fin = open('save.txt','r')
+				save_matrix=[]
+				for line in fin.readlines():
+					linearr = []
+					for i in line:
+						if i != '\n':
+							linearr.append(int(i))
+					save_matrix.append(linearr)
+		except ValueError:
+			print("Fine not exist save.bin")
+		self.checker.matrix = save_matrix
 		self.checker_game.set_center_widget(self.checker)
 		self.checker_game.show_all()
 		self.backend = Backend(self.checker.matrix, self, self.rear_socket, self.forced_move, self.eatqueen, self.depth, self.queen, self.promotion_eat)
@@ -779,10 +810,6 @@ class Draughts(Gtk.Window):
 		if self.answer == Gtk.ResponseType.CLOSE:
 			help_dialog_box.destroy()
 
-	#Save the game
-	def save_dialog(self,button):
-		#Dialog
-		save_dialog_box = Gtk.Dialog.new()
 draughts = Draughts()
 draughts.play()
 Gtk.main()
