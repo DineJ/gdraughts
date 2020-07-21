@@ -799,7 +799,7 @@ class Draughts(Gtk.Window):
 			country_file = "it-help.txt"
 		elif self.loc == "nl":
 			country_file = "nl-help.txt"
-		selected_file = ("/home/dine/Documents/Stage/international-checkers-game/%s" % country_file)
+		selected_file = ("/home/dine/Documents/Stage/international-checkers-game/gdraughts/%s" % country_file)
 		with open(selected_file, 'r') as f:
 			data = f.read()
 			textbuffer.set_text(data)
