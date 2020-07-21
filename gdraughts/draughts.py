@@ -143,7 +143,7 @@ class Draughts(Gtk.Window):
 
 	#exit the application
 	def leave(self,button):
-		save_file = open("save.txt","w")
+		save_file = open('%s/.gdraughts.txt' % os.environ['HOME'], "w")
 		for line in self.checker.matrix:
 			virg = False
 			for x in line:
@@ -170,25 +170,27 @@ class Draughts(Gtk.Window):
 			self.italy()
 		elif self.loc == "nl":
 			self.netherlands()
-
-		
+		else:
+			self.loc == "en"
 		self.checker_game.remove(self.checker)
 		self.checker = Checker(self, self.square_size, self.state, self.square_color)
-		try:
-			if path.exists("save.txt"):
-				fin = open('save.txt','r')
-				save_matrix=[]
-				for line in fin.readlines():
-					linearr = []
-					for i in line:
-						if i != '\n':
-							linearr.append(int(i))
-					save_matrix.append(linearr)
-		except ValueError:
-			print("Fine not exist save.bin")
-		self.checker.matrix = save_matrix
 		self.checker_game.set_center_widget(self.checker)
 		self.checker_game.show_all()
+		if self.save_dialog():
+			try:
+				if path.exists(('%s/.gdraughts.txt' % os.environ['HOME'])):
+					fin = open(('%s/.gdraughts.txt' % os.environ['HOME']),'r')
+					save_matrix=[]
+					for line in fin.readlines():
+						linearr = []
+						for i in line:
+							if i != '\n':
+								linearr.append(int(i))
+						save_matrix.append(linearr)
+					self.checker.matrix = save_matrix
+			except ValueError:
+				self.checker = Checker(self, self.square_size, self.state, self.square_color)
+				print("Fine not exist ~/.gdraughts.txt")
 		self.backend = Backend(self.checker.matrix, self, self.rear_socket, self.forced_move, self.eatqueen, self.depth, self.queen, self.promotion_eat)
 		self.backend.fin = False
 		self.backend.pl_before_firstclick()
@@ -797,7 +799,7 @@ class Draughts(Gtk.Window):
 			country_file = "it-help.txt"
 		elif self.loc == "nl":
 			country_file = "nl-help.txt"
-		selected_file = country_file
+		selected_file = ("/home/dine/Documents/Stage/international-checkers-game/%s" % country_file)
 		with open(selected_file, 'r') as f:
 			data = f.read()
 			textbuffer.set_text(data)
@@ -809,6 +811,54 @@ class Draughts(Gtk.Window):
 
 		if self.answer == Gtk.ResponseType.CLOSE:
 			help_dialog_box.destroy()
+
+		#Create a dvalog box to save the game
+	def save_dialog(self):
+		#Dialog
+		save_dialog_box = Gtk.Dialog.new()
+		save_dialog_box.show_all()
+		save_dialog_box.add_button(Gtk.STOCK_APPLY, Gtk.ResponseType.APPLY)
+		#Frame
+		frame_save = Gtk.Frame.new(_("Do you want to save your game?"))
+
+		#Radio Button
+		self.r_save_y = Gtk.RadioButton.new_with_label_from_widget(None, _("Yes"))
+		self.r_save_y.set_always_show_image(True)
+		self.custom_margin(self.r_save_y, 5, 10, 5, 5)
+		self.r_save_n = Gtk.RadioButton.new_from_widget(self.r_save_y)
+		self.r_save_n.set_label(_("No"))
+		self.custom_margin(self.r_save_n, 5, 10, 5, 5)
+
+		action_area = save_dialog_box.get_action_area()
+		action_area.set_halign(3)
+		save_box_dialog = save_dialog_box.get_content_area()
+		save_box_dialog.pack_start(frame_save, True, True, 4)
+
+		#Grid
+		grid_save = Gtk.Grid()
+		grid_save.set_column_spacing(10)
+		grid_save.set_row_spacing(10)
+
+		#Frame
+		frame_save.add(grid_save)
+		
+		#Grid
+		grid_save.set_row_spacing(10)
+		grid_save.attach(self.r_save_y, 0, 0, 1, 1)
+		grid_save.attach(self.r_save_n, 1, 0, 1, 1)
+
+		save_dialog_box.show_all()
+		save_dialog_box.set_transient_for(self)
+		save_dialog_box.set_position(Gtk.WindowPosition.CENTER_ALWAYS)
+		answer = save_dialog_box.run()
+
+		if answer == Gtk.ResponseType.APPLY:
+			if self.r_save_y.get_active():
+				save_dialog_box.destroy()
+				return True
+			else:
+				save_dialog_box.destroy()
+				return False
 
 draughts = Draughts()
 draughts.play()
