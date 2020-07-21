@@ -190,11 +190,11 @@ msgstr "Vous êtes obligé de continuer la rafle"
 
 #: ../gdraughts/checker.py:351
 msgid "You made an illegal hit, start your hit again"
-msgstr "Vous avez fait un coup illégal, recommencez votre coup"
+msgstr "Vous avez fait un coup non permis, reprennez votre coup"
 
 #: ../gdraughts/backend.py:214 ../gdraughts/backend.py:252
 msgid "You must eat"
-msgstr "Vous devez manger"
+msgstr "Vous devez prendre"
 
 #: ../gdraughts/checker.py:392
 msgid "You won"
