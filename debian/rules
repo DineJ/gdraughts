@@ -9,3 +9,6 @@ export PATH := $(CURDIR)/debian/utils:$(PATH)
 
 override_dh_auto_test:
 	echo 'Test'
+override_dh_compress:
+	echo 'Ne compresse pas'
+
