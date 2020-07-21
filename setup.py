@@ -59,7 +59,7 @@ setup (name = 'gdraughts',
           'Topic :: Games/Entertainment :: Board Games',
           ],
     data_files = [("share/gdraughts/images", glob('images/*.jpg')),
-            ("share/doc/gdraughts-0.1", ["Readme", "LICENSE"]),
+            ("share/doc/gdraughts-0.1", ["Readme", "LICENSE", "gdraughts/it-help.txt", "gdraughts/fr-help.txt", "gdraughts/en-help.txt", "gdraughts/nl-help.txt", "gdraughts/sp-help.txt"]),
             ('share/pixmaps', ['gdraughts.png']),
     ]+ create_localised_files()
 
