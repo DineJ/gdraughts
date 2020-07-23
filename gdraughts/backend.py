@@ -221,8 +221,6 @@ class Backend(object):
         eat = False
         offset = 1
         offset_max = self.p_max
-        if self.pawn_queen:
-            offset_max = 2
         while offset < offset_max:
             if -1 < j + (jo * offset) < len(self.matrix) and \
                -1 < i + (io * offset) < len(self.matrix) and \
@@ -269,13 +267,13 @@ class Backend(object):
                 vertical = 1 if param == 2 else -1
                 enemy = 1 if param == 2 else 2
                 cell = self.matrix[i][j]
-                if cell == 1 or cell == 2:
+                if cell == 1 or cell == 2 or self.pawn_queen:
                     self.possible_moves_square(param, enemy, j, i, -1, vertical)
                     self.possible_moves_square(param, enemy, j, i, 1, vertical)
                     if self.rear_socket:
                         self.possible_moves_square(param, enemy, j, i, -1, vertical * -1, False)
                         self.possible_moves_square(param, enemy, j, i, 1, vertical * -1, False)
-                elif cell == 4 or cell == 5:
+                elif (cell == 4 or cell == 5) and not self.pawn_queen:
                     self.possible_moves_queen(param, enemy, j, i, 1, 1)
                     self.possible_moves_queen(param, enemy, j, i, -1, 1)
                     self.possible_moves_queen(param, enemy, j, i, 1, -1)
@@ -373,13 +371,13 @@ class Backend(object):
         enemy = 1 if param == 2 else 2
         cell = self.matrix[i][j]
 
-        if cell == 1 or cell == 2:
+        if cell == 1 or cell == 2 or self.pawn_queen:
             self.eatable_square(param, enemy, j, i, -1, vertical)
             self.eatable_square(param, enemy, j, i, 1, vertical)
             if self.rear_socket:
                 self.eatable_square(param, enemy, j, i, -1, vertical * -1)
                 self.eatable_square(param, enemy, j, i, 1, vertical * -1)
-        elif cell == 4 or cell == 5:
+        elif (cell == 4 or cell == 5) and not self.pawn_queen:
             self.eatable_queen(param, enemy, j, i, -1, vertical * -1)
             self.eatable_queen(param, enemy, j, i, -1, vertical)
             self.eatable_queen(param, enemy, j, i, 1, vertical * -1)
@@ -438,8 +436,10 @@ class Backend(object):
                     self.matrix[one][two] =  cell + 3
                     return 5
                 return 4
-        if first_layer_depth:
+        elif first_layer_depth:
             self.lastjump.append(old[0] * 1000 + old[1] * 100 + new[0] * 10 + new[1])
+        if promotion:
+            self.matrix[one][two] =  cell + 3
         return 1
 
     # defines pc movements

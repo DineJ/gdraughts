@@ -342,7 +342,7 @@ class Checker(Gtk.Grid):
                 row3 = None
                 ret = self.draughts.backend.pl_after_secondclick(self.old_square.name, square.name)
                 self.old_square.square_selected(self.square_size, False)
-                if ret == 0 or ret == 5:
+                if ret == 0:
                     self.old_square = None
                     if self.replay:
                         self.replay = False
@@ -352,7 +352,7 @@ class Checker(Gtk.Grid):
                     if self.draughts.backend.force_jump:
                         self.draughts.set_informations(_("You are forced to continue eating"))
                         return
-                if ret == 2:
+                elif ret == 2:
                     self.rafle = True
                     self.square_notation = self.old_square
                     square.square_selected(self.square_size, True)
@@ -361,6 +361,10 @@ class Checker(Gtk.Grid):
                     self.old_square = square
                     self.replay = True
                     return
+                elif ret == 5:
+                    self.old_square = None
+                    if self.replay:
+                        self.replay = False
                 play = self.draughts.backend.possible_moves(2)
                 if ret == 4:
                     row1 = ("%d" % (self.matrix_coordonate[int(str(self.old_square.name[0]))][int(str(self.old_square.name[1]))]))
