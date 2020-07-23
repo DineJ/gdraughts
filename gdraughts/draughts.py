@@ -188,9 +188,12 @@ class Draughts(Gtk.Window):
 								linearr.append(int(i))
 						save_matrix.append(linearr)
 					self.checker.matrix = save_matrix
+					fin.close()
 			except ValueError:
 				self.checker = Checker(self, self.square_size, self.state, self.square_color)
 				print("Fine not exist ~/.gdraughts.txt")
+		if os.path.exists(('%s/.gdraughts.txt' % os.environ['HOME'])):
+			os.remove(('%s/.gdraughts.txt' % os.environ['HOME']))
 		self.backend = Backend(self.checker.matrix, self, self.rear_socket, self.forced_move, self.eatqueen, self.depth, self.queen, self.promotion_eat)
 		self.backend.fin = False
 		self.backend.pl_before_firstclick()
@@ -817,20 +820,22 @@ class Draughts(Gtk.Window):
 		#Dialog
 		save_dialog_box = Gtk.Dialog.new()
 		save_dialog_box.show_all()
+		child = save_dialog_box.get_children()
 		save_dialog_box.add_button(Gtk.STOCK_APPLY, Gtk.ResponseType.APPLY)
+		child = child[0].get_children()
+		child[0].set_halign(3)
+
 		#Frame
 		frame_save = Gtk.Frame.new(_("Do you want to save your game?"))
 
 		#Radio Button
-		self.r_save_y = Gtk.RadioButton.new_with_label_from_widget(None, _("Yes"))
-		self.r_save_y.set_always_show_image(True)
-		self.custom_margin(self.r_save_y, 5, 10, 5, 5)
-		self.r_save_n = Gtk.RadioButton.new_from_widget(self.r_save_y)
-		self.r_save_n.set_label(_("No"))
-		self.custom_margin(self.r_save_n, 5, 10, 5, 5)
+		r_save_y = Gtk.RadioButton.new_with_label_from_widget(None, _("Yes"))
+		r_save_y.set_always_show_image(True)
+		self.custom_margin(r_save_y, 5, 10, 5, 5)
+		r_save_n = Gtk.RadioButton.new_from_widget(r_save_y)
+		r_save_n.set_label(_("No"))
+		self.custom_margin(r_save_n, 5, 10, 5, 5)
 
-		action_area = save_dialog_box.get_action_area()
-		action_area.set_halign(3)
 		save_box_dialog = save_dialog_box.get_content_area()
 		save_box_dialog.pack_start(frame_save, True, True, 4)
 
@@ -841,11 +846,11 @@ class Draughts(Gtk.Window):
 
 		#Frame
 		frame_save.add(grid_save)
-		
+
 		#Grid
 		grid_save.set_row_spacing(10)
-		grid_save.attach(self.r_save_y, 0, 0, 1, 1)
-		grid_save.attach(self.r_save_n, 1, 0, 1, 1)
+		grid_save.attach(r_save_y, 0, 0, 1, 1)
+		grid_save.attach(r_save_n, 1, 0, 1, 1)
 
 		save_dialog_box.show_all()
 		save_dialog_box.set_transient_for(self)
@@ -853,12 +858,13 @@ class Draughts(Gtk.Window):
 		answer = save_dialog_box.run()
 
 		if answer == Gtk.ResponseType.APPLY:
-			if self.r_save_y.get_active():
+			if r_save_y.get_active():
 				save_dialog_box.destroy()
 				return True
 			else:
 				save_dialog_box.destroy()
 				return False
+		return False
 
 draughts = Draughts()
 draughts.play()
