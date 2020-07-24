@@ -224,6 +224,8 @@ class Backend(object):
         eat = False
         offset = 1
         offset_max = self.p_max
+        if self.pawn_queen:
+            offset_max = 2
         while offset < offset_max:
             if -1 < j + (jo * offset) < len(self.matrix) and \
                -1 < i + (io * offset) < len(self.matrix) and \
@@ -271,13 +273,13 @@ class Backend(object):
                 vertical = 1 if param == 2 else -1
                 enemy = 1 if param == 2 else 2
                 cell = self.matrix[i][j]
-                if cell == 1 or cell == 2 or self.pawn_queen:
+                if cell == 1 or cell == 2:
                     self.possible_moves_square(param, enemy, j, i, -1, vertical)
                     self.possible_moves_square(param, enemy, j, i, 1, vertical)
-                    if self.rear_socket or cell == 4 or cell == 5:
+                    if self.rear_socket:
                         self.possible_moves_square(param, enemy, j, i, -1, vertical * -1, False)
                         self.possible_moves_square(param, enemy, j, i, 1, vertical * -1, False)
-                elif (cell == 4 or cell == 5) and not self.pawn_queen:
+                elif cell == 4 or cell == 5:
                     self.possible_moves_queen(param, enemy, j, i, 1, 1)
                     self.possible_moves_queen(param, enemy, j, i, -1, 1)
                     self.possible_moves_queen(param, enemy, j, i, 1, -1)
@@ -348,7 +350,10 @@ class Backend(object):
     def eatable_queen(self, param, enemy, j, i, jo, io):
         eat = False
         offset = 1
-        while offset < self.p_max - 1  :
+        offset_max = self.p_max
+        if self.pawn_queen:
+            offset_max = 2
+        while offset < offset_max:
             if -1 < j + jo * offset < len(self.matrix) and -1 < i + io * offset < len(self.matrix) and \
                     self.matrix[i + io * offset][j + jo * offset] % 3 != param:
                 if -1 < j + (jo * (offset + 1)) < len(self.matrix) -1 < i + (io * (offset + 1)) < len(self.matrix) and \
@@ -375,13 +380,13 @@ class Backend(object):
         enemy = 1 if param == 2 else 2
         cell = self.matrix[i][j]
 
-        if cell == 1 or cell == 2 or self.pawn_queen:
+        if cell == 1 or cell == 2:
             self.eatable_square(param, enemy, j, i, -1, vertical)
             self.eatable_square(param, enemy, j, i, 1, vertical)
-            if self.rear_socket or cell == 4 or cell == 5:
+            if self.rear_socket:
                 self.eatable_square(param, enemy, j, i, -1, vertical * -1)
                 self.eatable_square(param, enemy, j, i, 1, vertical * -1)
-        elif (cell == 4 or cell == 5) and not self.pawn_queen:
+        elif cell == 4 or cell == 5:
             self.eatable_queen(param, enemy, j, i, -1, vertical * -1)
             self.eatable_queen(param, enemy, j, i, -1, vertical)
             self.eatable_queen(param, enemy, j, i, 1, vertical * -1)
