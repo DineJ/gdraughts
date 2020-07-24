@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: bugs@ordissimo.com\n"
 "POT-Creation-Date: 2020-07-21 17:22+0200\n"
-"PO-Revision-Date: 2019-06-05 14:56+0200\n"
+"PO-Revision-Date: 2020-07-24 17:25+0200\n"
 "Last-Translator: Brice <brice@ordissimo.com>\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -16,15 +16,15 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Pootle 2.1.6\n"
+"X-Generator: Poedit 2.3\n"
 
 #: ../gdraughts/draughts.py:396
-msgid "10 square"
+msgid "10 squares"
 msgstr "10 cases"
 
 #. RadioButton
 #: ../gdraughts/draughts.py:392
-msgid "8 square"
+msgid "8 squares"
 msgstr "8 cases"
 
 #: ../gdraughts/draughts.py:402
@@ -44,33 +44,33 @@ msgid "Computer turn"
 msgstr "Tour de l'ordinateur"
 
 #: ../gdraughts/draughts.py:387
-msgid "Do you want pawns can eat a queen?"
-msgstr "Voulez-vous que les pions puissent manger une dame?"
+msgid "Can panws eat a queen ?"
+msgstr "Les pions peuvent-ils manger une dame ?"
 
 #: ../gdraughts/draughts.py:389
-msgid "Do you want the pawns to become queens during a roundup?"
-msgstr "Voulez-vous que les pions deviennent des dames pendant les rafle?"
+msgid "Can pawns become quenns during roundups ?"
+msgstr "Les pions peuvent-ils devenir des dames au cours des rafles ?"
 
 #: ../gdraughts/draughts.py:388
-msgid "Do you want the queens to be able to move one square?"
-msgstr "Voulez-vous que les dames se déplace d'une case?"
+msgid "Do queens have to move one square ?"
+msgstr "Les dames peuvent-elles de se déplacer d'une seule case ?"
 
 #: ../gdraughts/draughts.py:386
-msgid "Do you want to add being able to eat back?"
-msgstr "Voulez-vous ajouter le fait que les pions mangent en arrière?"
+msgid "Can pawns eat back ?"
+msgstr "Les pions peuvent-ils manger en arrière ?"
 
 #: ../gdraughts/draughts.py:385
-msgid "Do you want to force them to eat?"
-msgstr "Voulez-vous forcer les prises?"
+msgid "Is it compulsory to eat ?"
+msgstr "Les prises sont-elles obligatoires ?"
 
 #. Frame
 #: ../gdraughts/draughts.py:822
-msgid "Do you want to load your game?"
-msgstr "Voulez-vous charger votre partie?"
+msgid "Do you want to resume your previous game ?"
+msgstr "Voulez-vous reprendre votre partie précédente ?"
 
 #: ../gdraughts/draughts.py:384
 msgid "Do you want your pawn to be on the bottom right?"
-msgstr "Voulez-vous que votre pion soit dans la case en bas à droite?"
+msgstr "Votre pion doit-il être placé dans la case en bas à droite?"
 
 #: ../desktop/gdraughts.desktop.in:6
 msgid "Draughts Game"
@@ -78,25 +78,23 @@ msgstr "Jeu de dames"
 
 #: ../gdraughts/draughts.py:289
 msgid "Easy"
-msgstr "Facile"
+msgstr "Faible"
 
 #: ../gdraughts/draughts.py:674
-msgid "England"
-msgstr "Angleterre"
+msgid "english"
+msgstr "anglaises"
 
 #: ../gdraughts/draughts.py:682
-msgid "France"
-msgstr "France"
+msgid "french/polish/international"
+msgstr "françaises/polonaises/internationales"
 
 #: ../desktop/gdraughts.desktop.in:5
-#, fuzzy
-#| msgid "Samuel is a draughts program for the Gnome desktop"
 msgid "Gdraughts is a draughts program for the Gnome desktop"
-msgstr "Samuel est un jeu de dames pour le bureau Gnome"
+msgstr "Gdraughts est un jeu de dames pour le bureau Gnome"
 
 #: ../gdraughts/draughts.py:293
 msgid "Hard"
-msgstr "Dur"
+msgstr "Excellent"
 
 #: ../gdraughts/draughts.py:104
 msgid "Help"
@@ -118,19 +116,19 @@ msgstr "Coup"
 #. Frame
 #: ../gdraughts/draughts.py:382
 msgid "How many square do you want per ligne?"
-msgstr "Combien de cases voulez-vous par ligne?"
+msgstr "Nombre de cases par lignes"
 
 #: ../gdraughts/draughts.py:659
-msgid "Italy"
-msgstr "Italie"
+msgid "italian"
+msgstr "italiennes"
 
 #: ../gdraughts/draughts.py:291
 msgid "Medium"
 msgstr "Moyen"
 
 #: ../gdraughts/draughts.py:650
-msgid "Netherlands"
-msgstr "Pays-Bas"
+msgid "dutch"
+msgstr "néerlandaises"
 
 #: ../gdraughts/draughts.py:102
 msgid "New game"
@@ -152,12 +150,12 @@ msgid "Settings"
 msgstr "Paramètres"
 
 #: ../gdraughts/draughts.py:666
-msgid "Spain"
-msgstr "Espagne"
+msgid "spanish"
+msgstr "espagnoles"
 
 #: ../gdraughts/draughts.py:111
 msgid "Start the game"
-msgstr "Commencez la partie"
+msgstr "Commencer la partie"
 
 #: ../gdraughts/checker.py:324
 msgid "The computer won"
@@ -165,11 +163,11 @@ msgstr "L'ordinateur a gagné"
 
 #: ../gdraughts/draughts.py:383
 msgid "What color do you want in the square at the bottom right?"
-msgstr "Quelle couleur voulez-vous dans le case en bas à droite?"
+msgstr "Couleur de la case en bas à droite"
 
 #: ../gdraughts/draughts.py:287
 msgid "What difficulties do you want?"
-msgstr "Quelle difficultée voulez-vous?"
+msgstr "Niveau de jeu de l'ordinateur"
 
 #. Frame
 #: ../gdraughts/draughts.py:644
@@ -182,7 +180,7 @@ msgstr "Blanche"
 
 #: ../gdraughts/draughts.py:260
 msgid "Who plays first?"
-msgstr "Qui joue en premier?"
+msgstr "Premier joueur"
 
 #. Radio Button
 #: ../gdraughts/draughts.py:408 ../gdraughts/draughts.py:410
@@ -193,7 +191,7 @@ msgid "Yes"
 msgstr "Oui"
 
 #: ../gdraughts/checker.py:353
-msgid "You are forced to continue eating"
+msgid "You are forced to continue the roundup"
 msgstr "Vous êtes obligé de continuer la rafle"
 
 #: ../gdraughts/checker.py:350
@@ -206,7 +204,7 @@ msgstr "Vous devez prendre"
 
 #: ../gdraughts/checker.py:391
 msgid "You won"
-msgstr "Tu as gagné"
+msgstr "Vous avez gagné"
 
 #: ../gdraughts/checker.py:281
 msgid "Your turn"
