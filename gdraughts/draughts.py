@@ -826,7 +826,7 @@ class Draughts(Gtk.Window):
 		child[0].set_halign(3)
 
 		#Frame
-		frame_save = Gtk.Frame.new(_("Do you want to save your game?"))
+		frame_save = Gtk.Frame.new(_("Do you want to load your game?"))
 
 		#Radio Button
 		r_save_y = Gtk.RadioButton.new_with_label_from_widget(None, _("Yes"))
