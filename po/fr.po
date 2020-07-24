@@ -65,8 +65,8 @@ msgstr "Voulez-vous forcer les prises?"
 
 #. Frame
 #: ../gdraughts/draughts.py:822
-msgid "Do you want to save your game?"
-msgstr "Voulez-vous sauvegarder votre partie?"
+msgid "Do you want to load your game?"
+msgstr "Voulez-vous charger votre partie?"
 
 #: ../gdraughts/draughts.py:384
 msgid "Do you want your pawn to be on the bottom right?"
