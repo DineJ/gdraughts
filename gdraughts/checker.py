@@ -208,6 +208,16 @@ class Checker(Gtk.Grid):
                     value += 1
         return value
 
+    def square_green(self):
+        play = self.draughts.backend.possible_moves(1)
+        if len(play) > 0 and self.draughts.forced_move and self.draughts.backend.green:
+            for x in play:
+                green_x = int(x[0][0])
+                green_y = int(x[0][1])
+                green_square = self.get_child_at(green_y, green_x)
+                green_square.square_possible(self.square_size, True)
+
+
     #after you choose an option in dialog window, it destroy the last checker and build another one
     def modify_checker(self, matrix_size = 10, color = 0): 
         self.square_size = (self.square_size * self.matrix_size) / matrix_size
@@ -319,6 +329,7 @@ class Checker(Gtk.Grid):
             jump = []
             self.resize_checker(self.draughts.checker.square_size)
             play = self.draughts.backend.possible_moves(1)
+            self.square_green()
             if len(play) == 0:
                 self.draughts.hit_history.remove(self.draughts.hit_history.get_children()[0])
                 self.draughts.set_informations(_("The computer won"))
@@ -326,7 +337,7 @@ class Checker(Gtk.Grid):
                 self.draughts.row_endgame = Gtk.Label(" %s+ " % (row3))
                 self.draughts.row_endgame.show_all()
                 self.draughts.hit_history.prepend(self.draughts.row_endgame)
-                return 1
+                return 1 
 
 
     #all this part is about player (move,hit,game over)
@@ -334,8 +345,10 @@ class Checker(Gtk.Grid):
         if self.draughts.backend.fin == False:
             if self.old_square == None:
                 if self.draughts.backend.pl_after_firstclick(square.name) == 0:
+                    self.square_green()
                     return
                 if square.square_type != 0:
+                    self.square_green()
                     square.square_selected(self.square_size, True)
                     self.old_square = square
             else:
@@ -343,10 +356,12 @@ class Checker(Gtk.Grid):
                 ret = self.draughts.backend.pl_after_secondclick(self.old_square.name, square.name)
                 self.old_square.square_selected(self.square_size, False)
                 if ret == 0:
+                    self.square_green()
                     self.old_square = None
                     if self.replay:
                         self.replay = False
                     else:
+                        self.square_green()
                         self.draughts.set_informations(_("You made an illegal hit, start your hit again"))
                         return
                     if self.draughts.backend.force_jump:
@@ -366,6 +381,9 @@ class Checker(Gtk.Grid):
                     if self.replay:
                         self.replay = False
                 play = self.draughts.backend.possible_moves(2)
+                if self.draughts.backend.green:
+                    square.square_selected(self.square_size, False)
+                    self.draughts.backend.green = False
                 if ret == 4:
                     row1 = ("%d" % (self.matrix_coordonate[int(str(self.old_square.name[0]))][int(str(self.old_square.name[1]))]))
                     row2 = ("%d" % (self.matrix_coordonate[int(str(square.name[0]))][int(str(square.name[1]))])) 

@@ -22,7 +22,6 @@ from gi.repository import GObject
 import math
 import gettext
 
-
 #draw each square of the checker
 class SquareArea(Gtk.DrawingArea): 
 	def __init__ (self, name=[], color=1.0, square=20, square_type=0, pc_first = False):
@@ -39,6 +38,7 @@ class SquareArea(Gtk.DrawingArea):
 		self.set_halign = Gtk.Align.FILL
 		self.set_valign = Gtk.Align.FILL
 		self.selected = False
+		self.possible = False
 		self.connect('draw', self.do_draw_cb)
 
 
@@ -48,7 +48,13 @@ class SquareArea(Gtk.DrawingArea):
 		width = widget.get_allocated_width()
 		cr.rectangle(0, 0, width, height)
 		if self.selected:
+			self.possible = False
+			self.selected = False
 			cr.set_source_rgba(1.0, 0.0, 0.0, 1.0)
+		elif self.possible:
+			self.possible = False
+			self.selected = False
+			cr.set_source_rgba(0.0, 1.0, 0.0, 1.0)
 		else:
 			cr.set_source_rgba(self.color, self.color, self.color, 1.0)
 		cr.fill()
@@ -109,7 +115,12 @@ class SquareArea(Gtk.DrawingArea):
 		self.set_size_request(size, size)
 		self.queue_draw()
 
-	#resize pawn 
+	def square_possible(self, size, possible):
+		self.possible = possible
+		self.set_size_request(size, size)
+		self.queue_draw()
+
+	#resize pawn
 	def resize_pawn(self, size): 
 		self.set_size_request(size, size)
 		self.queue_draw()

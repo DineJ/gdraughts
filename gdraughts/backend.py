@@ -19,6 +19,7 @@ import copy
 import time
 import random
 import gettext
+from squarearea import SquareArea
 #lang_translations = gettext.translation('checkers', localedir='locales', languages=['fr'])
 #lang_translations.install()
 # define _ shortcut for translations
@@ -145,6 +146,7 @@ class Backend(object):
         self.pawn_queen = pawn_queen
         self.draughts = draughts
         self.promotion_eat = promotion_eat
+        self.green = False
         if not new_matrix:
             if self.p_max==10 :
                 self.matrix = [[0, 2, 0, 2, 0, 2, 0, 2, 0, 2],
@@ -211,6 +213,7 @@ class Backend(object):
                 self.p_moves.append([[i, j], [i + io * 2, j + jo * 2]])
                 self.p_force_moves.append([[i, j], [i + io * 2, j + jo * 2]])
                 if self.draughts != None and self.force_jump and param == 1:
+                    self.green = True
                     self.draughts.set_informations(_("You must eat"))
             elif moves and self.matrix[i + io][j + jo] % 3 == 0:
                 #print(str(i) + ", " + str(j) + " => " + str(i-vertical) + ", " + str(j-1))
@@ -247,6 +250,7 @@ class Backend(object):
                             self.p_moves.append([[i, j], [i + io * (offset + 1), j + jo * (offset + 1)]])
                             self.p_force_moves.append([[i, j], [i + io * (offset + 1), j + jo * (offset + 1)]])
                             if self.draughts != None and self.force_jump and param == 1:
+                                self.green = True
                                 self.draughts.set_informations(_("You must eat"))
                             eat = True
                     elif self.matrix[i + io * offset][j + jo * offset] % 3 == 0:
