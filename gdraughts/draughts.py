@@ -59,12 +59,12 @@ class Draughts(Gtk.Window):
 		self.depth = depth
 		self.queen = queen
 		self.promotion_eat = promotion_eat
+		self.backend = None 
 
 		self.set_border_width(10)
 		self.connect('delete-event', Gtk.main_quit)
 		self.connect("check_resize", self.on_resize)
 		self.set_default_size(640,480)
-
 
 		application = Gtk.Box(orientation = Gtk.Orientation.VERTICAL)
 		game_area = Gtk.Box()
@@ -196,6 +196,7 @@ class Draughts(Gtk.Window):
 			os.remove(('%s/.gdraughts.txt' % os.environ['HOME']))
 		self.backend = Backend(self.checker.matrix, self, self.rear_socket, self.forced_move, self.eatqueen, self.depth, self.queen, self.promotion_eat)
 		self.backend.fin = False
+		self.checker.square_green()
 		self.backend.pl_before_firstclick()
 
 	#set country rules
@@ -357,6 +358,9 @@ class Draughts(Gtk.Window):
 			#self.backend = Backend(self.checker.matrix)
 		else:
 			self.checker.resize_checker(self.square_size)
+			if self.backend:
+				self.checker.square_green()
+
 
 	#gives margins in dialog boxes
 	def custom_margin(self, widget, l, t, r, b):
