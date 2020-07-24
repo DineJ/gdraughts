@@ -274,7 +274,7 @@ class Backend(object):
                 if cell == 1 or cell == 2 or self.pawn_queen:
                     self.possible_moves_square(param, enemy, j, i, -1, vertical)
                     self.possible_moves_square(param, enemy, j, i, 1, vertical)
-                    if self.rear_socket:
+                    if self.rear_socket or cell == 4 or cell == 5:
                         self.possible_moves_square(param, enemy, j, i, -1, vertical * -1, False)
                         self.possible_moves_square(param, enemy, j, i, 1, vertical * -1, False)
                 elif (cell == 4 or cell == 5) and not self.pawn_queen:
@@ -378,7 +378,7 @@ class Backend(object):
         if cell == 1 or cell == 2 or self.pawn_queen:
             self.eatable_square(param, enemy, j, i, -1, vertical)
             self.eatable_square(param, enemy, j, i, 1, vertical)
-            if self.rear_socket:
+            if self.rear_socket or cell == 4 or cell == 5:
                 self.eatable_square(param, enemy, j, i, -1, vertical * -1)
                 self.eatable_square(param, enemy, j, i, 1, vertical * -1)
         elif (cell == 4 or cell == 5) and not self.pawn_queen:
