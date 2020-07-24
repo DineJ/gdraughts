@@ -70,7 +70,7 @@ msgstr "Voulez-vous charger votre partie?"
 
 #: ../gdraughts/draughts.py:384
 msgid "Do you want your pawn to be on the bottom right?"
-msgstr "Voulez-vous que votre pion soit en bas à droite?"
+msgstr "Voulez-vous que votre pion soit dans la case en bas à droite?"
 
 #: ../desktop/gdraughts.desktop.in:6
 msgid "Draughts Game"
@@ -169,7 +169,7 @@ msgstr "Quelle couleur voulez-vous dans le case en bas à droite?"
 
 #: ../gdraughts/draughts.py:287
 msgid "What difficulties do you want?"
-msgstr "Quelles difficulté voulez-vous?"
+msgstr "Quelle difficultée voulez-vous?"
 
 #. Frame
 #: ../gdraughts/draughts.py:644
