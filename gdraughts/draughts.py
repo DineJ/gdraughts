@@ -289,13 +289,13 @@ class Draughts(Gtk.Window):
 
 	#indicates difficulty levels
 	def level_of_difficulty(self):
-		frame_difficulties =  Gtk.Frame.new(_("What difficulties do you want?"))
+		frame_difficulties =  Gtk.Frame.new(_("Game level of the computer?"))
 
 		self.t_easy = Gtk.ToggleButton.new_with_label(_("Easy"))
 		self.custom_margin(self.t_easy, 5, 5, 0, 5)
 		self.t_medium = Gtk.ToggleButton.new_with_label(_("Medium"))
 		self.custom_margin(self.t_medium, 0, 5, 0, 5)
-		self.t_hard = Gtk.ToggleButton.new_with_label(_("Hard"))
+		self.t_hard = Gtk.ToggleButton.new_with_label(_("Excellent"))
 		self.custom_margin(self.t_hard, 0, 5, 5, 5)
 
 		grid_difficulties = Gtk.Grid.new()
@@ -387,14 +387,14 @@ class Draughts(Gtk.Window):
 			self.hit_history.remove(element)
 
 		#Frame
-		frame_matrice = Gtk.Frame.new(_("How many square do you want per ligne?"))
+		frame_matrice = Gtk.Frame.new(_("How many square do you want per line?"))
 		frame_color = Gtk.Frame.new(_("What color do you want in the square at the bottom right?"))
 		frame_color1 = Gtk.Frame.new(_("Do you want your pawn to be on the bottom right?"))
-		frame_forced_move = Gtk.Frame.new(_("Is it compulsory to eat ?"))
-		frame_eatbehind = Gtk.Frame.new(_("Can pawns eat back ?"))
-		frame_eatqueen = Gtk.Frame.new(_("Can panws eat a queen ?"))
-		frame_queen = Gtk.Frame.new(_("Do queens have to move one square ?"))
-		frame_promotion_eat = Gtk.Frame.new(_("Can pawns become quenns during roundups ?"))
+		frame_forced_move = Gtk.Frame.new(_("Are captures compulsory?"))
+		frame_eatbehind = Gtk.Frame.new(_("Can the pawns capture back?"))
+		frame_eatqueen = Gtk.Frame.new(_("Can pawns capture a queen ?"))
+		frame_queen = Gtk.Frame.new(_("Can queens move one square only?"))
+		frame_promotion_eat = Gtk.Frame.new(_("Can pawns become queens in the roundups?"))
 
 		#RadioButton
 		r_chercker8 = Gtk.RadioButton.new_with_label_from_widget(None, _("8 squares"))
@@ -831,7 +831,7 @@ class Draughts(Gtk.Window):
 		child[0].set_halign(3)
 
 		#Frame
-		frame_save = Gtk.Frame.new(_("Do you want to resume your previous game ?"))
+		frame_save = Gtk.Frame.new(_("Do you want to resume your previous game?"))
 
 		#Radio Button
 		r_save_y = Gtk.RadioButton.new_with_label_from_widget(None, _("Yes"))

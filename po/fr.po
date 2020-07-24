@@ -44,28 +44,28 @@ msgid "Computer turn"
 msgstr "Tour de l'ordinateur"
 
 #: ../gdraughts/draughts.py:387
-msgid "Can panws eat a queen ?"
+msgid "Can pawns capture a queen ?"
 msgstr "Les pions peuvent-ils manger une dame ?"
 
 #: ../gdraughts/draughts.py:389
-msgid "Can pawns become quenns during roundups ?"
+msgid "Can pawns become queens in the roundups?"
 msgstr "Les pions peuvent-ils devenir des dames au cours des rafles ?"
 
 #: ../gdraughts/draughts.py:388
-msgid "Do queens have to move one square ?"
+msgid "Can queens move one square only?"
 msgstr "Les dames peuvent-elles de se déplacer d'une seule case ?"
 
 #: ../gdraughts/draughts.py:386
-msgid "Can pawns eat back ?"
-msgstr "Les pions peuvent-ils manger en arrière ?"
+msgid "Can the pawns capture back?"
+msgstr "Les pions peuvent-ils prendre en arrière ?"
 
 #: ../gdraughts/draughts.py:385
-msgid "Is it compulsory to eat ?"
+msgid "Are captures compulsory?"
 msgstr "Les prises sont-elles obligatoires ?"
 
 #. Frame
 #: ../gdraughts/draughts.py:822
-msgid "Do you want to resume your previous game ?"
+msgid "Do you want to resume your previous game?"
 msgstr "Voulez-vous reprendre votre partie précédente ?"
 
 #: ../gdraughts/draughts.py:384
@@ -93,7 +93,7 @@ msgid "Gdraughts is a draughts program for the Gnome desktop"
 msgstr "Gdraughts est un jeu de dames pour le bureau Gnome"
 
 #: ../gdraughts/draughts.py:293
-msgid "Hard"
+msgid "Excellent"
 msgstr "Excellent"
 
 #: ../gdraughts/draughts.py:104
@@ -110,12 +110,12 @@ msgstr "Historique"
 #: ../gdraughts/checker.py:311 ../gdraughts/checker.py:313
 #: ../gdraughts/checker.py:373 ../gdraughts/checker.py:375
 #: ../gdraughts/checker.py:380 ../gdraughts/checker.py:382
-msgid "Hit"
+msgid "Move"
 msgstr "Coup"
 
 #. Frame
 #: ../gdraughts/draughts.py:382
-msgid "How many square do you want per ligne?"
+msgid "How many square do you want per line?"
 msgstr "Nombre de cases par lignes"
 
 #: ../gdraughts/draughts.py:659
@@ -166,7 +166,7 @@ msgid "What color do you want in the square at the bottom right?"
 msgstr "Couleur de la case en bas à droite"
 
 #: ../gdraughts/draughts.py:287
-msgid "What difficulties do you want?"
+msgid "Game level of the computer?"
 msgstr "Niveau de jeu de l'ordinateur"
 
 #. Frame
@@ -195,11 +195,11 @@ msgid "You are forced to continue the roundup"
 msgstr "Vous êtes obligé de continuer la rafle"
 
 #: ../gdraughts/checker.py:350
-msgid "You made an illegal hit, start your hit again"
+msgid "You made an illegal move, make another move"
 msgstr "Vous avez fait un coup non permis, reprennez votre coup"
 
 #: ../gdraughts/backend.py:214 ../gdraughts/backend.py:252
-msgid "You must eat"
+msgid "You must capture"
 msgstr "Vous devez prendre"
 
 #: ../gdraughts/checker.py:391
