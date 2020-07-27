@@ -66,7 +66,7 @@ msgstr "Tour de l'ordinateur"
 #. Frame
 #: ../gdraughts/draughts.py:834
 msgid "Do you want to resume your previous game?"
-msgstr "Voulez-vous reprendre votre partie précédente ?"
+msgstr "Voulez-vous reprendre la partie précédente ?"
 
 #: ../gdraughts/draughts.py:392
 msgid "Do you want your pawn to be on the bottom right?"
