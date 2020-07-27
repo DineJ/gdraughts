@@ -1,56 +1,45 @@
-A) L’ouverture de l’application 
-	- Cliquer sur «Fermer» ce qui fermera l’application 
-	- Jouer directement
-	- «Nouvelle partie» et «Paramètres» vous ouvriront des options
-
-B) «Nouvelle Partie» et «Paramètres»
-Une boite de dialogue arrive au milieu de votre écran. Cette boite de dialogue propose plusieurs choix : le niveau de difficulté de l’ordinateur; qui fera le premier coup; avec quelles règles vous comptez jouer et si vous voulez valider vos choix ou juste fermer la boite de dialogue.
-
-Pour choisir une option dans "Nouvelle Partie", il faut cliquer dessus. Je veux jouer en difficulté facile je clique sur «Facile». Je veux jouer en premier, je clique sur «Joueur». Quand on sélectionne un pays, on sélectionne l’ensemble des règles officielles du pays.
-Si je veux juste fermer la boite de dialogue et qu’elle ne prenne pas en compte ce que j’ai sélectionné, je clique sur «Annuler», si je veux jouer selon les critères que j’ai sélectionnés («Facile»,«Joueur»,«France»), j’appuie sur «Appliquer». Dans les deux cas la boite de dialogue va se fermer, si vous avez appuyé sur «Appliquer», le plateau de jeu va reprendre sa position initiale et ensuite va appliquer les modifications, par contre si vous avez appuyé sur «Annuler», il n’y aura que la fermeture de la boite de dialogue. 
-Pour «Paramètres» vous cliquez sur les options que vous voulez et ensuite vous décidez soit d’appliquer, soit d’annuler vos choix.
-
-«Nouvelle Partie» a des règles pré-définis, ce qui vous permet de jouer directement avec les règles du pays de votre choix.
-«Paramètres» vous permet de personnaliser votre partie selon vos propres choix.
-
-- Dans «Paramètres»
-	- Premier choix, quel est le niveau de l’ordinateur?
-	- Deuxième choix, qui doit faire le premier coup?
-	- Troisième choix, combien de pions voulez-vous par ligne?
-	- Quatrième choix, sur quelles cases vous ne voulez pas jouer?
-	- Cinquième choix, est-ce que votre pion doit être dans le coin inférieur droit?
-	- Sixième choix, les prises sont-elles obligatoires?
-	- Septième choix, les pions peuvent-ils manger en arrière?
-	- Huitième choix, les pions ont-ils le droit de manger une dame?
-	- Neuvième choix, une dame doit-elle se déplacer uniquement d’une case?
-	- Dixième choix, les pions peuvent-ils faire promotion au cours d’une rafle?
-
-- Dans «Nouvelle Partie»
-	- Premier choix, identique à «Paramètres»
-	- Deuxième choix, identique à «Paramètres»
-	- Troisième choix, selon les règles de quels pays voulez-vous jouer?
-
-
-Voici-donc la liste des pays avec les règles appliquées:
-- Pays-Bas, la taille de chaque ligne vaut 10, les cases blanches sont les cases utilisées, le pion n’est pas dans le coin inférieur droit, les prises sont obligatoires, les pions peuvent manger en arrière, les pions peuvent manger une dame, la dame peut faire de longs déplacements, les pions ne peuvent pas faire une promotion au cours d’une rafle.
-
-- France , la taille d’une ligne vaut 10, les cases blanches sont les cases utilisées, le pion n’est pas dans le coin inférieur droit,  les prises sont obligatoires, les pions peuvent manger en arrière, les pions peuvent manger une dame, la dame peut faire de longs déplacements, les pions ne peuvent pas faire une promotion au cours d’une rafle.
-
-- Espagne, la taille d’une ligne vaut 8, les cases blanches sont les cases utilisées, le pion est dans le coin inférieur droit, les prises sont obligatoires, les pions ne peuvent pas manger en arrière, les pions peuvent manger une dame, la dame peut faire de longs déplacements, les pions ne peuvent pas faire une promotion au cours d’une rafle.
-
-- Italie, la taille d’une ligne vaut 8, les cases noires sont les cases utilisées, le pion est dans le coin inférieur droit, les prises sont obligatoires, les pions ne peuvent pas manger en arrière, les pions ne peuvent pas manger une dame, la dame peut faire de longs déplacements, les pions peuvent faire une promotion au cours d’une rafle.
-
-- Angleterre la taille d’une ligne vaut 8, les cases noires sont les cases utilisées, le pion n’est pas dans le coin inférieur droit, les prises sont obligatoires, les pions ne peuvent pas manger en arrière, les pions peuvent manger une dame, la dame se déplace d’une case seulement, les pions ne peuvent pas faire une promotion au cours d’une rafle
-
 Les règles de bases:
-	- Les pions avancent et mangent uniquement en diagonale
-	- Quand un pion arrive sur la dernière ligne, il fait une promotion et devient une dame
-	- Les pions n’avancent que d’une case à la fois
-	- Les blancs commencent toujours
+    - Les pions avancent et mangent uniquement en diagonale
+    - Quand un pion arrive sur la dernière ligne, il fait une promotion et devient une dame
+    - Les pions n’avancent que d’une case à la fois
+    - Les blancs commencent toujours
 
-C) Le plateau
-Pour jouer un coup, il faut cliquer sur le pion que l’on souhaite déplacer (sa case se colorie en rouge) et ensuite cliquer sur la case où l’on veut aller. Si au premier clique, le case ne devient pas rouge c’est que le jeu n’autorise pas le coup.
-Lorsqu’un coup est obligatoire, la case des pions qui peuvent se déplacer se colorie en vert.
-Au dessus du plateau de jeu, il y a des messages qui s’affichent pour vous guider durant toute la partie.
-D) «Historique» 
-Cette partie sert pour des joueurs connaissant la notation Manoury ce qui permet de refaire et d’analyser les parties plus tard.
+A) Ouverture de l’application
+    - Une boite de dialogue apparait, elle permet de charger votre précédente partie, si une sauvegarde existe.
+    - Le bouton «Fermer», ferme l’application et sauvegarde la partie en cours.
+    - Les boutons «Nouvelle partie» et «Paramètres» permettent de mettre en place des options
+    - Le bouton «Aide» ouvre ce texte dans une boite de dialogue
+
+B) «Nouvelle Partie»
+    Cette boite de dialogue propose plusieurs choix :
+       - Le niveau de difficulté de l’ordinateur
+       - Qui de l'ordinateur ou du joueur commence
+       - Les choix des règles appliquées en fonction du pays: 
+            a) Pays-Bas, la taille d'une ligne est 10, les cases blanches sont les cases utilisées, le pion n’est pas dans le coin inférieur droit, les prises sont obligatoires, les pions peuvent manger en arrière, les pions peuvent manger une dame, la dame peut faire de longs déplacements, les pions ne peuvent pas faire une promotion au cours d’une rafle.
+            b) France, la taille d’une ligne est 10, les cases blanches sont les cases utilisées, le pion n’est pas dans le coin inférieur droit,  les prises sont obligatoires, les pions peuvent manger en arrière, les pions peuvent manger une dame, la dame peut faire de longs déplacements, les pions ne peuvent pas faire une promotion au cours d’une rafle.
+            c) Espagne, la taille d’une ligne est 8, les cases blanches sont les cases utilisées, le pion est dans le coin inférieur droit, les prises sont obligatoires, les pions ne peuvent pas manger en arrière, les pions peuvent manger une dame, la dame peut faire de longs déplacements, les pions ne peuvent pas faire une promotion au cours d’une rafle.
+            d) Italie, la taille d’une ligne est 8, les cases noires sont les cases utilisées, le pion est dans le coin inférieur droit, les prises sont obligatoires, les pions ne peuvent pas manger en arrière, les pions ne peuvent pas manger une dame, la dame peut faire de longs déplacements, les pions peuvent faire une promotion au cours d’une rafle.
+            e) Angleterre, la taille d’une ligne est 8, les cases noires sont les cases utilisées, le pion n’est pas dans le coin inférieur droit, les prises sont obligatoires, les pions ne peuvent pas manger en arrière, les pions peuvent manger une dame, la dame se déplace d’une case seulement, les pions ne peuvent pas faire une promotion au cours d’une rafle
+
+C) «Paramètres»
+    Cette boite de dialogue propose plusieurs choix :
+       - Le niveau de difficulté de l’ordinateur
+       - Qui de l'ordinateur ou du joueur commence
+       - Les possibilités de jouer aux dames en composant les règles que vous souhaitez, si votre pays n'est pas listé dans la boite de dialogue «Nouvelle Partie»:
+            a) Combien de pions voulez-vous par ligne?
+            b) Sur quelles cases vous ne voulez pas jouer?
+            c) Est-ce que votre pion doit être dans le coin inférieur droit?
+            d) Les prises sont-elles obligatoires?
+            e) Les pions peuvent-ils manger en arrière?
+            f) Les pions ont-ils le droit de manger une dame?
+            g) Une dame doit-elle se déplacer uniquement d’une case?
+            f) Les pions peuvent-ils faire promotion au cours d’une rafle?
+
+
+D) Le plateau
+    Pour jouer un coup, il faut cliquer sur le pion que l’on souhaite déplacer (sa case se colorie en rouge) et ensuite cliquer sur la case où l’on veut aller. Si au premier clic, le case ne devient pas rouge c’est que le jeu n’autorise pas le coup.
+Lorsqu’un coup est obligatoire, tous les pions qui peuvent se déplacer ont leurs cases qui se colorient en vert.
+Au dessus du plateau de jeu, des messages s’affichent pour vous guider durant toute la partie.
+
+E) «Historique»
+    Cette partie utilise la notation Manoury et permet de refaire et d’analyser des parties.
