@@ -25,6 +25,7 @@ import locale
 import random
 import gettext
 import os.path
+import array as arr
 from os import path
 ## Localization.
 # if getattr(sys, 'frozen', False):
@@ -144,7 +145,11 @@ class Draughts(Gtk.Window):
 
 	#exit the application
 	def leave(self,button):
-		save_file = open('%s/.gdraughts.txt' % os.environ['HOME'], "w")
+		conf_matrix=('%s/.gdraughts' % os.environ['HOME'])
+		conf_matrix_file=('%s/gdraughts.txt' % conf_matrix)
+		if not os.path.exists(conf_matrix): 
+			os.mkdir(conf_matrix, 0o0755 )
+		save_file = open(conf_matrix_file, "w")
 		for line in self.checker.matrix:
 			virg = False
 			for x in line:
@@ -160,6 +165,9 @@ class Draughts(Gtk.Window):
 	#show the application
 	def play(self):
 		self.show_all()
+		conf_matrix=('%s/.gdraughts' % os.environ['HOME'])
+		conf_matrix_file=('%s/gdraughts.txt' % conf_matrix)
+		conf_path_file=('%s/config' % conf_matrix)
 		self.loc = locale.getdefaultlocale()[0].split('_')[0]
 		if self.loc == "fr":
 			self.france()
@@ -173,14 +181,33 @@ class Draughts(Gtk.Window):
 			self.netherlands()
 		else:
 			self.loc == "en"
+			self.england()
+
+		if os.path.exists(conf_matrix) and os.path.exists(conf_path_file) : 
+			open_file = open(conf_path_file,"rb")
+			conf_array=list(open_file.read())
+			open_file.close()
+			print(conf_array)
+			self.depth = conf_array.pop(0)
+			self.pc_first = conf_array.pop(0)
+			self.state = conf_array.pop(0)
+			self.matrix_classic = conf_array.pop(0)
+			self.square_color = conf_array.pop(0)
+			self.forced_move = conf_array.pop(0)
+			self.rear_socket = conf_array.pop(0)
+			self.eatqueen = conf_array.pop(0)
+			self.queen = conf_array.pop(0)
+			self.promotion_eat = conf_array.pop(0)
 		self.checker_game.remove(self.checker)
 		self.checker = Checker(self, self.square_size, self.state, self.square_color)
 		self.checker_game.set_center_widget(self.checker)
 		self.checker_game.show_all()
+		load_matrix = False
+
 		if self.save_dialog():
 			try:
-				if path.exists(('%s/.gdraughts.txt' % os.environ['HOME'])):
-					fin = open(('%s/.gdraughts.txt' % os.environ['HOME']),'r')
+				if os.path.exists(conf_matrix) and os.path.exists(conf_matrix_file) :
+					fin = open(conf_matrix_file,'r')
 					save_matrix=[]
 					for line in fin.readlines():
 						linearr = []
@@ -190,14 +217,19 @@ class Draughts(Gtk.Window):
 						save_matrix.append(linearr)
 					self.checker.matrix = save_matrix
 					fin.close()
+					load_matrix = True
 			except ValueError:
 				self.checker = Checker(self, self.square_size, self.state, self.square_color)
-				print("Fine not exist ~/.gdraughts.txt")
-		if os.path.exists(('%s/.gdraughts.txt' % os.environ['HOME'])):
-			os.remove(('%s/.gdraughts.txt' % os.environ['HOME']))
+				print("Fine not exist ~/.gdraughts/gdraughts.txt")
+		if os.path.exists(conf_matrix_file):
+			os.remove(conf_matrix_file)
 		self.backend = Backend(self.checker.matrix, self, self.rear_socket, self.forced_move, self.eatqueen, self.depth, self.queen, self.promotion_eat)
 		self.backend.fin = False
 		self.checker.square_green()
+		if self.pc_first and load_matrix == False:
+				self.checker.play_on_timeout(self.checker.stack)
+		self.checker.matrix = self.backend.get_matrix()
+		self.checker.resize_checker(self.checker.square_size)
 		self.backend.pl_before_firstclick()
 
 	#set country rules
@@ -362,6 +394,26 @@ class Draughts(Gtk.Window):
 			if self.backend:
 				self.checker.square_green()
 
+	def config_save(self):
+		conf_array = []
+		conf_array.append(self.depth)
+		conf_array.append(self.pc_first)
+		conf_array.append(self.state)
+		conf_array.append(self.matrix_classic)
+		conf_array.append(self.square_color)
+		conf_array.append(self.forced_move)
+		conf_array.append(self.rear_socket)
+		conf_array.append(self.eatqueen)
+		conf_array.append(self.queen)
+		conf_array.append(self.promotion_eat)
+
+		conf_path=('%s/.gdraughts' % os.environ['HOME'])
+		if not os.path.exists(conf_path): 
+			os.mkdir(conf_path, 0o0755 )
+		save_file = open(('%s/config' % conf_path),"wb")
+		arr = bytearray(conf_array)
+		save_file.write(arr)
+		save_file.close()
 
 	#gives margins in dialog boxes
 	def custom_margin(self, widget, l, t, r, b):
@@ -615,6 +667,7 @@ class Draughts(Gtk.Window):
 			else:
 				self.promotion_eat = False
 
+			self.config_save()
 			self.checker_game.remove(self.checker)
 			self.checker = Checker(self, self.square_size, self.state, self.square_color)
 			self.checker_game.set_center_widget(self.checker)
@@ -758,6 +811,7 @@ class Draughts(Gtk.Window):
 				self.italy()
 				r_ita.set_active(True)
 
+			self.config_save()
 			self.checker_game.remove(self.checker)
 			self.checker = Checker(self, self.square_size, self.state, self.square_color)
 			self.checker_game.set_center_widget(self.checker)
