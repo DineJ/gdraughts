@@ -13,11 +13,12 @@ This project aims is to be able to play with all the rules. The main problem is 
 
 Usage:
 
-When you started the game, you have 3 options :
+When you start the game, you have 4 options :
     - option 1, play
     - option 2, open the first dialog box and select a difficulty and a country
-    - option 3, opent the second dialog box, select with which rules you want to play and with what difficulty
-    
+    - option 3, open the second dialog box, select with which rules you want to play and with what difficulty
+    - option 4, if you have already played a game in this application, when you start a new game, a new dialog box opens, it allow you to load your previous game
+
 In the first dialog box, you have a limited choice of country (currently France, Spain, England, Netherlands, Italy). 
 Of course, someone may not want to play with these rules for any reason. That's why the second dialog box is here. She allow to create your own game.
 
