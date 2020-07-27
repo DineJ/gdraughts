@@ -300,27 +300,27 @@ class Checker(Gtk.Grid):
                 row2 = ("%s" % (self.matrix_coordonate[int(str(jump[x])[2])][int(str(jump[x])[3])]))
                 if count - count2 >= 1:
                     if self.draughts.pc_first == False:
-                        row3 = ('%s %d : (%s) x (%s)' % (_("Hit"),self.draughts.turn,row1,row2))
+                        row3 = ('%s %d : (%s) x (%s)' % (_("Move"),self.draughts.turn,row1,row2))
                     else:
-                        row3 = ('%s %d : %s x %s' % (_("Hit"),self.draughts.turn,row1,row2))
+                        row3 = ('%s %d : %s x %s' % (_("Move"),self.draughts.turn,row1,row2))
                 else:
                     if self.draughts.pc_first == False:
-                        row3 = ('%s %d : (%s) - (%s)' % (_("Hit"),self.draughts.turn,row1,row2))
+                        row3 = ('%s %d : (%s) - (%s)' % (_("Move"),self.draughts.turn,row1,row2))
                     else:
-                        row3 = ('%s %d : %s - %s' % (_("Hit"),self.draughts.turn,row1,row2))
+                        row3 = ('%s %d : %s - %s' % (_("Move"),self.draughts.turn,row1,row2))
             elif len(str(jump[0])) == 3:
                 row1 = ("%s" % (self.matrix_coordonate[int(str("0"))][int(str(jump[x])[0])]))
                 row2 = ("%s" % (self.matrix_coordonate[int(str(jump[x])[1])][int(str(jump[x])[2])]))
                 if count - count2 >= 1:
                     if self.draughts.pc_first == False:
-                        row3 = ('%s %d : (%s) x (%s)' % (_("Hit"),self.draughts.turn,row1,row2))
+                        row3 = ('%s %d : (%s) x (%s)' % (_("Move"),self.draughts.turn,row1,row2))
                     else:
-                        row3 = ('%s %d : %s x %s' % (_("Hit"),self.draughts.turn,row1,row2))
+                        row3 = ('%s %d : %s x %s' % (_("Move"),self.draughts.turn,row1,row2))
                 else:
                     if self.draughts.pc_first == False:
-                        row3 = ('%s %d : (%s) - (%s)' % (_("Hit"),self.draughts.turn,row1,row2))
+                        row3 = ('%s %d : (%s) - (%s)' % (_("Move"),self.draughts.turn,row1,row2))
                     else:
-                        row3 = ('%s %d : %s - %s' % (_("Hit"),self.draughts.turn,row1,row2))
+                        row3 = ('%s %d : %s - %s' % (_("Move"),self.draughts.turn,row1,row2))
             self.draughts.row_label2 = Gtk.Label(row3)
             if self.draughts.pc_first == False:
                 self.draughts.turn += 1
@@ -362,7 +362,7 @@ class Checker(Gtk.Grid):
                         self.replay = False
                     else:
                         self.square_green()
-                        self.draughts.set_informations(_("You made an illegal hit, start your hit again"))
+                        self.draughts.set_informations(_("You made an illegal move, start your move again"))
                         return
                     if self.draughts.backend.force_jump:
                         self.draughts.set_informations(_("You are forced to continue eating"))
@@ -392,16 +392,16 @@ class Checker(Gtk.Grid):
                         self.rafle = False
                         self.replay = False
                     if self.draughts.pc_first == False:
-                        row3 = ('%s %d : %s x %s' % (_("Hit"),self.draughts.turn,row1,row2))
+                        row3 = ('%s %d : %s x %s' % (_("Move"),self.draughts.turn,row1,row2))
                     else:
-                        row3 = ('%s %d : (%s) x (%s)' % (_("Hit"),self.draughts.turn,row1,row2))
+                        row3 = ('%s %d : (%s) x (%s)' % (_("Move"),self.draughts.turn,row1,row2))
                 elif ret == 1:
                     row1 = ("%d" % (self.matrix_coordonate[int(str(self.old_square.name[0]))][int(str(self.old_square.name[1]))]))
                     row2 = ("%d" % (self.matrix_coordonate[int(str(square.name[0]))][int(str(square.name[1]))]))
                     if self.draughts.pc_first == False:
-                        row3 = ('%s %d : %s - %s' % (_("Hit") ,self.draughts.turn,row1,row2))
+                        row3 = ('%s %d : %s - %s' % (_("Move") ,self.draughts.turn,row1,row2))
                     else:
-                        row3 = ('%s %d : (%s) - (%s)' % (_("Hit"),self.draughts.turn,row1,row2))
+                        row3 = ('%s %d : (%s) - (%s)' % (_("Move"),self.draughts.turn,row1,row2))
                 self.draughts.row_label1 = Gtk.Label(row3)
                 self.draughts.row_label1.show_all()
                 self.draughts.hit_history.prepend(self.draughts.row_label1)

@@ -214,7 +214,7 @@ class Backend(object):
                 self.p_force_moves.append([[i, j], [i + io * 2, j + jo * 2]])
                 if self.draughts != None and self.force_jump and param == 1:
                     self.green = True
-                    self.draughts.set_informations(_("You must eat"))
+                    self.draughts.set_informations(_("You must capture"))
             elif moves and self.matrix[i + io][j + jo] % 3 == 0:
                 #print(str(i) + ", " + str(j) + " => " + str(i-vertical) + ", " + str(j-1))
                 self.p_moves.append([[i, j], [i + io, j + jo]]) 
@@ -253,7 +253,7 @@ class Backend(object):
                             self.p_force_moves.append([[i, j], [i + io * (offset + 1), j + jo * (offset + 1)]])
                             if self.draughts != None and self.force_jump and param == 1:
                                 self.green = True
-                                self.draughts.set_informations(_("You must eat"))
+                                self.draughts.set_informations(_("You must capture"))
                             eat = True
                     elif self.matrix[i + io * offset][j + jo * offset] % 3 == 0:
                         #print(str(i) + ", " + str(j) + " => " + str(i-vertical) + ", " + str(j-1))
