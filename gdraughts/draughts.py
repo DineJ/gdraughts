@@ -394,6 +394,7 @@ class Draughts(Gtk.Window):
 			if self.backend:
 				self.checker.square_green()
 
+	#allows you to save user settings
 	def config_save(self):
 		conf_array = []
 		conf_array.append(self.depth)
@@ -874,7 +875,7 @@ class Draughts(Gtk.Window):
 		if self.answer == Gtk.ResponseType.CLOSE:
 			help_dialog_box.destroy()
 
-		#Create a dvalog box to save the game
+	#Create a dvalog box to save the game
 	def save_dialog(self):
 		#Dialog
 		save_dialog_box = Gtk.Dialog.new()

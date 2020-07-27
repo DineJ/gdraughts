@@ -208,6 +208,7 @@ class Checker(Gtk.Grid):
                     value += 1
         return value
 
+    #color the pawn square in green
     def square_green(self):
         play = self.draughts.backend.possible_moves(1)
         if len(play) > 0 and self.draughts.forced_move and self.draughts.backend.green:

@@ -109,12 +109,13 @@ class SquareArea(Gtk.DrawingArea):
 		cr.stroke()
 		cr.restore()
 
-	#select a square
+	#select the pawn on which you clicked 
 	def square_selected(self, size, selected):
 		self.selected = selected
 		self.set_size_request(size, size)
 		self.queue_draw()
 
+	#only keep the pawns that can move
 	def square_possible(self, size, possible):
 		self.possible = possible
 		self.set_size_request(size, size)
