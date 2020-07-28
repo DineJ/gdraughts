@@ -1,3 +1,7 @@
+Dine JRIDI (dinejridi@gmail.com)
+Gdraughts is a checkers game program written in python3/GTK3. 
+It is licensed under the GPL version 3 or later
+
 The basic rules:
 	- The pawns advance and eat only diagonally
 	- When a pawn arrives on the last line, he makes a promotion and becomes a queen

@@ -1,3 +1,7 @@
+Dine JRIDI (dinejridi@gmail.com)
+Gdraughts est un jeu de dame écris en python3/GTK3. 
+Il est sous la licence GPL version 3 ou suivante.
+
 Les règles de bases:
     - Les pions avancent et mangent uniquement en diagonale
     - Quand un pion arrive sur la dernière ligne, il fait une promotion et devient une dame
