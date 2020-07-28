@@ -1,52 +1,52 @@
-A) Opening the application
-- Click on "Close" which will close the application
-- Play directly
-- "New game" and "Settings" will open options
-
-B) "New Game" and "Settings"
-A dialog box appears in the middle of your screen. This dialog is made up of a part which deals with the difficulty of the computer, another part  on who will play white; a part with which rules you will play and finally, the part which takes care of if you want to validate your choices or just close the dialog box.
-
-To choose an option, click on it. I want to play on easy difficulty so I click on "Easy". I want to play first, I click on "Player". For the third part, I choose a country for example "France", when we select a country we select a set of official rules of the country.
-If I just want to close the dialog and it doesn't take into account what I have selected, I click on "Cancel" if I want to play according to the criteria I have selected ("Easy", " Player "," France "), I press" Apply ". In both cases the dialog box will close if you have pressed "Apply", the game board will return to its initial position and then will apply the modifications, however if you have pressed "Cancel", it will not there will be only the closing of the dialog box.
-For "Settings" you click on the options you want and then you decide either to apply or to cancel your choices.
-
-"New Game" has pre-defined rules which allow you to play directly with the rules of the country of your choice.
-"Settings" which allows you to customize your game according to your own wishes.
-
-	- In "Settings"
-		- First choice, what is the level of the computer?
-		- Second choice, who should make the first move?
-		- Third choice, how many pawns do you want per line?
-		- Fourth choice, on which squares you do not want to play?
-		- Fifth choice, should your pawn be in the right corner?
-		- Sixth choice, are the sockets compulsory?
-		- Seventh choice, can pawns eat backwards?
-		- Eighth choice, are pawns allowed to eat a queen?
-		- Ninth choice, should a queen move only one square?
-		- Tenth choice, can pawns promote during a roundup?
-
-
-	- In "New Game"
-		- First choice, identical to "Parameters"
-		- Second choice, identical to "Parameters"
-		- Third choice, according to the rules of which countries do you want to play?
-
-
-Here is the list of countries with the rules applied:
-- Netherlands, the size of a line is equal to 10, the white boxes are the boxes used, the pawn is not in the right corner, the holds are compulsory, the pawns can eat backwards, the pawns can eat a queen, the queen does not move only one space, the pawns cannot make a promotion during a roundup
-- France, the size of a line is equal to 10, the white boxes are the boxes used, the pawn is not in the right corner, the holds are compulsory, the pawns can eat backwards, the pawns can eat a queen, the queen does not move only one square, the pawns cannot make a promotion during a roundup
-- Spain, the size of a line is equal to 8, the white boxes are the boxes used, the pawn is in the right corner, the holds are compulsory, the pawns cannot eat backwards, the pawns can eat a queen, the queen does not move one space only, pawns cannot make a promotion during a roundup
-- Italy, the size of a line is equal to 8, the black boxes are the boxes used, the pawn is in the right corner, the holds are compulsory, the pawns cannot eat backwards, the pawns cannot eat a queen , the queen does not move only one square, the pawns can make a promotion during a roundup
-- England the size of a line is equal to 8, the black boxes are the boxes used, the pawn is not in the right corner, the holds are compulsory, the pawns cannot eat backwards, the pawns can eat a queen , the queen moves only one square, the pawns cannot make a promotion during a roundup
-
 The basic rules:
 	- The pawns advance and eat only diagonally
 	- When a pawn arrives on the last line, he makes a promotion and becomes a queen
 	- Pawns only advance one space at a time
 	- Whites always start
 
-C) The tray
-To make a move, you have to click on the pawn you want to move (its box is colored in red), and then click on the box where you want to go. If the first click, the box does not turn red, it means that the game does not allow the move.
-Above the game board, there are messages that appear to guide you through the game.
+A) Opening the application
+	- A dialog box appears, it allows you to load your previous game, if a save exists.
+	- The "Close" button closes the application and saves the current game.
+	- The "New game" and "Parameters" buttons allow you to set up options
+	- The "Help" button opens this text in a dialog box
+
+B) "New game"
+	This dialog box offers many choices:
+		- Level of difficulty
+		- Who starts the game
+		- Rules depending on the country:
+			a) Netherlands, the size of a row is 10, white squares are the squares used, pawn is not in the lower right corner, captures are compulsory, pawns can eat back, pawns can eat a queen, the queen can travel long distances, pawns cannot promote in a roundup
+			b) France, the size of a row is 10, white squares are the squares used, pawn is not in the lower right corner, captures are compulsory, pawns can eat back, pawns can eat a queen, the queen can travel long distances, pawns cannot promote in a roundup
+			c) Spain, the size of a row is 8, white squares are the squares used, the pawn is in the lower right corner, captures are compulsory, pawns cannot eat back, pawns can eat a queen , the queen can travel long, pawns cannot promote during a roundup
+			d) Italy, the size of a row is 8, black squares are the squares used, pawn is in the lower right corner, captures are compulsory, pawns cannot eat back, pawns cannot eat a queen, a queen can travel long, pawns can promote in a roundup
+			e) England, the size of a row is 8, black squares are the squares used, pawn is not in the lower right corner, captures are compulsory, pawns cannot eat back, pawns can eat a queen, the queen moves only one space, pawns cannot promote during a roundup
+
+C)“Settings":
+	This dialog box offers many choices:
+		- Level of difficulty
+		- Who starts the game
+		- The possibilities to play checkers by composing the rules you want, if your country is not listed in the "New game" dialog box:
+			a) How many squares do you want per row?
+			b) Which squares you want to play on?
+			c) Does your pawn have to be in the lower right corner?
+			d) Captures are compulsory?
+			e) Can pawns capture back?
+			f) Are pawns allowed to eat a queen?
+			g) Does a queen have to move a single space?
+			h) Can pawns promote during a roundup?
+
+D)Bord game:
+	For play a move, it's necessary to click on your pawn that you want to move (its square turns red),after that you have to click on the square where you want to go. If at your first click, the square don't turns red, it's because your move is not allowed.
+When a move is compulsory, all the pawns that can move have their squares that are colored green.
+Above the game board, messages are displayed to guide you through the game.
+
 D) "History"
-This part is used for players who know the Manoury notation which allows you to redo and analyze the games later.
+This part is used for players who know the Manoury notation which allows you to redo and analyze the games later. On the right of the checker game, you can see messages appear each time a movement is make. It is the Manoury rating that allows you to redo a game with this list of moves. Black moves are always marked in parentheses, the message is made up of 3 parts:
+	- part 1, the starting square
+	- part 2, the information of the move
+	- part 3, the finishing square
+For part 1 and part 3, the notation is as follows. Note the squares 1 by 1 starting with the black side and only on the active squares. Here is a link with photos to explain in more detail.
+http://www.ffjd.fr/Web/index.php?page=notation
+For part 2, there are 2 things. An "-" which signifies a movement or an "x" which signifies that someone has just eaten.
+When someone wins, at the end of the message appears a "+", which means the move that wins the game
+
