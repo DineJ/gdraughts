@@ -431,7 +431,7 @@ class Draughts(Gtk.Window):
 		self.open_dialog = 1
 		custom_dialog_box = Gtk.Dialog.new()
 		custom_dialog_box.set_border_width(10)
-		custom_dialog_box.connect('delete-event', Gtk.main_quit)
+		custom_dialog_box.connect('delete-event', self.delete_dialog)
 		custom_dialog_box.show_all()
 		custom_dialog_box.add_button(Gtk.STOCK_APPLY, Gtk.ResponseType.APPLY)
 		custom_dialog_box.add_button(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL)
@@ -694,7 +694,7 @@ class Draughts(Gtk.Window):
 		self.open_dialog = 1
 		dialog_box = Gtk.Dialog.new()
 		dialog_box.set_border_width(10)
-		dialog_box.connect('delete-event', Gtk.main_quit)
+		dialog_box.connect('delete-event', self.delete_dialog)
 		dialog_box.show_all()
 		dialog_box.add_button(Gtk.STOCK_APPLY, Gtk.ResponseType.APPLY)
 		dialog_box.add_button(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL)
@@ -830,13 +830,18 @@ class Draughts(Gtk.Window):
 			dialog_box.destroy()
 		open_dialog = 0
 
+	#delete dialog
+	def delete_dialog(self, widget, event):
+		widget.destroy()
+
 	#Create a dialog box to help users
 	def help_dialog(self,button):
 		#Dialog
 		help_dialog_box = Gtk.Dialog.new()
 		help_dialog_box.set_border_width(10)
-		help_dialog_box.connect('delete-event', Gtk.main_quit)
+		help_dialog_box.connect('delete-event', self.delete_dialog)
 		help_dialog_box.show_all()
+		help_dialog_box.set_size_request(500, 400)
 		img = Gtk.Image.new_from_icon_name('window-close', 0)
 		help_dialog_box.add_button(Gtk.STOCK_CLOSE, Gtk.ResponseType.CLOSE)
 		help_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
@@ -882,6 +887,7 @@ class Draughts(Gtk.Window):
 		save_dialog_box = Gtk.Dialog.new()
 		save_dialog_box.show_all()
 		child = save_dialog_box.get_children()
+		save_dialog_box.connect('delete-event', self.delete_dialog)
 		save_dialog_box.add_button(Gtk.STOCK_APPLY, Gtk.ResponseType.APPLY)
 		child = child[0].get_children()
 		child[0].set_halign(3)
