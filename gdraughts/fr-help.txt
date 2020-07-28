@@ -42,12 +42,12 @@ Lorsqu’un coup est obligatoire, tous les pions qui peuvent se déplacer ont le
 Au dessus du plateau de jeu, des messages s’affichent pour vous guider durant toute la partie.
 
 E) «Historique»
-    Cette partie utilise la notation Manoury et permet de refaire et d’analyser des parties. Sur la droite du plateau de jeu, vous pouvez voir des messages apparaître à chaque fois qu'un mouvement est fait. Il sagit de la notation Manoury, celà permet de rejouer une partie grâce à la liste des déplacements. Les déplacements des noirs sont toujours entre parenthèses et les messages sont toujours composés de 3 parties:
+    Cette partie utilise la notation Manoury et permet de refaire et d’analyser des parties. Sur la droite du plateau de jeu, vous pouvez voir des messages apparaître à chaque fois qu'un mouvement est fait. Il sagit de la notation Manoury, cela permet de rejouer une partie grâce à la liste des déplacements. Les déplacements des noirs sont toujours entre parenthèses et les messages sont toujours composés de 3 parties:
 		- partie 1, la case de départ
 		- partie 2, l'information du déplacement
-		- partie 3, la case d'arrivé
-Pour la partie 1 et 3, la notation est la suivante. Les cases sont notées 1 par 1 en commençant par le côté des noirs et seulement sur les cases actives.Voici un lien pour mieux comprendre.
+		- partie 3, la case d'arrivée
+Pour la partie 1 et 3, la notation est la suivante. Les cases sont notées 1 par 1 en commençant par le côté des noirs et seulement sur les cases actives. Voici un lien pour mieux comprendre.
 http://www.ffjd.fr/Web/index.php?page=notation 
- Pour la partie 2, il y a 2 choses. Un "-" qui signifie un déplacement ou un "x" qui signifie que l'on vient de manger.
- Quand quelqu'un gagne, à la fin du message, apparait un "+", celà signifie que c'est ce déplacement qui fait gagner la partie.
+Pour la partie 2, il y a 2 choses. Un "-" qui signifie un déplacement ou un "x" qui signifie que l'on vient de manger.
+Quand quelqu'un gagne, à la fin du message, apparait un "+", cela signifie que c'est ce déplacement qui fait gagner la partie.
 
