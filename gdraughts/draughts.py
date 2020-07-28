@@ -44,6 +44,9 @@ class Draughts(Gtk.Window):
 	#managing of the main window
 	def __init__ (self, pc_first=False, country=3, matrix_classic=True, state=8, square_color=0, square_size=0, tool_height=0, checker=None, open_dialog=0, rear_socket=True, forced_move=True, eatqueen=True, depth=5, queen=False, promotion_eat=False): # country : 0 = France(fr), 1 = Spain(sp), 2 = England(eng), 3 = Netherlands(ne), 4 = Italy(ita)
 		Gtk.Window.__init__(self)
+		self.set_icon_name('gdraughts')
+		self.set_title(_('Gdraughts'))
+		self.set_wmclass('Gdraughts', 'gdraughts')
 		self.state = state
 		self.square_color = square_color
 		self.square_size = square_size
@@ -60,7 +63,7 @@ class Draughts(Gtk.Window):
 		self.depth = depth
 		self.queen = queen
 		self.promotion_eat = promotion_eat
-		self.backend = None 
+		self.backend = None
 
 		self.set_border_width(10)
 		self.connect('delete-event', Gtk.main_quit)
