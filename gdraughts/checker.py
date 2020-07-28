@@ -212,6 +212,7 @@ class Checker(Gtk.Grid):
     def square_green(self):
         play = self.draughts.backend.possible_moves(1)
         if len(play) > 0 and self.draughts.forced_move and self.draughts.backend.green:
+            print(self.draughts.backend.green)
             for x in play:
                 green_x = int(x[0][0])
                 green_y = int(x[0][1])
@@ -291,6 +292,7 @@ class Checker(Gtk.Grid):
         if self.draughts.backend.fin == False:
             self.draughts.set_informations(_("Your turn"))
             count = self.count_figures()
+            self.draughts.backend.green = False
             self.draughts.backend.pc_move(stack)
             self.matrix = self.draughts.backend.get_matrix()
             jump = self.draughts.backend.lastjump[:]
