@@ -212,7 +212,6 @@ class Checker(Gtk.Grid):
     def square_green(self):
         play = self.draughts.backend.possible_moves(1)
         if len(play) > 0 and self.draughts.forced_move and self.draughts.backend.green:
-            print(self.draughts.backend.green)
             for x in play:
                 green_x = int(x[0][0])
                 green_y = int(x[0][1])
@@ -253,10 +252,6 @@ class Checker(Gtk.Grid):
                     color_pawn = 0.0
                     square_b = SquareArea(name,color_pawn, self.square_size, test, self.draughts.pc_first)
                     square_b.connect('button-press-event', self.do_release_mouse, square_b)
-
-                    #self.connect('drag_data_received', self.drag_drop(self.old_square, square_b))
-                    #self.drag_dest_set(0, [], 0)
-                    
                     self.attach(square_b, x, y, 1, 1)
                     square_b.queue_draw()
                     x += 1
@@ -265,10 +260,6 @@ class Checker(Gtk.Grid):
                     color_pawn = 1.0
                     square_w = SquareArea(name,color_pawn, self.square_size, test, self.draughts.pc_first)
                     square_w.connect('button-press-event', self.do_release_mouse, square_w)
-                    
-                    #self.connect('drag_data_received', self.drag_drop(self.old_square, square_w))
-                    #self.drag_dest_set(0, [], 0)
-
                     self.attach(square_w, x, y, 1, 1)
                     square_w.queue_draw()
                     x += 1

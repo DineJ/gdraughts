@@ -189,7 +189,6 @@ class Draughts(Gtk.Window):
 			open_file = open(conf_path_file,"rb")
 			conf_array=list(open_file.read())
 			open_file.close()
-			print(conf_array)
 			self.depth = conf_array.pop(0)
 			self.pc_first = conf_array.pop(0)
 			self.state = conf_array.pop(0)
@@ -390,7 +389,6 @@ class Draughts(Gtk.Window):
 			self.checker = Checker(self, self.square_size, self.state, self.square_color)
 			self.checker_game.set_center_widget(self.checker)
 			self.checker_game.show_all()
-			#self.backend = Backend(self.checker.matrix)
 		else:
 			self.checker.resize_checker(self.square_size)
 			if self.backend:
