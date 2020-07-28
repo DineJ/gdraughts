@@ -834,7 +834,6 @@ class Draughts(Gtk.Window):
 	def help_dialog(self,button):
 		#Dialog
 		help_dialog_box = Gtk.Dialog.new()
-		help_dialog_box.fullscreen()
 		help_dialog_box.set_border_width(10)
 		help_dialog_box.connect('delete-event', Gtk.main_quit)
 		help_dialog_box.show_all()
