@@ -1,4 +1,9 @@
 It is licensed under the GPL version 3 or later (see the file named License)
 My image gdraughts.png is a copie of this picture https://github.com/johncheetham/samuel/blob/master/samuel.png
 My gdraughts/backend.py is extract from https://github.com/milospp/checkers-game/blob/master/src/chekcers.py
+Several things could be improved like:
+- When loading a game, keep the manoury notation
+- Add drag and drop
+- Make the movements of the computer more visible
+- Add new concepts (such as quantitative or qualitative captures)
 Go see the "wiki" tab for more information
