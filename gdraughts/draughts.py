@@ -66,7 +66,6 @@ class Draughts(Gtk.Window):
 		self.connect('delete-event', Gtk.main_quit)
 		self.connect("check_resize", self.on_resize)
 		self.set_default_size(640,480)
-		self.fullscreen()
 
 		application = Gtk.Box(orientation = Gtk.Orientation.VERTICAL)
 		game_area = Gtk.Box()
