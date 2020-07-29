@@ -295,7 +295,7 @@ class Draughts(Gtk.Window):
 
 	#designates who plays first
 	def who_play(self):
-		frame_begin = Gtk.Frame.new(_("Who plays first?"))
+		frame_begin = Gtk.Frame.new(_("First player"))
 
 		self.r_player = Gtk.RadioButton.new_with_label_from_widget(None, _("Player"))
 		self.custom_margin(self.r_player, 5, 10, 5, 10)
@@ -322,7 +322,7 @@ class Draughts(Gtk.Window):
 
 	#indicates difficulty levels
 	def level_of_difficulty(self):
-		frame_difficulties =  Gtk.Frame.new(_("Game level of the computer?"))
+		frame_difficulties =  Gtk.Frame.new(_("Game level of the computer"))
 
 		self.t_easy = Gtk.ToggleButton.new_with_label(_("Easy"))
 		self.custom_margin(self.t_easy, 5, 5, 0, 5)
@@ -440,8 +440,8 @@ class Draughts(Gtk.Window):
 			self.hit_history.remove(element)
 
 		#Frame
-		frame_matrice = Gtk.Frame.new(_("How many square do you want per line?"))
-		frame_color = Gtk.Frame.new(_("What color do you want in the square at the bottom right?"))
+		frame_matrice = Gtk.Frame.new(_("Number of squares per line"))
+		frame_color = Gtk.Frame.new(_("Color of the bottom right square"))
 		frame_color1 = Gtk.Frame.new(_("Do you want your pawn to be on the bottom right?"))
 		frame_forced_move = Gtk.Frame.new(_("Are captures compulsory?"))
 		frame_eatbehind = Gtk.Frame.new(_("Can the pawns capture back?"))

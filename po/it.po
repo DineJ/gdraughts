@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: bugs@ordissimo.com\n"
-"POT-Creation-Date: 2020-07-27 09:53+0200\n"
+"POT-Creation-Date: 2020-07-29 11:04+0200\n"
 "PO-Revision-Date: 2019-08-30 18:59+0200\n"
 "Last-Translator: Sara <sisajola@gmail.com>\n"
 "Language-Team: \n"
@@ -18,61 +18,65 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.1.6\n"
 
-#: ../gdraughts/draughts.py:404
+#: ../gdraughts/draughts.py:457
 msgid "10 squares"
 msgstr ""
 
 #. RadioButton
-#: ../gdraughts/draughts.py:400
+#: ../gdraughts/draughts.py:453
 msgid "8 squares"
 msgstr ""
 
-#: ../gdraughts/draughts.py:393
+#: ../gdraughts/draughts.py:446
 msgid "Are captures compulsory?"
 msgstr ""
 
-#: ../gdraughts/draughts.py:410
+#: ../gdraughts/draughts.py:463
 msgid "Black"
 msgstr ""
 
-#: ../gdraughts/draughts.py:397
+#: ../gdraughts/draughts.py:450
 msgid "Can pawns become queens in the roundups?"
 msgstr ""
 
-#: ../gdraughts/draughts.py:395
+#: ../gdraughts/draughts.py:448
 msgid "Can pawns capture a queen ?"
 msgstr ""
 
-#: ../gdraughts/draughts.py:396
+#: ../gdraughts/draughts.py:449
 msgid "Can queens move one square only?"
 msgstr ""
 
-#: ../gdraughts/draughts.py:394
+#: ../gdraughts/draughts.py:447
 msgid "Can the pawns capture back?"
 msgstr ""
 
-#: ../gdraughts/draughts.py:102
+#: ../gdraughts/draughts.py:105
 msgid "Close"
 msgstr ""
 
-#: ../gdraughts/draughts.py:271
+#: ../gdraughts/draughts.py:444
+msgid "Color of the bottom right square"
+msgstr ""
+
+#: ../gdraughts/draughts.py:304
 #, fuzzy
 #| msgid "Computer Off"
 msgid "Computer"
 msgstr "Computer Off"
 
-#: ../gdraughts/checker.py:423
+#: ../gdraughts/checker.py:417
 #, fuzzy
 #| msgid "Computer Off"
 msgid "Computer turn"
 msgstr "Computer Off"
 
 #. Frame
-#: ../gdraughts/draughts.py:834
+#: ../gdraughts/draughts.py:894
 msgid "Do you want to resume your previous game?"
 msgstr ""
 
-#: ../gdraughts/draughts.py:392
+#: ../gdraughts/draughts.py:445
 msgid "Do you want your pawn to be on the bottom right?"
 msgstr ""
 
@@ -80,17 +84,27 @@ msgstr ""
 msgid "Draughts Game"
 msgstr "Gioco della dama"
 
-#: ../gdraughts/draughts.py:294
+#: ../gdraughts/draughts.py:327
 msgid "Easy"
 msgstr ""
 
-#: ../gdraughts/draughts.py:298
+#: ../gdraughts/draughts.py:331
 msgid "Excellent"
 msgstr ""
 
-#: ../gdraughts/draughts.py:292
-msgid "Game level of the computer?"
+#: ../gdraughts/draughts.py:298
+msgid "First player"
 msgstr ""
+
+#: ../gdraughts/draughts.py:325
+msgid "Game level of the computer"
+msgstr ""
+
+#: ../gdraughts/draughts.py:48
+#, fuzzy
+#| msgid "Draughts Game"
+msgid "Gdraughts"
+msgstr "Gioco della dama"
 
 #: ../desktop/gdraughts.desktop.in:5
 #, fuzzy
@@ -98,99 +112,89 @@ msgstr ""
 msgid "Gdraughts is a draughts program for the Gnome desktop"
 msgstr "Samuel è un gioco di dama per il desktop Gnome"
 
-#: ../gdraughts/draughts.py:105
+#: ../gdraughts/draughts.py:108
 msgid "Help"
 msgstr "Aiuto"
 
-#: ../gdraughts/draughts.py:80
+#: ../gdraughts/draughts.py:83
 msgid "Historical"
 msgstr ""
 
-#. Frame
-#: ../gdraughts/draughts.py:390
-msgid "How many square do you want per line?"
-msgstr ""
-
-#: ../gdraughts/draughts.py:296
+#: ../gdraughts/draughts.py:329
 msgid "Medium"
 msgstr ""
 
-#: ../gdraughts/checker.py:303 ../gdraughts/checker.py:305
-#: ../gdraughts/checker.py:308 ../gdraughts/checker.py:310
-#: ../gdraughts/checker.py:316 ../gdraughts/checker.py:318
-#: ../gdraughts/checker.py:321 ../gdraughts/checker.py:323
-#: ../gdraughts/checker.py:395 ../gdraughts/checker.py:397
-#: ../gdraughts/checker.py:402 ../gdraughts/checker.py:404
+#: ../gdraughts/checker.py:297 ../gdraughts/checker.py:299
+#: ../gdraughts/checker.py:302 ../gdraughts/checker.py:304
+#: ../gdraughts/checker.py:310 ../gdraughts/checker.py:312
+#: ../gdraughts/checker.py:315 ../gdraughts/checker.py:317
+#: ../gdraughts/checker.py:389 ../gdraughts/checker.py:391
+#: ../gdraughts/checker.py:396 ../gdraughts/checker.py:398
 #, fuzzy
 #| msgid "Move Now"
 msgid "Move"
 msgstr "Gioca adesso"
 
-#: ../gdraughts/draughts.py:103
+#: ../gdraughts/draughts.py:106
 #, fuzzy
 #| msgid "New Game"
 msgid "New game"
 msgstr "Nuova partita"
 
-#: ../gdraughts/draughts.py:412 ../gdraughts/draughts.py:422
-#: ../gdraughts/draughts.py:428 ../gdraughts/draughts.py:434
-#: ../gdraughts/draughts.py:439 ../gdraughts/draughts.py:444
-#: ../gdraughts/draughts.py:841
+#: ../gdraughts/draughts.py:465 ../gdraughts/draughts.py:475
+#: ../gdraughts/draughts.py:481 ../gdraughts/draughts.py:487
+#: ../gdraughts/draughts.py:492 ../gdraughts/draughts.py:497
+#: ../gdraughts/draughts.py:901
 msgid "No"
 msgstr ""
 
-#: ../gdraughts/draughts.py:267
+#. Frame
+#: ../gdraughts/draughts.py:443
+msgid "Number of squares per line"
+msgstr ""
+
+#: ../gdraughts/draughts.py:300
 msgid "Player"
 msgstr ""
 
-#: ../gdraughts/draughts.py:104
+#: ../gdraughts/draughts.py:107
 msgid "Settings"
 msgstr ""
 
-#: ../gdraughts/draughts.py:112
+#: ../gdraughts/draughts.py:115
 #, fuzzy
 #| msgid "Quit the Program"
 msgid "Start the game"
 msgstr "Chiudere il programma"
 
-#: ../gdraughts/checker.py:335
+#: ../gdraughts/checker.py:329
 #, fuzzy
 #| msgid "Computer Plays White"
 msgid "The computer won"
 msgstr "Il computer gioca le pedine Bianche"
 
-#: ../gdraughts/draughts.py:391
-msgid "What color do you want in the square at the bottom right?"
-msgstr ""
-
 #. Frame
-#: ../gdraughts/draughts.py:652
+#: ../gdraughts/draughts.py:706
 msgid "What rules do you want to play with?"
 msgstr ""
 
-#: ../gdraughts/draughts.py:406
+#: ../gdraughts/draughts.py:459
 msgid "White"
 msgstr "Bianchi"
 
-#: ../gdraughts/draughts.py:265
-#, fuzzy
-#| msgid "Computer Plays White"
-msgid "Who plays first?"
-msgstr "Il computer gioca le pedine Bianche"
-
 #. Radio Button
-#: ../gdraughts/draughts.py:416 ../gdraughts/draughts.py:418
-#: ../gdraughts/draughts.py:424 ../gdraughts/draughts.py:430
-#: ../gdraughts/draughts.py:436 ../gdraughts/draughts.py:441
-#: ../gdraughts/draughts.py:837
+#: ../gdraughts/draughts.py:469 ../gdraughts/draughts.py:471
+#: ../gdraughts/draughts.py:477 ../gdraughts/draughts.py:483
+#: ../gdraughts/draughts.py:489 ../gdraughts/draughts.py:494
+#: ../gdraughts/draughts.py:897
 msgid "Yes"
 msgstr ""
 
-#: ../gdraughts/checker.py:368
+#: ../gdraughts/checker.py:362
 msgid "You are forced to continue eating"
 msgstr ""
 
-#: ../gdraughts/checker.py:365
+#: ../gdraughts/checker.py:359
 msgid "You made an illegal move, start your move again"
 msgstr ""
 
@@ -198,23 +202,23 @@ msgstr ""
 msgid "You must capture"
 msgstr ""
 
-#: ../gdraughts/checker.py:413
+#: ../gdraughts/checker.py:407
 msgid "You won"
 msgstr ""
 
-#: ../gdraughts/checker.py:291
+#: ../gdraughts/checker.py:284
 msgid "Your turn"
 msgstr ""
 
-#: ../gdraughts/draughts.py:658
+#: ../gdraughts/draughts.py:712
 msgid "dutch"
 msgstr ""
 
-#: ../gdraughts/draughts.py:682
+#: ../gdraughts/draughts.py:736
 msgid "english"
 msgstr ""
 
-#: ../gdraughts/draughts.py:690
+#: ../gdraughts/draughts.py:744
 msgid "french/polish/international"
 msgstr ""
 
@@ -228,355 +232,11 @@ msgstr "Gioco della dama"
 msgid "gdraughts.png"
 msgstr ""
 
-#: ../gdraughts/draughts.py:667
+#: ../gdraughts/draughts.py:721
 msgid "italian"
 msgstr ""
 
-#: ../gdraughts/draughts.py:674
+#: ../gdraughts/draughts.py:728
 msgid "spanish"
 msgstr ""
 
-#, fuzzy
-#~| msgid "Cancel"
-#~ msgid "France"
-#~ msgstr "Annulla"
-
-#~ msgid "Quit"
-#~ msgstr "Chiudi"
-
-#, fuzzy
-#~| msgid "Computer Plays White"
-#~ msgid "The computer plays first"
-#~ msgstr "Il computer gioca le pedine Bianche"
-
-#, fuzzy
-#~| msgid "Computer Plays White"
-#~ msgid "To the computer to play"
-#~ msgstr "Il computer gioca le pedine Bianche"
-
-#~ msgid "%d Positions Loaded"
-#~ msgstr "%d Posizione salvata"
-
-#~ msgid "%d Positions Saved"
-#~ msgstr "%d Posizione salvata"
-
-#~ msgid "(searching...)\n"
-#~ msgstr "(ricerca in corso...)\n"
-
-#~ msgid "/Computer to move"
-#~ msgstr "/La mano al computer"
-
-#~ msgid "/Human to move"
-#~ msgstr "/La mano al giocatore"
-
-#~ msgid "About"
-#~ msgstr "A proposito"
-
-#~ msgid "Advanced"
-#~ msgstr "Avanzato"
-
-#~ msgid "All files"
-#~ msgstr "Tutti i file"
-
-#~ msgid "Beginner"
-#~ msgstr "Principiante"
-
-#~ msgid "Book Full!"
-#~ msgstr "Libro completo!"
-
-#~ msgid "Click Cancel to discard changes"
-#~ msgstr "Clicca su Annulla per non tenere conto dei cambiamenti."
-
-#~ msgid "Click OK to apply changes.\n"
-#~ msgstr "Clicca su Convalida per salvare i cambiamenti.\n"
-
-#~ msgid "Computer Move"
-#~ msgstr "Mossa del computer"
-
-#~ msgid "Computer Plays Red"
-#~ msgstr "Il computer gioca le pedine Rosse"
-
-#~ msgid "Computer Plays White and Red"
-#~ msgstr "Il computer gioca le pedine Bianche e Rosse"
-
-#~ msgid "Copy FEN to clipboard"
-#~ msgstr "Copia il FEN nella clipboard"
-
-#~ msgid "Copy PDN to clipboard"
-#~ msgstr "Copia il PDN nella clipboard"
-
-#~ msgid "Copyright \\u00A9 2009,2019 John Cheetham"
-#~ msgstr "Copyright \\u00A9 2009,2019 John Cheetham"
-
-#~ msgid "Depth: %d/%d (%d/%d)   Eval: %d  "
-#~ msgstr "Profondità: %d/%d (%d/%d)   Valutazione: %d  "
-
-#~ msgid "Edit"
-#~ msgstr "Modifica"
-
-#~ msgid "End of Moves"
-#~ msgstr "Fine delle mosse"
-
-#~ msgid "Enter values for Search Depth\n"
-#~ msgstr "Impostare il numero di mosse calcolate in precedenza\n"
-
-#~ msgid "Expert"
-#~ msgstr "Esperto"
-
-#~ msgid "Flip Board"
-#~ msgstr "Girare la damiera"
-
-#~ msgid "Flip the Board"
-#~ msgstr "Girare la damiera"
-
-#~ msgid "Game"
-#~ msgstr "Partita"
-
-#~ msgid "Game Over - Red Wins"
-#~ msgstr "Game Over - I Rossi vincono"
-
-#~ msgid "Game Over - White Wins"
-#~ msgstr "Game Over - I Bianchi vincono"
-
-#~ msgid "Game Over - red wins"
-#~ msgstr "Game Over - Vittoria dei rossi"
-
-#~ msgid "Game Over - white wins"
-#~ msgstr "Game Over - Vittoria dei bianchi"
-
-#~ msgid "Gameover - red wins"
-#~ msgstr "Gameover - I Rossi vincono"
-
-#~ msgid "Gameover - white wins"
-#~ msgstr "Gameover - I bianchi vincono"
-
-#~ msgid "Get FEN"
-#~ msgstr "Recupera il FEN"
-
-#~ msgid "Get PDN"
-#~ msgstr "Recupera il PDN"
-
-#~ msgid "Go"
-#~ msgstr "Inizia"
-
-#~ msgid "Help (online)"
-#~ msgstr "Aiuto (online)"
-
-#~ msgid "Human Move"
-#~ msgstr "Mossa del giocatore"
-
-#~ msgid "Information Panel"
-#~ msgstr "Pannello Informazioni"
-
-#~ msgid "Initialise the engine"
-#~ msgstr "Inizializzazione dell'intelligenza artificiale"
-
-#~ msgid "Level"
-#~ msgstr "Livello"
-
-#~ msgid "Load Game"
-#~ msgstr "Carica la partita"
-
-#~ msgid "Load.."
-#~ msgstr "Caricamento..."
-
-#~ msgid "Move Now (m)"
-#~ msgstr "Gioca adesso"
-
-#~ msgid "Move a red piece to restart the game from here\n"
-#~ msgstr "Muovi una pedina rossa per riprendere il gioco\n"
-
-#~ msgid "Move a white piece to restart the game from here\n"
-#~ msgstr "Muovi una pedina bianca per riprendere il gioco\n"
-
-#~ msgid "Move: %ld%c%ld Time: %.2fs  KNodes: %ld KN/Sec: %d"
-#~ msgstr "Mossa: %ld%c%ld Tempo: %.2fs  KNodo: %ld KN/Sec: %d"
-
-#~ msgid "Next Move"
-#~ msgstr "Prossima mossa"
-
-#~ msgid "OK"
-#~ msgstr "Convalida"
-
-#~ msgid "Opening Book"
-#~ msgstr "Aprire un libro"
-
-#~ msgid "Options"
-#~ msgstr "Opzioni"
-
-#~ msgid "Paste FEN from clipboard"
-#~ msgstr "Incolla il FEN dalla clipboard"
-
-#~ msgid "Paste PDN from clipboard"
-#~ msgstr "Incolla il PDN dalla clipboard"
-
-#~ msgid ""
-#~ "Position Added. %d\n"
-#~ "Value %d"
-#~ msgstr ""
-#~ "Posizione aggiunta. %d\n"
-#~ "Valore %d"
-
-#~ msgid "Position Edit"
-#~ msgstr "Modificare la posizione"
-
-#~ msgid ""
-#~ "Position Exists. %d\n"
-#~ "Value was %d now %d"
-#~ msgstr ""
-#~ "La posizione esiste. %d\n"
-#~ "Il valore era %d, adesso %d"
-
-#~ msgid ""
-#~ "Position Removed. %d\n"
-#~ "Value was %d"
-#~ msgstr ""
-#~ "Posizione soppressa. %d\n"
-#~ "Il valore era %d"
-
-#~ msgid "Position does not exist. %d\n"
-#~ msgstr "La posizione non esiste. %d\n"
-
-#~ msgid "Press Go to restart the game from here\n"
-#~ msgstr "Premi Inizia per riprendere la partita\n"
-
-#~ msgid "Press the < > buttons to browse the game"
-#~ msgstr "Clicca sul tasto < > per visualizzare le mosse giocate"
-
-#~ msgid "Previous Move"
-#~ msgstr "Mossa precedente"
-
-#~ msgid "Red"
-#~ msgstr "Rosso"
-
-#~ msgid "Red to Move"
-#~ msgstr "Tocca ai Rossi"
-
-#~ msgid "Retract"
-#~ msgstr "Annulla"
-
-#~ msgid "Retract Move"
-#~ msgstr "Annullare l'ultima mossa"
-
-#~ msgid "Running Display"
-#~ msgstr "Visualizzazione in corso"
-
-#~ msgid "Samuel"
-#~ msgstr "Samuel"
-
-#~ msgid "Samuel Help (Online)"
-#~ msgstr "Samuel Aiuto (Online)"
-
-#~ msgid ""
-#~ "Samuel is a draughts program for the Gnome desktop.\n"
-#~ " It is based on the windows program guicheckers"
-#~ msgstr ""
-#~ "Samuel è un gioco di dama per il desktop Gnome.\n"
-#~ " Si basa sul programma windows program guicheckers"
-
-#~ msgid ""
-#~ "Samuel is free software: you can redistribute it and/or modify\n"
-#~ "it under the terms of the GNU General Public License as published by\n"
-#~ "the Free Software Foundation, either version 3 of the License, or\n"
-#~ "(at your option) any later version.\n"
-#~ "\n"
-#~ "Samuel is distributed in the hope that it will be useful,\n"
-#~ "but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
-#~ "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
-#~ "GNU General Public License for more details.\n"
-#~ "\n"
-#~ "You should have received a copy of the GNU General Public License\n"
-#~ "along with Samuel.  If not, see <http://www.gnu.org/licenses/>."
-#~ msgstr ""
-#~ "Samuel è un software libero: potete ridistribuirlo e/o modificarlo\n"
-#~ "secondo i termini della GNU General Public License pubblicata dalla\n"
-#~ "Free Software Foundation, nella versione 3 della licenza o\n"
-#~ "in una versione successiva.\n"
-#~ "\n"
-#~ "Samuel viene distribuito nella speranza che possa essere utile,\n"
-#~ "ma SENZA NESSUNA GARANZIA; senza una garanzia implicita di\n"
-#~ "COMMERCIABILITA' o IDONEITA' PER UNO SCOPO PARTICOLARE.  Consultare\n"
-#~ "la GNU General Public License per ulteriori informazioni.\n"
-#~ "\n"
-#~ "Una copia della GNU General Public License vi è stata inviata\n"
-#~ "unitamente a Samuel.   In caso contrario, consultare <http://www.gnu.org/"
-#~ "licenses/>."
-
-#~ msgid "Save Game"
-#~ msgstr "Salva la partita"
-
-#~ msgid "Save.."
-#~ msgstr "Salvare..."
-
-#~ msgid ""
-#~ "Search Depth\n"
-#~ "(max 52)\n"
-#~ msgstr ""
-#~ "Mosse calcolate in anticipo\n"
-#~ "(max 52)\n"
-
-#~ msgid "Set Board"
-#~ msgstr "Posizionare la damiera"
-
-#~ msgid "Set Computer Colour"
-#~ msgstr "Scegli il colore per l'ordinatore"
-
-#~ msgid "Set Custom Level Depth"
-#~ msgstr "Impostare il numero di mosse calcolate in anticipo"
-
-#~ msgid "Set Level"
-#~ msgstr "Impostare il livello"
-
-#~ msgid "Set Side To Move"
-#~ msgstr "Girare la damiera"
-
-#~ msgid "Set Side to Move with the radio buttons\n"
-#~ msgstr "Scegliere il lato per la mossa con i pulsanti d'opzione\n"
-
-#~ msgid "Set User-Defined Level"
-#~ msgstr "Impostare il livello personalizzato"
-
-#~ msgid "Set board position from FEN"
-#~ msgstr "Impostare la posizione della damiera dal FEN"
-
-#~ msgid "Show About Box"
-#~ msgstr "Mostra la finestra A proposito"
-
-#~ msgid "Side to Move"
-#~ msgstr "Lato per effettuare la mossa"
-
-#~ msgid "Start of Moves"
-#~ msgstr "Inizio delle mosse"
-
-#~ msgid "Status Bar"
-#~ msgstr "Barra di stato"
-
-#~ msgid ""
-#~ "Time Limit\n"
-#~ "(in seconds)"
-#~ msgstr ""
-#~ "Tempo limite\n"
-#~ "(in secondi)"
-
-#~ msgid "Use left mouse to set red pieces\n"
-#~ msgstr ""
-#~ "Utilizza il tasto sinistro del mouse per posizionare le pedine Rosse\n"
-
-#~ msgid "Use right mouse to set white pieces\n"
-#~ msgstr ""
-#~ "Utilizza il tasto destro del mouse per posizionare le pedine Bianche\n"
-
-#~ msgid "User-defined"
-#~ msgstr "Personalizzato"
-
-#~ msgid "White to Move"
-#~ msgstr "La mano ai Bianchi"
-
-#~ msgid "and Time Limit."
-#~ msgstr "e Tempo limite"
-
-#~ msgid "pdn files"
-#~ msgstr "file pdn"
-
-#~ msgid "samuel.png"
-#~ msgstr "samuel.png"
